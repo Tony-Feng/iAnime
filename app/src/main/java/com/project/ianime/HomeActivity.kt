@@ -6,8 +6,19 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.project.ianime.databinding.ActivityHomeBinding
+import com.project.ianime.navigation.NavigationManager
+import com.project.ianime.navigation.NavigationManagerImpl
 
 class HomeActivity : AppCompatActivity() {
+
+    private val navigationManager: NavigationManager
+    init {
+        val navigationManagerImpl = NavigationManagerImpl(
+            supportFragmentManager
+        )
+        navigationManager = navigationManagerImpl
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +36,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId){
+        return when (item.itemId) {
             R.id.setting_chinese_language -> {
                 //TODO: change app language to Chinese
                 Toast.makeText(this, "App language changed to Chinese", Toast.LENGTH_SHORT).show()
