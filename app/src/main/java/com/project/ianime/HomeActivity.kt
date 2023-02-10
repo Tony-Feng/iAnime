@@ -4,11 +4,10 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.project.ianime.databinding.ActivityHomeBinding
 import com.project.ianime.navigation.NavigationManager
 import com.project.ianime.navigation.NavigationManagerImpl
+import com.project.ianime.utils.updateLanguageSetting
 
 class HomeActivity : AppCompatActivity() {
 
@@ -38,17 +37,20 @@ class HomeActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.setting_chinese_language -> {
-                //TODO: change app language to Chinese
-                Toast.makeText(this, "App language changed to Chinese", Toast.LENGTH_SHORT).show()
+                updateLanguageSetting(this, SETTING_CHINESE)
                 true
             }
             R.id.setting_english_language -> {
-                //TODO: change app language to English
-                Toast.makeText(this, "App language changed to English", Toast.LENGTH_SHORT).show()
+                updateLanguageSetting(this, SETTING_ENGLISH)
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
 
+    }
+
+    companion object{
+        const val SETTING_CHINESE = "zh"
+        const val SETTING_ENGLISH = "en"
     }
 }
