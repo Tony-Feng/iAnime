@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="spacing_0dp">0dp</dimen>
+    <dimen name="spacing_8dp">8dp</dimen>
     <dimen name="spacing_10dp">10dp</dimen>
+    <dimen name="anime_card_height">194dp</dimen>
 </resources>
