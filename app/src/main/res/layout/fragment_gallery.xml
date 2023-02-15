@@ -8,11 +8,13 @@
     tools:context=".screen.GalleryFragment">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/anime_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/item_anime"/>
+        tools:listitem="@layout/item_anime"
+        app:spanCount="3"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
