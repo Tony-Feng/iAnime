@@ -7,7 +7,7 @@ import android.graphics.drawable.Drawable
  */
 data class AnimeItemModel(
     // TODO 2023-02-11: Update imageIcon type
-    val imageIcon: Drawable,
+    val imageIcon: Int,
     val animeName: String,
     val animeDescription: String
 ) {

@@ -1,23 +1,17 @@
 package com.project.ianime
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
-import com.project.ianime.navigation.NavigationManager
-import com.project.ianime.navigation.NavigationManagerImpl
-import com.project.ianime.utils.updateLanguageSetting
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.project.ianime.root.BaseContainerActivity
+import com.project.ianime.screen.GalleryFragment
+import com.project.ianime.screen.UserFragment
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity :
+    BaseContainerActivity<HomeContainerViewHolder>(HomeContainerViewHolder::class.java) {
 
-    private val navigationManager: NavigationManager
-    init {
-        val navigationManagerImpl = NavigationManagerImpl(
-            supportFragmentManager
-        )
-        navigationManager = navigationManagerImpl
-    }
+    private lateinit var bottomNavigationView: BottomNavigationView
+    private val galleryFragment = GalleryFragment()
+    private val userFragment = UserFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,31 +20,23 @@ class HomeActivity : AppCompatActivity() {
         // Activate Setting Menu
         val toolBar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.tool_bar)
         setSupportActionBar(toolBar)
-    }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val inflater: MenuInflater = menuInflater
-        inflater.inflate(R.menu.settings_menu, menu)
-        return true
-    }
+        bottomNavigationView = findViewById(R.id.bottom_navigation_view)
+        navigationManager.showFragmentReplaceTop(galleryFragment)
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.setting_chinese_language -> {
-                updateLanguageSetting(this, SETTING_CHINESE)
-                true
+        bottomNavigationView.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.home_screen -> {
+                    navigationManager.showFragmentReplaceTop(galleryFragment)
+                    return@setOnItemSelectedListener true
+                }
+                R.id.user_screen -> {
+                    navigationManager.showFragmentReplaceTop(userFragment)
+                    return@setOnItemSelectedListener true
+                }
             }
-            R.id.setting_english_language -> {
-                updateLanguageSetting(this, SETTING_ENGLISH)
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
+            false
         }
-
     }
 
-    companion object{
-        const val SETTING_CHINESE = "zh"
-        const val SETTING_ENGLISH = "en"
-    }
 }

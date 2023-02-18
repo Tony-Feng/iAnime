@@ -13,7 +13,7 @@ interface NavigationManager {
      *
      * @param fragment - fragment to add on top
      */
-    fun showFragment(fragment: Fragment)
+    fun showFragmentPermanent(fragment: Fragment)
 
     /**
      * Replaces top fragment and shows [fragment]

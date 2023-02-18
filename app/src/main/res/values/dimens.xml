@@ -3,5 +3,6 @@
     <dimen name="spacing_0dp">0dp</dimen>
     <dimen name="spacing_8dp">8dp</dimen>
     <dimen name="spacing_10dp">10dp</dimen>
+    <dimen name="spacing_52dp">52dp</dimen>
     <dimen name="anime_card_height">194dp</dimen>
 </resources>

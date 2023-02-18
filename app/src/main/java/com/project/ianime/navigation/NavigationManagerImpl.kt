@@ -2,27 +2,27 @@ package com.project.ianime.navigation
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.project.ianime.R
+import com.project.ianime.root.ContainerViewHolder
 
 class NavigationManagerImpl(
-    private val fragmentManager: FragmentManager
+    private val fragmentManager: FragmentManager,
+    private val viewContainer: ContainerViewHolder
 ) : NavigationManager {
 
-    override fun showFragment(fragment: Fragment) {
+    override fun showFragmentPermanent(fragment: Fragment) {
         fragmentManager
             .beginTransaction()
-            .add(R.id.fragment_container, fragment)
-            .addToBackStack(null)
+            .add(viewContainer.getContainerViewId(), fragment)
             .commit()
+        fragmentManager.executePendingTransactions()
     }
 
     override fun showFragmentReplaceTop(fragment: Fragment) {
         fragmentManager
             .beginTransaction()
-            .replace(R.id.fragment_container, fragment)
+            .replace(viewContainer.getContainerViewId(), fragment)
             .addToBackStack(null)
             .commit()
-
     }
 
     override fun closeTop(): Boolean {
