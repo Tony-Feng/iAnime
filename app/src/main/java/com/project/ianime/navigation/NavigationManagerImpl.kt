@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.project.ianime.root.ContainerViewHolder
 
+//TODO 2023-02-18: Optimize Navigation method (add)
 class NavigationManagerImpl(
     private val fragmentManager: FragmentManager,
     private val viewContainer: ContainerViewHolder

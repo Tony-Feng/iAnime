@@ -20,10 +20,20 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <FrameLayout
-        android:layout_marginTop="@dimen/spacing_52dp"
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/spacing_52dp"
+        android:padding="@dimen/spacing_4dp"
+        app:layout_anchor="@id/top_app_bar" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/button_add_anime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/add_anime_text"
+        android:src="@drawable/ic_button_add"
+        app:layout_anchor="@id/bottom_app_bar" />
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottom_app_bar"
@@ -42,14 +52,5 @@
             app:menu="@menu/bottom_nav_menu" />
 
     </com.google.android.material.bottomappbar.BottomAppBar>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/button_add_anime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/add_anime_text"
-        android:src="@drawable/ic_button_add"
-        app:layout_anchor="@id/bottom_app_bar" />
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

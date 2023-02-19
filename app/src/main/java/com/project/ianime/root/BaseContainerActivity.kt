@@ -5,18 +5,22 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.project.ianime.R
+import com.project.ianime.actionbar.ActionBarService
+import com.project.ianime.actionbar.ActionBarServiceImpl
 import com.project.ianime.navigation.NavigationManager
 import com.project.ianime.navigation.NavigationManagerImpl
 import com.project.ianime.utils.updateLanguageSetting
 
-abstract class BaseContainerActivity<VH: ContainerViewHolder>(containerViewHolder: VH): AppCompatActivity() {
+abstract class BaseContainerActivity<VH: ContainerViewHolder>(containerViewHolder: VH): AppCompatActivity(){
 
     val navigationManager: NavigationManager
+    val viewHolder: VH = containerViewHolder
+    val actionBar: ActionBarService = ActionBarServiceImpl()
 
     init {
         val navigationManagerImpl = NavigationManagerImpl(
             supportFragmentManager,
-            containerViewHolder
+            viewHolder
         )
         navigationManager = navigationManagerImpl
     }
