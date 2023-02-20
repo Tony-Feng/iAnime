@@ -17,4 +17,8 @@ class UserFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_user, container, false)
     }
+
+    companion object {
+        fun newInstance() = UserFragment()
+    }
 }

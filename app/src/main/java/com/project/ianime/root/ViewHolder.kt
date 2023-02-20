@@ -3,15 +3,15 @@ package com.project.ianime.root
 import androidx.annotation.IdRes
 import java.lang.reflect.Constructor
 
-abstract class ContainerViewHolder{
+abstract class ViewHolder{
     /**
-     * get the UI component id of activity container
+     * return the UI reference id of base container
      */
     @IdRes
     abstract fun getContainerViewId(): Int
 
     companion object{
-        fun <VH: ContainerViewHolder> createContainerViewHolder(vhClass: Class<VH>): VH{
+        fun <VH: ViewHolder> createViewHolder(vhClass: Class<VH>): VH{
             val viConstructor: Constructor<VH> = vhClass.getConstructor()
             return viConstructor.newInstance()
         }

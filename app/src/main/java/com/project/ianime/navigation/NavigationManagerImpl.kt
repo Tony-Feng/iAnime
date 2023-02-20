@@ -2,12 +2,13 @@ package com.project.ianime.navigation
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.project.ianime.root.ContainerViewHolder
+import com.project.ianime.root.FragmentViewHolder
+import com.project.ianime.root.ViewHolder
 
 //TODO 2023-02-18: Optimize Navigation method (add)
 class NavigationManagerImpl(
     private val fragmentManager: FragmentManager,
-    private val viewContainer: ContainerViewHolder
+    private val viewContainer: FragmentViewHolder
 ) : NavigationManager {
 
     override fun showFragmentPermanent(fragment: Fragment) {
@@ -15,7 +16,6 @@ class NavigationManagerImpl(
             .beginTransaction()
             .add(viewContainer.getContainerViewId(), fragment)
             .commit()
-        fragmentManager.executePendingTransactions()
     }
 
     override fun showFragmentReplaceTop(fragment: Fragment) {

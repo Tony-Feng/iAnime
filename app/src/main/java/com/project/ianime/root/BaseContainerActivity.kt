@@ -5,27 +5,12 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.project.ianime.R
-import com.project.ianime.actionbar.ActionBarService
-import com.project.ianime.actionbar.ActionBarServiceImpl
-import com.project.ianime.navigation.NavigationManager
-import com.project.ianime.navigation.NavigationManagerImpl
 import com.project.ianime.utils.updateLanguageSetting
 
-abstract class BaseContainerActivity<VH: ContainerViewHolder>(containerViewHolder: VH): AppCompatActivity(){
+abstract class BaseContainerActivity<VH: ViewHolder>(containerViewHolder: VH): AppCompatActivity(){
+    val containerViewHolder = containerViewHolder
+    constructor(vhClass: Class<VH>): this(ViewHolder.createViewHolder(vhClass))
 
-    val navigationManager: NavigationManager
-    val viewHolder: VH = containerViewHolder
-    val actionBar: ActionBarService = ActionBarServiceImpl()
-
-    init {
-        val navigationManagerImpl = NavigationManagerImpl(
-            supportFragmentManager,
-            viewHolder
-        )
-        navigationManager = navigationManagerImpl
-    }
-
-    constructor(vhClass: Class<VH>): this(ContainerViewHolder.createContainerViewHolder(vhClass))
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater: MenuInflater = menuInflater
@@ -52,5 +37,4 @@ abstract class BaseContainerActivity<VH: ContainerViewHolder>(containerViewHolde
         const val SETTING_CHINESE = "zh"
         const val SETTING_ENGLISH = "en"
     }
-
 }
