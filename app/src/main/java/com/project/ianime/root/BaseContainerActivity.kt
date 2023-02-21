@@ -1,17 +1,30 @@
 package com.project.ianime.root
 
+import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.project.ianime.R
+import com.project.ianime.navigation.NavigationManagerImpl
+import com.project.ianime.navigation.NavigationManagerLifecycle
 import com.project.ianime.utils.updateLanguageSetting
 
 abstract class BaseContainerActivity<VH: ViewHolder>(containerViewHolder: VH): AppCompatActivity(){
     val containerViewHolder = containerViewHolder
+    private val navigationManagerLifecycle: NavigationManagerLifecycle
+        get() {
+            return NavigationManagerImpl(supportFragmentManager, containerViewHolder)
+        }
     constructor(vhClass: Class<VH>): this(ViewHolder.createViewHolder(vhClass))
-
-
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        navigationManagerLifecycle.onCreate()
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        navigationManagerLifecycle.onDestroy()
+    }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.settings_menu, menu)
@@ -32,7 +45,6 @@ abstract class BaseContainerActivity<VH: ViewHolder>(containerViewHolder: VH): A
         }
 
     }
-
     companion object {
         const val SETTING_CHINESE = "zh"
         const val SETTING_ENGLISH = "en"

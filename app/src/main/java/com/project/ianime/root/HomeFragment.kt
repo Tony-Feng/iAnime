@@ -8,7 +8,6 @@ import com.project.ianime.screen.AddAnimeFragment
 import com.project.ianime.screen.GalleryFragment
 import com.project.ianime.screen.UserFragment
 
-
 class HomeFragment: BaseFragment<HomeFragmentViewHolder>(HomeFragmentViewHolder::class.java) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +42,7 @@ class HomeFragment: BaseFragment<HomeFragmentViewHolder>(HomeFragmentViewHolder:
     }
 
     private fun navigateToAddScreen(){
-        requireActivity().supportFragmentManager.beginTransaction().replace(R.id.container, AddAnimeFragment.newInstance()).addToBackStack(null).commit()
+        requireActivity().supportFragmentManager.beginTransaction().replace(baseContainerId, AddAnimeFragment.newInstance()).addToBackStack(null).commit()
     }
 
 
