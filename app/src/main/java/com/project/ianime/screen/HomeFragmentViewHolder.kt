@@ -25,7 +25,7 @@ class HomeFragmentViewHolder : FragmentViewHolder() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        toolbar = binding.toolBar
+        toolbar = binding.topAppBar.toolBar
         bottomNavigationView = binding.bottomNavigationView
         addAnimeButton = binding.buttonAddAnime
         return binding.root

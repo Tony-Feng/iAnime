@@ -8,6 +8,6 @@
     <item
         android:id="@+id/user_screen"
         android:icon="@drawable/ic_user"
-        android:title="@string/nav_profile_title"/>
+        android:title="@string/nav_user_title"/>
 
 </menu>

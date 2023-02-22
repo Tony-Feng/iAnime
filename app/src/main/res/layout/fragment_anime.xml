@@ -4,19 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/anime_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+    <include
+        android:id="@id/top_app_bar"
+        layout="@layout/layout_action_bar"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Anime Detail Screen"
-        app:layout_constraintBottom_toBottomOf="@+id/anime_toolbar"
+        app:layout_constraintBottom_toBottomOf="@id/top_app_bar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/anime_toolbar" />
+        app:layout_constraintTop_toTopOf="@id/top_app_bar" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

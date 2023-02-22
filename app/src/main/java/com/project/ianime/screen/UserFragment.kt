@@ -7,4 +7,8 @@ class UserFragment : BaseFragment<UserViewHolder>(UserViewHolder::class.java) {
     companion object {
         fun newInstance() = UserFragment()
     }
+
+    override fun updateActionBar() {
+        return
+    }
 }

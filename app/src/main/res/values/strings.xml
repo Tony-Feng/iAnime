@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">iAnime</string>
     <string name="nav_home_title">Gallery</string>
-    <string name="nav_profile_title">Mine</string>
-    <string name="add_anime_text">Add Anime</string>
+    <string name="nav_user_title">Mine</string>
+    <string name="add_anime_title">Add Anime</string>
+    <string name="edit_anime_title">Edit Anime</string>
     <string name="setting_chinese">CN</string>
     <string name="setting_english">EN</string>
     <string name="user_fragment_title" translatable="false">User fragment</string>

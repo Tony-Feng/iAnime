@@ -2,20 +2,20 @@ package com.project.ianime.screen
 
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import com.project.ianime.R
 import com.project.ianime.root.BaseFragment
 
 class HomeFragment : BaseFragment<HomeFragmentViewHolder>(HomeFragmentViewHolder::class.java) {
+    override fun updateActionBar() {
+        actionBarService.setTitle(getString(R.string.app_name), viewHolder.toolbar)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // Launch Main Screen
         navigateToMainScreen()
 
         setHasOptionsMenu(true)
-        (activity as AppCompatActivity).setSupportActionBar(viewHolder.toolbar)
-        (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(true)
-
         viewHolder.bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.home_screen -> {
@@ -40,7 +40,7 @@ class HomeFragment : BaseFragment<HomeFragmentViewHolder>(HomeFragmentViewHolder
         }
     }
     private fun navigateToMainScreen(){
-        navigationManager.showFragmentOverTop(GalleryFragment.newInstance(), viewHolder.getContainerViewId())
+        navigationManager.showFragmentReplaceTop(GalleryFragment.newInstance(), viewHolder.getContainerViewId())
     }
 
     private fun navigateToAddScreen() {

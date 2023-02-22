@@ -2,8 +2,9 @@
 <resources>
     <string name="app_name">爱动画</string>
     <string name="nav_home_title">漫厅</string>
-    <string name="nav_profile_title">我的</string>
-    <string name="add_anime_text">添加动漫</string>
+    <string name="nav_user_title">我的</string>
+    <string name="add_anime_title">添加动漫</string>
+    <string name="edit_anime_title">编辑动漫</string>
     <string name="setting_chinese">中文</string>
     <string name="setting_english">英文</string>
 </resources>

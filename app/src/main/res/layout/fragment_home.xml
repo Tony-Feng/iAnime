@@ -6,18 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".HomeActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/top_app_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/tool_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary" />
-    </com.google.android.material.appbar.AppBarLayout>
+    <include
+        android:id="@id/top_app_bar"
+        layout="@layout/layout_action_bar"/>
 
     <FrameLayout
         android:id="@+id/fragment_container"
@@ -31,7 +22,7 @@
         android:id="@+id/button_add_anime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/add_anime_text"
+        android:contentDescription="@string/add_anime_title"
         android:src="@drawable/ic_button_add"
         app:layout_anchor="@id/bottom_app_bar" />
 
