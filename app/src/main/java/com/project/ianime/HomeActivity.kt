@@ -2,7 +2,7 @@ package com.project.ianime
 
 import android.os.Bundle
 import com.project.ianime.root.BaseContainerActivity
-import com.project.ianime.root.HomeFragment
+import com.project.ianime.screen.HomeFragment
 
 class HomeActivity :
     BaseContainerActivity<HomeContainerViewHolder>(HomeContainerViewHolder::class.java) {

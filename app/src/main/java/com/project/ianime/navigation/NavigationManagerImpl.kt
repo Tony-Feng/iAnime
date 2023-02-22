@@ -4,69 +4,67 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.project.ianime.root.BaseFragment
-import com.project.ianime.root.ViewHolder
 
-//TODO 2023-02-20: Fragment Lifecycle modified
 class NavigationManagerImpl(
-    private val fragmentManager: FragmentManager,
-    private val viewHolder: ViewHolder
+    private val fragmentManager: FragmentManager
 ) : NavigationManager, NavigationManagerLifecycle {
 
     private val fragmentStack = ArrayList<BaseFragment<*>>()
     private val activeFragmentStack = ArrayList<BaseFragment<*>>()
-    private val fragmentLifeCycleListener = object : FragmentManager.FragmentLifecycleCallbacks(){
+    private val fragmentLifeCycleListener = object : FragmentManager.FragmentLifecycleCallbacks() {
         override fun onFragmentAttached(fm: FragmentManager, f: Fragment, context: Context) {
-            if (f is BaseFragment<*>){
+            if (f is BaseFragment<*>) {
                 fragmentStack.add(f)
             }
         }
 
         override fun onFragmentDetached(fm: FragmentManager, f: Fragment) {
-            if (f is BaseFragment<*>){
+            if (f is BaseFragment<*>) {
                 fragmentStack.remove(f)
             }
         }
 
         override fun onFragmentStarted(fm: FragmentManager, f: Fragment) {
-            if (f is BaseFragment<*>){
+            if (f is BaseFragment<*>) {
                 activeFragmentStack.add(f)
             }
         }
 
         override fun onFragmentStopped(fm: FragmentManager, f: Fragment) {
-            if (f is BaseFragment<*>){
+            if (f is BaseFragment<*>) {
                 activeFragmentStack.remove(f)
             }
         }
     }
-    private fun getTopActiveFragment(): BaseFragment<*>?{
+
+    private fun getTopActiveFragment(): BaseFragment<*>? {
         val activeCount = activeFragmentStack.size
-        if (activeCount == 0){
+        if (activeCount == 0) {
             return null
         }
-        return activeFragmentStack[activeCount -1]
+        return activeFragmentStack[activeCount - 1]
     }
 
-    override fun showFragmentPermanent(fragment: Fragment) {
-        fragmentManager
-            .beginTransaction()
-            .add(viewHolder.getContainerViewId(), fragment)
-            .commit()
-    }
-
-    override fun showFragmentReplaceTop(fragment: Fragment) {
+    override fun showFragmentReplaceTop(fragment: Fragment, containerId: Int) {
         val transaction = fragmentManager.beginTransaction()
-        val topFragment = getTopActiveFragment()
-        if (topFragment != null){
-            transaction.remove(topFragment)
-        }
-        transaction.add(viewHolder.getContainerViewId(), fragment)
+        transaction.replace(containerId, fragment)
             .addToBackStack(null)
             .commit()
     }
 
+    override fun showFragmentOverTop(fragment: Fragment, containerId: Int) {
+        val transaction = fragmentManager.beginTransaction()
+        val topFragment = getTopActiveFragment()
+        if (topFragment != null) {
+            transaction.remove(topFragment)
+        }
+        transaction.add(containerId, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+    //TODO 2022-02-21: from add screen return back to user screen
     override fun closeTop(): Boolean {
-        if (fragmentManager.backStackEntryCount < 1){
+        if (fragmentManager.backStackEntryCount < 1) {
             return false
         }
         fragmentManager.popBackStack()

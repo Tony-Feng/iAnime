@@ -6,7 +6,5 @@ import android.view.View
 import android.view.ViewGroup
 
 abstract class FragmentViewHolder: ViewHolder(){
-
     abstract fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
-
 }

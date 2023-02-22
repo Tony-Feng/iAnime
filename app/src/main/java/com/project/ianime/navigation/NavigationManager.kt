@@ -9,18 +9,20 @@ import androidx.fragment.app.Fragment
 interface NavigationManager {
 
     /**
-     * Adds and shows [fragment] on top
+     * Replaces the active fragment and shows [fragment] on top, previous fragment cannot show with navigate back
      *
      * @param fragment - fragment to add on top
+     * @param containerId - container id
      */
-    fun showFragmentPermanent(fragment: Fragment)
+    fun showFragmentReplaceTop(fragment: Fragment, containerId: Int)
 
     /**
-     * Replaces top fragment and shows [fragment]
+     * Replaces top active fragment and adds [fragment] on Top, previous fragment can show with navigate back
      *
      * @param fragment - fragment to show
+     * @param containerId - container id
      */
-    fun showFragmentReplaceTop(fragment: Fragment)
+    fun showFragmentOverTop(fragment: Fragment, containerId: Int)
 
     /**
      * Closes top fragment

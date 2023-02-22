@@ -1,6 +1,5 @@
 package com.project.ianime.root
 
-import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -14,17 +13,9 @@ abstract class BaseContainerActivity<VH: ViewHolder>(containerViewHolder: VH): A
     val containerViewHolder = containerViewHolder
     private val navigationManagerLifecycle: NavigationManagerLifecycle
         get() {
-            return NavigationManagerImpl(supportFragmentManager, containerViewHolder)
+            return NavigationManagerImpl(supportFragmentManager)
         }
     constructor(vhClass: Class<VH>): this(ViewHolder.createViewHolder(vhClass))
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        navigationManagerLifecycle.onCreate()
-    }
-    override fun onDestroy() {
-        super.onDestroy()
-        navigationManagerLifecycle.onDestroy()
-    }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.settings_menu, menu)

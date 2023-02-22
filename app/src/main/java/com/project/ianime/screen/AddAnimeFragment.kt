@@ -2,32 +2,13 @@ package com.project.ianime.screen
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.project.ianime.R
+import com.project.ianime.root.BaseFragment
+import com.project.ianime.screen.viewholder.AddAnimeFragmentViewHolder
+import com.project.ianime.screen.viewmodel.AddAnimeViewModel
 
-class AddAnimeFragment : Fragment() {
+class AddAnimeFragment : BaseFragment<AddAnimeFragmentViewHolder>(AddAnimeFragmentViewHolder::class.java) {
 
     private lateinit var viewModel: AddAnimeViewModel
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_add_anime, container, false)
-
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val bottomNavigationView = requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation_view)
-
-        bottomNavigationView.visibility = View.GONE
-
-    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

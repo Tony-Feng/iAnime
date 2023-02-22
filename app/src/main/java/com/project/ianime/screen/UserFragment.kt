@@ -1,23 +1,9 @@
 package com.project.ianime.screen
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import com.project.ianime.R
+import com.project.ianime.root.BaseFragment
+import com.project.ianime.screen.viewholder.UserFragmentViewHolder
 
-
-class UserFragment : Fragment() {
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user, container, false)
-    }
-
+class UserFragment : BaseFragment<UserFragmentViewHolder>(UserFragmentViewHolder::class.java) {
     companion object {
         fun newInstance() = UserFragment()
     }

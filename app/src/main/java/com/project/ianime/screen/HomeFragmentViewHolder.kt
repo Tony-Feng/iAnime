@@ -1,4 +1,4 @@
-package com.project.ianime.root
+package com.project.ianime.screen
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,23 +8,27 @@ import androidx.appcompat.widget.Toolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.project.ianime.R
+import com.project.ianime.databinding.FragmentHomeBinding
+import com.project.ianime.root.FragmentViewHolder
 
 class HomeFragmentViewHolder : FragmentViewHolder() {
 
     lateinit var toolbar: Toolbar
     lateinit var bottomNavigationView: BottomNavigationView
     lateinit var addAnimeButton:FloatingActionButton
+    private var _binding: FragmentHomeBinding? = null
+    val binding get()= _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater.inflate(R.layout.fragment_home, container, false)
-        toolbar = rootView.findViewById(R.id.tool_bar)
-        bottomNavigationView = rootView.findViewById(R.id.bottom_navigation_view)
-        addAnimeButton = rootView.findViewById(R.id.button_add_anime)
-        return rootView
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        toolbar = binding.toolBar
+        bottomNavigationView = binding.bottomNavigationView
+        addAnimeButton = binding.buttonAddAnime
+        return binding.root
     }
 
     override fun getContainerViewId(): Int {
