@@ -4,20 +4,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.project.ianime.R
-import com.project.ianime.databinding.FragmentUserBinding
+import com.project.ianime.databinding.FragmentGalleryBinding
 import com.project.ianime.root.FragmentViewHolder
 
-class UserFragmentViewHolder: FragmentViewHolder() {
-    private var _binding: FragmentUserBinding? = null
+class GalleryViewHolder: FragmentViewHolder() {
+    private var _binding: FragmentGalleryBinding? = null
     val binding get()= _binding!!
+    lateinit var animeCardList: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentUserBinding.inflate(inflater, container, false)
+        _binding = FragmentGalleryBinding.inflate(inflater, container, false)
+        animeCardList = binding.animeList
 
         return binding.root
     }

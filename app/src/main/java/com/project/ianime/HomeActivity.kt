@@ -4,6 +4,9 @@ import android.os.Bundle
 import com.project.ianime.root.BaseContainerActivity
 import com.project.ianime.screen.HomeFragment
 
+/**
+ * HomeActivity is the start of the App
+ */
 class HomeActivity :
     BaseContainerActivity<HomeContainerViewHolder>(HomeContainerViewHolder::class.java) {
 

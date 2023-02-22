@@ -8,12 +8,12 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.project.ianime.adapter.AnimeItemAdapter
 import com.project.ianime.model.AnimeItemModel
 import com.project.ianime.root.BaseFragment
-import com.project.ianime.screen.viewholder.GalleryFragmentViewHolder
+import com.project.ianime.screen.viewholder.GalleryViewHolder
 import com.project.ianime.screen.viewmodel.GalleryViewModel
 import com.project.ianime.service.TestDataRepository
 
 // TODO: Consider separate filter and recyclerview layouts
-class GalleryFragment : BaseFragment<GalleryFragmentViewHolder>(GalleryFragmentViewHolder::class.java) {
+class GalleryFragment : BaseFragment<GalleryViewHolder>(GalleryViewHolder::class.java) {
 
     private lateinit var viewModel: GalleryViewModel
     private val testDataRepository =  TestDataRepository()
@@ -23,7 +23,7 @@ class GalleryFragment : BaseFragment<GalleryFragmentViewHolder>(GalleryFragmentV
         val animeCardList = viewHolder.animeCardList
         animeCardList.layoutManager = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
         val animeCardAdapter = AnimeItemAdapter {
-            // TODO: Navigate to anime detail screen (Edit Screen)
+            navigationManager.showFragmentReplaceTop(AnimeFragment.newInstance(), baseContainerId)
         }
         animeCardList.adapter = animeCardAdapter
         val animeCardListObserver = Observer<List<AnimeItemModel>>{ animeItems ->

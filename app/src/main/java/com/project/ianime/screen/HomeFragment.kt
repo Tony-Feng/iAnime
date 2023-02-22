@@ -7,13 +7,10 @@ import com.project.ianime.R
 import com.project.ianime.root.BaseFragment
 
 class HomeFragment : BaseFragment<HomeFragmentViewHolder>(HomeFragmentViewHolder::class.java) {
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        navigationManager.showFragmentOverTop(
-            GalleryFragment.newInstance(),
-            viewHolder.getContainerViewId()
-        )
+        // Launch Main Screen
+        navigateToMainScreen()
 
         setHasOptionsMenu(true)
         (activity as AppCompatActivity).setSupportActionBar(viewHolder.toolbar)
@@ -41,7 +38,9 @@ class HomeFragment : BaseFragment<HomeFragmentViewHolder>(HomeFragmentViewHolder
         viewHolder.addAnimeButton.setOnClickListener {
             navigateToAddScreen()
         }
-
+    }
+    private fun navigateToMainScreen(){
+        navigationManager.showFragmentOverTop(GalleryFragment.newInstance(), viewHolder.getContainerViewId())
     }
 
     private fun navigateToAddScreen() {

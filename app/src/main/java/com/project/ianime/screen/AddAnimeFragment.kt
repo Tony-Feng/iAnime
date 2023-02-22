@@ -2,11 +2,9 @@ package com.project.ianime.screen
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import com.project.ianime.root.BaseFragment
-import com.project.ianime.screen.viewholder.AddAnimeFragmentViewHolder
 import com.project.ianime.screen.viewmodel.AddAnimeViewModel
 
-class AddAnimeFragment : BaseFragment<AddAnimeFragmentViewHolder>(AddAnimeFragmentViewHolder::class.java) {
+class AddAnimeFragment : ManageAnimeFragment() {
 
     private lateinit var viewModel: AddAnimeViewModel
 
