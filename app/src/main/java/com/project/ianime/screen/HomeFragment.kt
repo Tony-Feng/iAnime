@@ -6,8 +6,9 @@ import com.project.ianime.R
 import com.project.ianime.root.BaseFragment
 
 class HomeFragment : BaseFragment<HomeFragmentViewHolder>(HomeFragmentViewHolder::class.java) {
-    override fun updateActionBar() {
+    override fun updateActionBar(): Boolean {
         actionBarService.setTitle(getString(R.string.app_name), viewHolder.toolbar)
+        return true
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

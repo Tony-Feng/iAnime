@@ -11,10 +11,11 @@ class AnimeFragment: BaseFragment<AnimeViewHolder>(AnimeViewHolder::class.java) 
         fun newInstance() = AnimeFragment()
     }
 
-    override fun updateActionBar() {
+    override fun updateActionBar(): Boolean {
         //TODO: Update to each anime name
         actionBarService.setTitle(getString(R.string.app_name), viewHolder.toolbar)
         (activity as AppCompatActivity).supportActionBar?.setHomeButtonEnabled(true)
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        return true
     }
 }

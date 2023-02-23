@@ -5,8 +5,6 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.project.ianime.R
-import com.project.ianime.actionbar.ActionBarService
 import com.project.ianime.adapter.AnimeItemAdapter
 import com.project.ianime.model.AnimeItemModel
 import com.project.ianime.root.BaseFragment
@@ -19,10 +17,6 @@ class GalleryFragment : BaseFragment<GalleryViewHolder>(GalleryViewHolder::class
 
     private lateinit var viewModel: GalleryViewModel
     private val testDataRepository =  TestDataRepository()
-    override fun updateActionBar() {
-        return
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         testDataRepository.loadAnimeList()

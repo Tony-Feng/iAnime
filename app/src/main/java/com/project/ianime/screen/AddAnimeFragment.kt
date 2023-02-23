@@ -8,8 +8,9 @@ import com.project.ianime.screen.viewmodel.AddAnimeViewModel
 class AddAnimeFragment : ManageAnimeFragment() {
 
     private lateinit var viewModel: AddAnimeViewModel
-    override fun updateActionBar() {
+    override fun updateActionBar(): Boolean {
         actionBarService.setTitle(getString(R.string.add_anime_title), viewHolder.toolbar)
+        return true
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

@@ -15,20 +15,19 @@ import com.project.ianime.navigation.NavigationManagerLifecycle
 
 abstract class BaseFragment<VH: FragmentViewHolder>(val viewHolder: VH): Fragment() {
 
+    lateinit var navigationManager: NavigationManager
+    private lateinit var navigationManagerLifecycle: NavigationManagerLifecycle
     val actionBarService: ActionBarService
         get() {
             return ActionBarServiceImpl(
                 activity as AppCompatActivity
             )
         }
-    lateinit var navigationManager: NavigationManager
-    private lateinit var navigationManagerLifecycle: NavigationManagerLifecycle
     val baseContainerId: Int
         get() {
             val baseContainerActivity = activity as BaseContainerActivity<*>
             return baseContainerActivity.containerViewHolder.getContainerViewId()
         }
-
     override fun onAttach(context: Context) {
         val navigationManagerImpl = NavigationManagerImpl(
             requireActivity().supportFragmentManager
@@ -37,8 +36,9 @@ abstract class BaseFragment<VH: FragmentViewHolder>(val viewHolder: VH): Fragmen
         navigationManagerLifecycle = navigationManagerImpl
         super.onAttach(context)
     }
-
-    abstract fun updateActionBar()
+    open fun updateActionBar(): Boolean{
+        return false
+    }
     final override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -50,7 +50,6 @@ abstract class BaseFragment<VH: FragmentViewHolder>(val viewHolder: VH): Fragmen
         navigationManagerLifecycle.onCreate()
         super.onCreate(savedInstanceState)
     }
-
     override fun onDestroy() {
         navigationManagerLifecycle.onDestroy()
         super.onDestroy()
@@ -59,6 +58,5 @@ abstract class BaseFragment<VH: FragmentViewHolder>(val viewHolder: VH): Fragmen
         super.onViewCreated(view, savedInstanceState)
         updateActionBar()
     }
-
     constructor(vhClass: Class<VH>): this(ViewHolder.createViewHolder(vhClass))
 }
