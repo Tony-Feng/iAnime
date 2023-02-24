@@ -10,6 +10,7 @@ class AddAnimeFragment : ManageAnimeFragment() {
     private lateinit var viewModel: AddAnimeViewModel
     override fun updateActionBar(): Boolean {
         actionBarService.setTitle(getString(R.string.add_anime_title), viewHolder.toolbar)
+        actionBarService.setNavigateBackAction(viewHolder.toolbar, this)
         return true
     }
 

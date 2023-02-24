@@ -44,6 +44,7 @@ abstract class BaseFragment<VH: FragmentViewHolder>(val viewHolder: VH): Fragmen
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setHasOptionsMenu(true)
         return viewHolder.onCreateView(inflater, container, savedInstanceState)
     }
     override fun onCreate(savedInstanceState: Bundle?) {

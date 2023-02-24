@@ -10,7 +10,6 @@ class HomeFragment : BaseFragment<HomeFragmentViewHolder>(HomeFragmentViewHolder
         actionBarService.setTitle(getString(R.string.app_name), viewHolder.toolbar)
         return true
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // Launch Main Screen
