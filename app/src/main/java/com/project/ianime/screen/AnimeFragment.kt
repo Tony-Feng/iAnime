@@ -1,8 +1,10 @@
 package com.project.ianime.screen
 
+import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
 import com.project.ianime.R
 import com.project.ianime.root.BaseContainerActivity
 import com.project.ianime.root.BaseFragment
@@ -15,6 +17,21 @@ class AnimeFragment : BaseFragment<AnimeViewHolder>(AnimeViewHolder::class.java)
         actionBarService.setTitle(getString(R.string.app_name), viewHolder.toolbar)
         actionBarService.setNavigateBackAction(viewHolder.toolbar, this)
         return true
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        // Test using mocked data
+        getAnimeDetails()
+    }
+    //TODO: Update using Get API
+    private fun getAnimeDetails(){
+        viewHolder.animeProfile.setImageResource(R.drawable.ic_gallery)
+        viewHolder.animeName.text = "Throne of Seal"
+        viewHolder.animeCountry.text = "China"
+        viewHolder.animeType.text = "God"
+        viewHolder.animePublishedYear.text = "2021"
+        viewHolder.animeIntro.text = "A boy on his own way to fight"
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

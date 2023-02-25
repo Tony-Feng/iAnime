@@ -15,7 +15,6 @@ class HomeFragment : BaseFragment<HomeFragmentViewHolder>(HomeFragmentViewHolder
         // Launch Main Screen
         navigateToMainScreen()
 
-        setHasOptionsMenu(true)
         viewHolder.bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.home_screen -> {
