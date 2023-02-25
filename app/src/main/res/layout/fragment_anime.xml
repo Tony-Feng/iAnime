@@ -9,77 +9,87 @@
         android:id="@id/top_app_bar"
         layout="@layout/layout_action_bar" />
 
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/anime_detail_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/spacing_8dp"
-        android:orientation="horizontal"
+        android:layout_marginHorizontal="@dimen/spacing_10dp"
+        android:layout_marginVertical="@dimen/spacing_16dp"
+        app:cardElevation="@dimen/spacing_4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/top_app_bar">
 
-        <ImageView
-            android:id="@+id/anime_profile"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            tools:src="@drawable/ic_gallery" />
-
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/anime_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                tools:text="Throne of Seal" />
+            <ImageView
+                android:id="@+id/anime_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                tools:src="@drawable/ic_gallery" />
 
-            <TextView
-                android:id="@+id/anime_type"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_8dp"
-                android:layout_marginBottom="@dimen/spacing_8dp"
-                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-                tools:text="Type: God" />
+                android:layout_marginStart="@dimen/spacing_8dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/anime_country"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_8dp"
-                android:layout_marginBottom="@dimen/spacing_8dp"
-                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-                tools:text="Country: China" />
+                <TextView
+                    android:id="@+id/anime_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_8dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                    tools:text="Throne of Seal" />
 
-            <TextView
-                android:id="@+id/anime_year"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_8dp"
-                android:layout_marginBottom="@dimen/spacing_10dp"
-                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-                tools:text="Published Year: 2021" />
+                <TextView
+                    android:id="@+id/anime_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_8dp"
+                    android:layout_marginBottom="@dimen/spacing_8dp"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                    tools:text="Type: God" />
+
+                <TextView
+                    android:id="@+id/anime_country"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_8dp"
+                    android:layout_marginBottom="@dimen/spacing_8dp"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                    tools:text="Country: China" />
+
+                <TextView
+                    android:id="@+id/anime_year"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_8dp"
+                    android:layout_marginBottom="@dimen/spacing_10dp"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                    tools:text="Published Year: 2021" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
     <TextView
         android:id="@+id/about_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/spacing_24dp"
+        android:text="@string/intro_header_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/anime_detail_container"
-        android:text="About" />
+        app:layout_constraintTop_toBottomOf="@id/anime_detail_container" />
 
     <TextView
         android:id="@+id/anime_intro"
@@ -92,5 +102,59 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/about_header"
         tools:text="A boy on his own way to fight" />
+
+    <TextView
+        android:id="@+id/maxim_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spacing_24dp"
+        android:text="@string/maxim_header_title"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/anime_intro"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/anime_maxim"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/spacing_24dp"
+        android:layout_marginVertical="@dimen/spacing_8dp"
+        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/maxim_header"
+        tools:text="Placeholder for maxims"
+        tools:visibility="visible"/>
+
+    <TextView
+        android:id="@+id/episode_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spacing_24dp"
+        android:text="@string/episode_header_title"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/anime_maxim"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/anime_episodes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/spacing_24dp"
+        android:layout_marginVertical="@dimen/spacing_8dp"
+        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/episode_header"
+        tools:text="Placeholder for fav episodes"
+        tools:visibility="visible"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

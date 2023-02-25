@@ -28,9 +28,9 @@ class AnimeFragment : BaseFragment<AnimeViewHolder>(AnimeViewHolder::class.java)
     private fun getAnimeDetails(){
         viewHolder.animeProfile.setImageResource(R.drawable.ic_gallery)
         viewHolder.animeName.text = "Throne of Seal"
-        viewHolder.animeCountry.text = "China"
-        viewHolder.animeType.text = "God"
-        viewHolder.animePublishedYear.text = "2021"
+        viewHolder.animeCountry.text = getString(R.string.anime_country_title, "China")
+        viewHolder.animeType.text = getString(R.string.anime_type_title, "God")
+        viewHolder.animePublishedYear.text = getString(R.string.anime_year_title, "2021")
         viewHolder.animeIntro.text = "A boy on his own way to fight"
     }
 

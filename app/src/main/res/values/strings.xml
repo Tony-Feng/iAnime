@@ -1,10 +1,23 @@
 <resources>
+    <!-- App Default -->
     <string name="app_name">iAnime</string>
     <string name="nav_home_title">Gallery</string>
     <string name="nav_user_title">Mine</string>
-    <string name="add_anime_title">Add Anime</string>
-    <string name="edit_anime_title">Edit Anime</string>
     <string name="setting_chinese">CN</string>
     <string name="setting_english">EN</string>
-    <string name="user_fragment_title" translatable="false">COMING SOON...</string>
+    <string name="user_screen_title" translatable="false">COMING SOON...</string>
+
+    <!-- Anime Detail Screen -->
+    <string name="intro_header_title">About</string>
+    <string name="anime_type_title">Type: %1$s</string>
+    <string name="anime_country_title">Country: %1$s</string>
+    <string name="anime_year_title">Published Year: %1$s</string>
+    <string name="maxim_header_title">Maxim</string>
+    <string name="episode_header_title">Favourite Episodes</string>
+
+    <!-- Add Anime Screen -->
+    <string name="add_anime_title">Add Anime</string>
+
+    <!-- Edit Anime Screen -->
+    <string name="edit_anime_title">Edit Anime</string>
 </resources>

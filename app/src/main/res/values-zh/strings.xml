@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- App Default -->
     <string name="app_name">爱动画</string>
     <string name="nav_home_title">漫厅</string>
     <string name="nav_user_title">我的</string>
-    <string name="add_anime_title">添加动漫</string>
-    <string name="edit_anime_title">编辑动漫</string>
     <string name="setting_chinese">中文</string>
     <string name="setting_english">英文</string>
+
+    <!-- Anime Detail Screen -->
+    <string name="intro_header_title">剧情简介</string>
+    <string name="anime_type_title">分类: %1$s</string>
+    <string name="anime_country_title">国家: %1$s</string>
+    <string name="anime_year_title">发行时间: %1$s</string>
+    <string name="maxim_header_title">打动的话</string>
+    <string name="episode_header_title">高光集数</string>
+
+    <!-- Add Anime Screen -->
+    <string name="add_anime_title">添加动漫</string>
+
+    <!-- Edit Anime Screen -->
+    <string name="edit_anime_title">编辑动漫</string>
 </resources>
