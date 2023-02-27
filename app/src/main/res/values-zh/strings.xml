@@ -15,9 +15,12 @@
     <string name="maxim_header_title">打动的话</string>
     <string name="episode_header_title">高光集数</string>
 
-    <!-- Add Anime Screen -->
+    <!-- Manage Anime Screen -->
     <string name="add_anime_title">添加动漫</string>
-
-    <!-- Edit Anime Screen -->
     <string name="edit_anime_title">编辑动漫</string>
+    <string name="select_image_title">选择照片 +</string>
+    <string name="anime_name_english_hint">动漫英文</string>
+    <string name="anime_name_chinese_hint">动漫中文</string>
+    <string name="anime_rate_hint">分数 (1–10)</string>
+    <string name="required_details_header">必填细节</string>
 </resources>

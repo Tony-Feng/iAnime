@@ -15,9 +15,12 @@
     <string name="maxim_header_title">Maxim</string>
     <string name="episode_header_title">Favourite Episodes</string>
 
-    <!-- Add Anime Screen -->
+    <!-- Manage Anime Screen -->
     <string name="add_anime_title">Add Anime</string>
-
-    <!-- Edit Anime Screen -->
     <string name="edit_anime_title">Edit Anime</string>
+    <string name="select_image_title">Select Image +</string>
+    <string name="anime_name_english_hint">Anime English Name</string>
+    <string name="anime_name_chinese_hint">Anime Chinese Name</string>
+    <string name="anime_rate_hint">Rate (1–10)</string>
+    <string name="required_details_header">Required Details</string>
 </resources>

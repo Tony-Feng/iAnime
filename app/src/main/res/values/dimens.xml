@@ -10,4 +10,5 @@
     <dimen name="spacing_32dp">32dp</dimen>
     <dimen name="spacing_52dp">52dp</dimen>
     <dimen name="anime_card_height">194dp</dimen>
+    <dimen name="anime_edit_card_height">140dp</dimen>
 </resources>
