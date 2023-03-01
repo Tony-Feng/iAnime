@@ -22,5 +22,27 @@
     <string name="anime_name_english_hint">动漫英文</string>
     <string name="anime_name_chinese_hint">动漫中文</string>
     <string name="anime_rate_hint">分数 (1–10)</string>
-    <string name="required_details_header">必填细节</string>
+    <string name="anime_year_hint">时间</string>
+    <string name="description_hint">简介</string>
+    <string name="anime_country_hint">地区</string>
+    <string-array name="country_selector">
+        <item>国漫</item>
+        <item>日漫</item>
+    </string-array>
+    <string name="anime_type_hint">风格</string>
+    <string-array name="type_selector">
+        <item>神作</item>
+        <item>奇幻</item>
+        <item>恋爱</item>
+        <item>校园</item>
+        <item>励志</item>
+        <item>科幻</item>
+        <item>悬疑</item>
+        <item>日常</item>
+    </string-array>
+    <string name="anime_status_hint">状态</string>
+    <string-array name="status_selector">
+        <item>完结</item>
+        <item>更新</item>
+    </string-array>
 </resources>

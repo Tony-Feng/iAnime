@@ -22,5 +22,27 @@
     <string name="anime_name_english_hint">Anime English Name</string>
     <string name="anime_name_chinese_hint">Anime Chinese Name</string>
     <string name="anime_rate_hint">Rate (1–10)</string>
-    <string name="required_details_header">Required Details</string>
+    <string name="anime_year_hint">Time</string>
+    <string name="description_hint">Description</string>
+    <string name="anime_country_hint">Country</string>
+    <string-array name="country_selector">
+        <item>China</item>
+        <item>Japan</item>
+    </string-array>
+    <string name="anime_type_hint">Type</string>
+    <string-array name="type_selector">
+        <item>God</item>
+        <item>Adventure</item>
+        <item>Love</item>
+        <item>Campus</item>
+        <item>Energy</item>
+        <item>Sci-fi</item>
+        <item>Mystery</item>
+        <item>Life</item>
+    </string-array>
+    <string name="anime_status_hint">Status</string>
+    <string-array name="status_selector">
+        <item>Finished</item>
+        <item>In Progress</item>
+    </string-array>
 </resources>
