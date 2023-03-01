@@ -31,7 +31,9 @@ class AnimeFragment : BaseFragment<AnimeViewHolder>(AnimeViewHolder::class.java)
         viewHolder.animeCountry.text = getString(R.string.anime_country_title, "China")
         viewHolder.animeType.text = getString(R.string.anime_type_title, "God")
         viewHolder.animePublishedYear.text = getString(R.string.anime_year_title, "2021")
+        viewHolder.animeStatus.text = getString(R.string.anime_status_title, "In Progress")
         viewHolder.animeIntro.text = "A boy on his own way to fight"
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

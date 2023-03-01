@@ -8,6 +8,10 @@ class EditAnimeFragment: ManageAnimeFragment() {
         return true
     }
 
+    override fun saveAnime() {
+        TODO("Not yet implemented")
+    }
+
     companion object{
         fun newInstance() = EditAnimeFragment()
     }

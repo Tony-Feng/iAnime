@@ -8,6 +8,7 @@ import com.project.ianime.screen.viewmodel.AddAnimeViewModel
 class AddAnimeFragment : ManageAnimeFragment() {
 
     private lateinit var viewModel: AddAnimeViewModel
+
     override fun updateActionBar(): Boolean {
         actionBarService.setTitle(getString(R.string.add_anime_title), viewHolder.toolbar)
         actionBarService.setNavigateBackAction(viewHolder.toolbar, this)
@@ -18,6 +19,10 @@ class AddAnimeFragment : ManageAnimeFragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(AddAnimeViewModel::class.java)
         // TODO: Use the ViewModel
+    }
+
+    override fun saveAnime() {
+        TODO("Not yet implemented")
     }
 
     companion object {

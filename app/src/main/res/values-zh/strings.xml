@@ -12,6 +12,7 @@
     <string name="anime_type_title">分类: %1$s</string>
     <string name="anime_country_title">国家: %1$s</string>
     <string name="anime_year_title">发行时间: %1$s</string>
+    <string name="anime_status_title">状态: %1$s</string>
     <string name="maxim_header_title">打动的话</string>
     <string name="episode_header_title">高光集数</string>
 
@@ -45,4 +46,5 @@
         <item>完结</item>
         <item>更新</item>
     </string-array>
+    <string name="save_button_text">保存</string>
 </resources>

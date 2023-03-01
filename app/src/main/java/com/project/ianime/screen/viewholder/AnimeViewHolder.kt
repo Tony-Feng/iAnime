@@ -19,6 +19,7 @@ class AnimeViewHolder: FragmentViewHolder() {
     lateinit var animeType: TextView
     lateinit var animeCountry: TextView
     lateinit var animePublishedYear: TextView
+    lateinit var animeStatus: TextView
     lateinit var animeIntro: TextView
 
     override fun onCreateView(
@@ -33,6 +34,7 @@ class AnimeViewHolder: FragmentViewHolder() {
         animeType = binding.animeType
         animeCountry = binding.animeCountry
         animePublishedYear = binding.animeYear
+        animeStatus = binding.animeStatus
         animeIntro = binding.animeIntro
         return binding.root
     }

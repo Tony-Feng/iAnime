@@ -75,6 +75,15 @@
                     android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
                     tools:text="Published Year: 2021" />
 
+                <TextView
+                    android:id="@+id/anime_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_8dp"
+                    android:layout_marginBottom="@dimen/spacing_10dp"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                    tools:text="Status: In Progress" />
+
             </LinearLayout>
 
         </LinearLayout>
