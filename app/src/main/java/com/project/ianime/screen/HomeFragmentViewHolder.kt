@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.project.ianime.R
 import com.project.ianime.databinding.FragmentHomeBinding
 import com.project.ianime.root.FragmentViewHolder
 
@@ -29,10 +28,6 @@ class HomeFragmentViewHolder : FragmentViewHolder() {
         bottomNavigationView = binding.bottomNavigationView
         addAnimeButton = binding.buttonAddAnime
         return binding.root
-    }
-
-    override fun getContainerViewId(): Int {
-        return R.id.fragment_container
     }
 
 }

@@ -9,7 +9,6 @@ import android.widget.ImageView
 import androidx.appcompat.widget.Toolbar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputLayout
-import com.project.ianime.R
 import com.project.ianime.databinding.FragmentManageAnimeBinding
 import com.project.ianime.root.FragmentViewHolder
 
@@ -47,9 +46,5 @@ class ManageAnimeViewHolder: FragmentViewHolder() {
         animeStatus = binding.manageStatus
         saveButton = binding.buttonSave
         return binding.root
-    }
-
-    override fun getContainerViewId(): Int {
-        return R.id.container
     }
 }

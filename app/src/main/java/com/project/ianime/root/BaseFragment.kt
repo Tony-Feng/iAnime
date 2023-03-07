@@ -51,13 +51,14 @@ abstract class BaseFragment<VH: FragmentViewHolder>(val viewHolder: VH): Fragmen
         navigationManagerLifecycle.onCreate()
         super.onCreate(savedInstanceState)
     }
-    override fun onDestroy() {
-        navigationManagerLifecycle.onDestroy()
-        super.onDestroy()
-    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         updateActionBar()
+    }
+
+    override fun onDestroy() {
+        navigationManagerLifecycle.onDestroy()
+        super.onDestroy()
     }
     constructor(vhClass: Class<VH>): this(ViewHolder.createViewHolder(vhClass))
 }

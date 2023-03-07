@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.project.ianime.R
 import com.project.ianime.databinding.FragmentGalleryBinding
 import com.project.ianime.root.FragmentViewHolder
 
@@ -23,10 +22,6 @@ class GalleryViewHolder: FragmentViewHolder() {
         animeCardList = binding.animeList
 
         return binding.root
-    }
-
-    override fun getContainerViewId(): Int {
-        return R.id.fragment_container
     }
 
 }

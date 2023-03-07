@@ -38,8 +38,4 @@ class AnimeViewHolder: FragmentViewHolder() {
         animeIntro = binding.animeIntro
         return binding.root
     }
-
-    override fun getContainerViewId(): Int {
-        TODO("Not yet implemented")
-    }
 }
