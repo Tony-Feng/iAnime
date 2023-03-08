@@ -5,9 +5,9 @@ import android.view.View
 import com.project.ianime.R
 import com.project.ianime.root.BaseFragment
 
-class HomeFragment : BaseFragment<HomeFragmentViewHolder>(HomeFragmentViewHolder::class.java) {
+class HomeFragment : BaseFragment<HomeFragmentUiState>(HomeFragmentUiState::class.java) {
     override fun updateActionBar(): Boolean {
-        actionBarService.setTitle(getString(R.string.app_name), viewHolder.toolbar)
+        actionBarService.setTitle(getString(R.string.app_name), uiState.toolbar)
         return true
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -15,39 +15,38 @@ class HomeFragment : BaseFragment<HomeFragmentViewHolder>(HomeFragmentViewHolder
         // Launch Main Screen
         navigateToMainScreen()
 
-        viewHolder.bottomNavigationView.setOnItemSelectedListener {
+        uiState.bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.home_screen -> {
-                    navigationManager.showFragmentOverTop(
+                    appNavigation.showFragmentOverTop(
                         GalleryFragment.newInstance(),
-                        viewHolder.getContainerViewId()
+                        uiState.getContainerViewId()
                     )
                     return@setOnItemSelectedListener true
                 }
                 R.id.user_screen -> {
-                    navigationManager.showFragmentOverTop(
+                    appNavigation.showFragmentOverTop(
                         UserFragment.newInstance(),
-                        viewHolder.getContainerViewId()
+                        uiState.getContainerViewId()
                     )
                     return@setOnItemSelectedListener true
                 }
             }
             false
         }
-        viewHolder.addAnimeButton.setOnClickListener {
+        uiState.addAnimeButton.setOnClickListener {
             navigateToAddScreen()
         }
     }
     private fun navigateToMainScreen(){
-        navigationManager.showFragmentReplaceTop(GalleryFragment.newInstance(), viewHolder.getContainerViewId())
+        appNavigation.showFragmentReplaceTop(GalleryFragment.newInstance(), uiState.getContainerViewId())
     }
 
     private fun navigateToAddScreen() {
-        navigationManager.showFragmentReplaceTop(AddAnimeFragment.newInstance(), baseContainerId)
+        appNavigation.showFragmentReplaceTop(AddAnimeFragment.newInstance(), baseContainerId)
     }
 
     companion object {
         fun newInstance() = HomeFragment()
     }
-
 }

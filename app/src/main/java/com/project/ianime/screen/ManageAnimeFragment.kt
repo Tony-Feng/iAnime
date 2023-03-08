@@ -11,26 +11,24 @@ import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import com.project.ianime.root.BaseFragment
-import com.project.ianime.screen.viewholder.ManageAnimeViewHolder
+import com.project.ianime.screen.stateholder.ManageAnimeUiState
 import com.project.ianime.utils.image.ImageStub
 import com.project.ianime.widget.setShowProgress
 import java.io.IOException
 
-
-abstract class ManageAnimeFragment :
-    BaseFragment<ManageAnimeViewHolder>(ManageAnimeViewHolder::class.java) {
+abstract class ManageAnimeFragment : BaseFragment<ManageAnimeUiState>(ManageAnimeUiState::class.java) {
 
     private val imageStub = ImageStub()
     private lateinit var selectedImageBitmap: Bitmap
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewHolder.addProfileButton.setOnClickListener {
+        uiState.addProfileButton.setOnClickListener {
             openGallery()
         }
 
-        viewHolder.saveButton.setOnClickListener {
-            viewHolder.saveButton.setShowProgress(true)
+        uiState.saveButton.setOnClickListener {
+            uiState.saveButton.setShowProgress(true)
 //            saveAnime()
         }
     }
@@ -57,7 +55,7 @@ abstract class ManageAnimeFragment :
                         selectedImageUri
                     )
                     try {
-                        viewHolder.profilePreview.setImageURI(selectedImageUri)
+                        uiState.profilePreview.setImageURI(selectedImageUri)
                         // Used for debug purpose
                         Log.i(IMAGE_BMP, "Bitmap is: " + selectedImageBitmap)
                     } catch (e: IOException) {

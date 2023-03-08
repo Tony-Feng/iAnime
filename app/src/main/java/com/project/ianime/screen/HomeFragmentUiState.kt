@@ -8,9 +8,9 @@ import androidx.appcompat.widget.Toolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.project.ianime.databinding.FragmentHomeBinding
-import com.project.ianime.root.FragmentViewHolder
+import com.project.ianime.root.FragmentUiState
 
-class HomeFragmentViewHolder : FragmentViewHolder() {
+class HomeFragmentUiState : FragmentUiState() {
 
     lateinit var toolbar: Toolbar
     lateinit var bottomNavigationView: BottomNavigationView
@@ -30,4 +30,7 @@ class HomeFragmentViewHolder : FragmentViewHolder() {
         return binding.root
     }
 
+    override fun onDestroyView() {
+        _binding = null
+    }
 }

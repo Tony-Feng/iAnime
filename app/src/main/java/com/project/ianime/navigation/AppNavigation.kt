@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
  *  Is responsible for handling navigation between fragments.
  */
 
-interface NavigationManager {
+interface AppNavigation {
 
     /**
      * Replaces the active fragment and shows [fragment] on top, previous fragment cannot show with navigate back
@@ -25,10 +25,10 @@ interface NavigationManager {
     fun showFragmentOverTop(fragment: Fragment, containerId: Int)
 
     /**
-     * Closes top fragment
+     * Closes top fragment and navigates back to previous fragment
      *
      * @return 'true' - if top fragment is closed. 'false' - if no closable fragment exists
      */
-    fun closeTop(): Boolean
+    fun navigateBack(): Boolean
 
 }

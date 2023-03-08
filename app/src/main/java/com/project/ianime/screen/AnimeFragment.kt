@@ -8,14 +8,14 @@ import android.view.View
 import com.project.ianime.R
 import com.project.ianime.root.BaseContainerActivity
 import com.project.ianime.root.BaseFragment
-import com.project.ianime.screen.viewholder.AnimeViewHolder
+import com.project.ianime.screen.stateholder.AnimeUiState
 import com.project.ianime.utils.updateLanguageSetting
 
-class AnimeFragment : BaseFragment<AnimeViewHolder>(AnimeViewHolder::class.java) {
+class AnimeFragment : BaseFragment<AnimeUiState>(AnimeUiState::class.java) {
     override fun updateActionBar(): Boolean {
         //TODO: Update to each anime name
-        actionBarService.setTitle(getString(R.string.app_name), viewHolder.toolbar)
-        actionBarService.setNavigateBackAction(viewHolder.toolbar, this)
+        actionBarService.setTitle(getString(R.string.app_name), uiState.toolbar)
+        actionBarService.setNavigateBackAction(uiState.toolbar, this)
         return true
     }
 
@@ -26,13 +26,13 @@ class AnimeFragment : BaseFragment<AnimeViewHolder>(AnimeViewHolder::class.java)
     }
     //TODO: Update using Get API
     private fun getAnimeDetails(){
-        viewHolder.animeProfile.setImageResource(R.drawable.ic_gallery)
-        viewHolder.animeName.text = "Throne of Seal"
-        viewHolder.animeCountry.text = getString(R.string.anime_country_title, "China")
-        viewHolder.animeType.text = getString(R.string.anime_type_title, "God")
-        viewHolder.animePublishedYear.text = getString(R.string.anime_year_title, "2021")
-        viewHolder.animeStatus.text = getString(R.string.anime_status_title, "In Progress")
-        viewHolder.animeIntro.text = "A boy on his own way to fight"
+        uiState.animeProfile.setImageResource(R.drawable.ic_gallery)
+        uiState.animeName.text = "Throne of Seal"
+        uiState.animeCountry.text = getString(R.string.anime_country_title, "China")
+        uiState.animeType.text = getString(R.string.anime_type_title, "God")
+        uiState.animePublishedYear.text = getString(R.string.anime_year_title, "2021")
+        uiState.animeStatus.text = getString(R.string.anime_status_title, "In Progress")
+        uiState.animeIntro.text = "A boy on his own way to fight"
 
     }
 
@@ -45,7 +45,7 @@ class AnimeFragment : BaseFragment<AnimeViewHolder>(AnimeViewHolder::class.java)
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.edit_anime -> {
-                navigationManager.showFragmentOverTop(
+                appNavigation.showFragmentOverTop(
                     EditAnimeFragment.newInstance(),
                     baseContainerId
                 )

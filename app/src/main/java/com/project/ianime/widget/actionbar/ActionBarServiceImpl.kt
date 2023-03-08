@@ -1,4 +1,4 @@
-package com.project.ianime.actionbar
+package com.project.ianime.widget.actionbar
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -16,7 +16,7 @@ class ActionBarServiceImpl(private val activity: AppCompatActivity): ActionBarSe
     override fun setNavigateBackAction(toolbar: Toolbar, activeFragment: BaseFragment<*>) {
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
         toolbar.setNavigationOnClickListener {
-            activeFragment.navigationManager.closeTop()
+            activeFragment.appNavigation.navigateBack()
         }
     }
 }

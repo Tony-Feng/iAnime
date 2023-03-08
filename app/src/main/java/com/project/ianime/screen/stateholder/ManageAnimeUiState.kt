@@ -1,4 +1,4 @@
-package com.project.ianime.screen.viewholder
+package com.project.ianime.screen.stateholder
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,9 +10,9 @@ import androidx.appcompat.widget.Toolbar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputLayout
 import com.project.ianime.databinding.FragmentManageAnimeBinding
-import com.project.ianime.root.FragmentViewHolder
+import com.project.ianime.root.FragmentUiState
 
-class ManageAnimeViewHolder: FragmentViewHolder() {
+class ManageAnimeUiState: FragmentUiState() {
     private var _binding: FragmentManageAnimeBinding? = null
     val binding get()= _binding!!
     lateinit var toolbar: Toolbar
@@ -46,5 +46,9 @@ class ManageAnimeViewHolder: FragmentViewHolder() {
         animeStatus = binding.manageStatus
         saveButton = binding.buttonSave
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        _binding = null
     }
 }

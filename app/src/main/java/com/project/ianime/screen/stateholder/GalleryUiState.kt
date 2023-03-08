@@ -1,14 +1,16 @@
-package com.project.ianime.screen.viewholder
+package com.project.ianime.screen.stateholder
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.project.ianime.databinding.FragmentGalleryBinding
-import com.project.ianime.root.FragmentViewHolder
+import com.project.ianime.root.FragmentUiState
 
-class GalleryViewHolder: FragmentViewHolder() {
+class GalleryUiState: FragmentUiState() {
     private var _binding: FragmentGalleryBinding? = null
     val binding get()= _binding!!
     lateinit var animeCardList: RecyclerView
@@ -22,6 +24,10 @@ class GalleryViewHolder: FragmentViewHolder() {
         animeCardList = binding.animeList
 
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        _binding = null
     }
 
 }

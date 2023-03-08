@@ -7,16 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.project.ianime.actionbar.ActionBarService
-import com.project.ianime.actionbar.ActionBarServiceImpl
-import com.project.ianime.navigation.NavigationManager
-import com.project.ianime.navigation.NavigationManagerImpl
-import com.project.ianime.navigation.NavigationManagerLifecycle
+import com.project.ianime.widget.actionbar.ActionBarService
+import com.project.ianime.widget.actionbar.ActionBarServiceImpl
+import com.project.ianime.navigation.AppNavigation
+import com.project.ianime.navigation.AppNavigationImpl
+import com.project.ianime.navigation.AppNavigationLifecycle
 
-abstract class BaseFragment<VH: FragmentViewHolder>(val viewHolder: VH): Fragment() {
+abstract class BaseFragment<US: FragmentUiState>(val uiState: US): Fragment() {
 
-    lateinit var navigationManager: NavigationManager
-    private lateinit var navigationManagerLifecycle: NavigationManagerLifecycle
+    lateinit var appNavigation: AppNavigation
+    private lateinit var navigationLifeCycle: AppNavigationLifecycle
     val actionBarService: ActionBarService
         get() {
             return ActionBarServiceImpl(
@@ -29,15 +29,20 @@ abstract class BaseFragment<VH: FragmentViewHolder>(val viewHolder: VH): Fragmen
             return baseContainerActivity.containerViewHolder.getContainerViewId()
         }
     override fun onAttach(context: Context) {
-        val navigationManagerImpl = NavigationManagerImpl(
+        val navigationManagerImpl = AppNavigationImpl(
             requireActivity().supportFragmentManager
         )
-        navigationManager = navigationManagerImpl
-        navigationManagerLifecycle = navigationManagerImpl
+        appNavigation = navigationManagerImpl
+        navigationLifeCycle = navigationManagerImpl
         super.onAttach(context)
     }
+    // Set Fragment Action Bar
     open fun updateActionBar(): Boolean{
         return false
+    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        navigationLifeCycle.onCreate()
+        super.onCreate(savedInstanceState)
     }
     final override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,20 +50,19 @@ abstract class BaseFragment<VH: FragmentViewHolder>(val viewHolder: VH): Fragmen
         savedInstanceState: Bundle?
     ): View? {
         setHasOptionsMenu(true)
-        return viewHolder.onCreateView(inflater, container, savedInstanceState)
-    }
-    override fun onCreate(savedInstanceState: Bundle?) {
-        navigationManagerLifecycle.onCreate()
-        super.onCreate(savedInstanceState)
+        return uiState.onCreateView(inflater, container, savedInstanceState)
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         updateActionBar()
     }
-
+    final override fun onDestroyView() {
+        super.onDestroyView()
+        uiState.onDestroyView()
+    }
     override fun onDestroy() {
-        navigationManagerLifecycle.onDestroy()
+        navigationLifeCycle.onDestroy()
         super.onDestroy()
     }
-    constructor(vhClass: Class<VH>): this(ViewHolder.createViewHolder(vhClass))
+    constructor(vhClass: Class<US>): this(ViewHolder.createViewHolder(vhClass))
 }

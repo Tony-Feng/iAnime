@@ -1,13 +1,13 @@
-package com.project.ianime.screen.viewholder
+package com.project.ianime.screen.stateholder
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.project.ianime.databinding.FragmentUserBinding
-import com.project.ianime.root.FragmentViewHolder
+import com.project.ianime.root.FragmentUiState
 
-class UserViewHolder: FragmentViewHolder() {
+class UserUiState: FragmentUiState() {
     private var _binding: FragmentUserBinding? = null
     val binding get()= _binding!!
 
@@ -17,8 +17,11 @@ class UserViewHolder: FragmentViewHolder() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentUserBinding.inflate(inflater, container, false)
-
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        _binding = null
     }
 
 }

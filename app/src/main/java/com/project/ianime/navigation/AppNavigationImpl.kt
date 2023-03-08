@@ -5,9 +5,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.project.ianime.root.BaseFragment
 
-class NavigationManagerImpl(
+class AppNavigationImpl(
     private val fragmentManager: FragmentManager
-) : NavigationManager, NavigationManagerLifecycle {
+) : AppNavigation, AppNavigationLifecycle {
 
     private val fragmentStack = ArrayList<BaseFragment<*>>()
     private val activeFragmentStack = ArrayList<BaseFragment<*>>()
@@ -63,7 +63,7 @@ class NavigationManagerImpl(
             .commit()
     }
     //TODO 2022-02-21: from add screen return back to user screen
-    override fun closeTop(): Boolean {
+    override fun navigateBack(): Boolean {
         if (fragmentManager.backStackEntryCount < 1) {
             return false
         }

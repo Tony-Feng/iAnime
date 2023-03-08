@@ -5,15 +5,15 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.project.ianime.R
-import com.project.ianime.navigation.NavigationManagerImpl
-import com.project.ianime.navigation.NavigationManagerLifecycle
+import com.project.ianime.navigation.AppNavigationImpl
+import com.project.ianime.navigation.AppNavigationLifecycle
 import com.project.ianime.utils.updateLanguageSetting
 
 abstract class BaseContainerActivity<VH: ViewHolder>(containerViewHolder: VH): AppCompatActivity(){
     val containerViewHolder = containerViewHolder
-    private val navigationManagerLifecycle: NavigationManagerLifecycle
+    private val navigationManagerLifecycle: AppNavigationLifecycle
         get() {
-            return NavigationManagerImpl(supportFragmentManager)
+            return AppNavigationImpl(supportFragmentManager)
         }
     constructor(vhClass: Class<VH>): this(ViewHolder.createViewHolder(vhClass))
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

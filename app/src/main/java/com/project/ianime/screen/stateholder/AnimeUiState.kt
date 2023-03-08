@@ -1,4 +1,4 @@
-package com.project.ianime.screen.viewholder
+package com.project.ianime.screen.stateholder
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,9 +8,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import com.project.ianime.databinding.FragmentAnimeBinding
-import com.project.ianime.root.FragmentViewHolder
+import com.project.ianime.root.FragmentUiState
 
-class AnimeViewHolder: FragmentViewHolder() {
+class AnimeUiState: FragmentUiState() {
     private var _binding: FragmentAnimeBinding? = null
     val binding get()= _binding!!
     lateinit var toolbar: Toolbar
@@ -26,7 +26,7 @@ class AnimeViewHolder: FragmentViewHolder() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentAnimeBinding.inflate(inflater, container, false)
         toolbar = binding.topAppBar.toolBar
         animeProfile = binding.animeProfile
@@ -37,5 +37,9 @@ class AnimeViewHolder: FragmentViewHolder() {
         animeStatus = binding.animeStatus
         animeIntro = binding.animeIntro
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        _binding = null
     }
 }
