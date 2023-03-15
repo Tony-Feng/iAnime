@@ -47,4 +47,9 @@
         <item>In Progress</item>
     </string-array>
     <string name="save_button_text">Save</string>
+
+    <!-- Exit before Dialog  -->
+    <string name="exit_dialog_message">Are you sure you want to exit before saving?</string>
+    <string name="positive_button_label">Cancel</string>
+    <string name="negative_button_label">Confirm</string>
 </resources>

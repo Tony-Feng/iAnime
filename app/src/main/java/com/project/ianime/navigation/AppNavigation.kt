@@ -25,10 +25,17 @@ interface AppNavigation {
     fun showFragmentOverTop(fragment: Fragment, containerId: Int)
 
     /**
-     * Closes top fragment and navigates back to previous fragment
+     * Closes top fragment and navigates back to previous fragment while checking if fragment satisfies navigate back condition
      *
      * @return 'true' - if top fragment is closed. 'false' - if no closable fragment exists
      */
     fun navigateBack(): Boolean
+
+    /**
+     * Closes top fragment and navigates back to previous fragment
+     *
+     * @return 'true' - if top fragment is closed. 'false' - if no closable fragment exists
+     */
+    fun closeTopFragment(): Boolean
 
 }

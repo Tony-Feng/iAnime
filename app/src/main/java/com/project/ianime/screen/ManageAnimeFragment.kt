@@ -13,7 +13,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.project.ianime.root.BaseFragment
 import com.project.ianime.screen.stateholder.ManageAnimeUiState
 import com.project.ianime.utils.image.ImageStub
-import com.project.ianime.widget.setShowProgress
+import com.project.ianime.utils.showExitBeforeDialog
 import java.io.IOException
 
 abstract class ManageAnimeFragment : BaseFragment<ManageAnimeUiState>(ManageAnimeUiState::class.java) {
@@ -23,17 +23,31 @@ abstract class ManageAnimeFragment : BaseFragment<ManageAnimeUiState>(ManageAnim
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        init()
         uiState.addProfileButton.setOnClickListener {
             openGallery()
         }
 
         uiState.saveButton.setOnClickListener {
-            uiState.saveButton.setShowProgress(true)
+            uiState.startLoadingState()
 //            saveAnime()
         }
     }
 
     abstract fun saveAnime()
+
+    private fun init(){
+        uiState.saveButton.isEnabled = false
+    }
+
+    override fun navigateBack(): Boolean {
+        return if (uiState.navigateBackState()) {
+            appNavigation.closeTopFragment()
+        } else {
+            showExitBeforeDialog(requireContext(), appNavigation)
+            true
+        }
+    }
 
     private fun openGallery() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)

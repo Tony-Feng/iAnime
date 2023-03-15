@@ -62,8 +62,22 @@ class AppNavigationImpl(
             .addToBackStack(null)
             .commit()
     }
-    //TODO 2022-02-21: from add screen return back to user screen
+
     override fun navigateBack(): Boolean {
+        // Implemented for exit before dialog
+        val topFragment = getTopActiveFragment() ?: return false
+        if (topFragment.navigateBack()){
+            return true
+        }
+
+        if (fragmentManager.backStackEntryCount < 1) {
+            return false
+        }
+        fragmentManager.popBackStack()
+        return true
+    }
+
+    override fun closeTopFragment(): Boolean {
         if (fragmentManager.backStackEntryCount < 1) {
             return false
         }

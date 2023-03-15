@@ -40,6 +40,12 @@ abstract class BaseFragment<US: FragmentUiState>(val uiState: US): Fragment() {
     open fun updateActionBar(): Boolean{
         return false
     }
+
+    // Set fragment navigate back behavior
+    open fun navigateBack(): Boolean{
+        return false
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         navigationLifeCycle.onCreate()
         super.onCreate(savedInstanceState)
