@@ -1,4 +1,4 @@
-package com.project.ianime.screen
+package com.project.ianime.screen.stateholder
 
 import android.os.Bundle
 import android.view.LayoutInflater

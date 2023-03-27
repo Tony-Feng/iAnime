@@ -49,7 +49,7 @@
     <string name="save_button_text">保存</string>
 
     <!-- Exit before Dialog  -->
-    <string name="exit_dialog_message">确认直接退出吗?</string>
+    <string name="exit_dialog_message">确认直接退出吗？</string>
     <string name="positive_button_label">取消</string>
     <string name="negative_button_label">确认</string>
 </resources>
