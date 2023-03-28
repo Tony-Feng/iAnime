@@ -8,11 +8,10 @@ import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.widget.Toolbar
 import com.google.android.material.button.MaterialButton
-import com.google.android.material.textfield.TextInputLayout
 import com.project.ianime.databinding.FragmentManageAnimeBinding
 import com.project.ianime.root.FragmentUiState
+import com.project.ianime.widget.AnimeEditText
 import com.project.ianime.widget.setShowProgress
-import com.project.ianime.widget.setTextChangeListener
 import io.reactivex.rxjava3.core.Observable
 
 class ManageAnimeUiState : FragmentUiState() {
@@ -21,15 +20,17 @@ class ManageAnimeUiState : FragmentUiState() {
     lateinit var toolbar: Toolbar
     lateinit var addProfileButton: Button
     lateinit var profilePreview: ImageView
-    lateinit var animeChineseName: TextInputLayout
-    lateinit var animeEnglishName: TextInputLayout
-    lateinit var animeRate: TextInputLayout
-    lateinit var animeYear: TextInputLayout
-    lateinit var animeDescription: TextInputLayout
-    lateinit var animeCountry: TextInputLayout
-    lateinit var animeType: TextInputLayout
-    lateinit var animeStatus: TextInputLayout
+    lateinit var animeChineseName: AnimeEditText
+    lateinit var animeEnglishName: AnimeEditText
+    lateinit var animeRate: AnimeEditText
+    lateinit var animeYear: AnimeEditText
+    lateinit var animeDescription: AnimeEditText
+    lateinit var animeCountry: AnimeEditText
+    lateinit var animeType: AnimeEditText
+    lateinit var animeStatus: AnimeEditText
     lateinit var saveButton: MaterialButton
+    var pictureSelectedState: Boolean = false
+    var formEnteredState: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,7 +52,6 @@ class ManageAnimeUiState : FragmentUiState() {
         animeStatus = binding.manageStatus
         saveButton = binding.buttonSave
 
-        //TODO 2023-03-15: Add change listener for image
         Observable.combineLatest(
             listOf(
                 animeChineseName.setTextChangeListener(),
@@ -69,13 +69,21 @@ class ManageAnimeUiState : FragmentUiState() {
                     return@combineLatest false
                 }
             }
+
             return@combineLatest true
         }
             .distinctUntilChanged { _, current -> current == saveButton.isEnabled }
-            .subscribe { saveButton.isEnabled = true }
+            .subscribe { isValid ->
+                formEnteredState = isValid
+                activateSaveButton()
+            }
             .also { compositeDisposable.add(it) }
 
         return binding.root
+    }
+
+    fun activateSaveButton(){
+        saveButton.isEnabled = formEnteredState && pictureSelectedState
     }
 
     fun navigateBackState(): Boolean {

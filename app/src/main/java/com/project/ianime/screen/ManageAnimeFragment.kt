@@ -70,6 +70,8 @@ abstract class ManageAnimeFragment : BaseFragment<ManageAnimeUiState>(ManageAnim
                     )
                     try {
                         uiState.profilePreview.setImageURI(selectedImageUri)
+                        uiState.pictureSelectedState = true
+                        uiState.activateSaveButton()
                         // Used for debug purpose
                         Log.i(IMAGE_BMP, "Bitmap is: " + selectedImageBitmap)
                     } catch (e: IOException) {
