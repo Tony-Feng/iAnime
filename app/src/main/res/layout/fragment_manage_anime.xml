@@ -38,6 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_16dp"
+            android:layout_marginBottom="@dimen/spacing_4dp"
             android:orientation="horizontal">
 
             <com.project.ianime.widget.AnimeEditText
@@ -51,6 +52,7 @@
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/customErrorEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </com.project.ianime.widget.AnimeEditText>
@@ -75,6 +77,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_4dp"
+            android:layout_marginBottom="@dimen/spacing_4dp"
             android:orientation="horizontal">
 
             <com.project.ianime.widget.AnimeEditText
@@ -112,6 +115,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_4dp"
+            android:layout_marginBottom="@dimen/spacing_4dp"
             android:orientation="horizontal">
 
             <androidx.constraintlayout.widget.ConstraintLayout

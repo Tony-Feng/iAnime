@@ -69,7 +69,6 @@ class ManageAnimeUiState : FragmentUiState() {
                     return@combineLatest false
                 }
             }
-
             return@combineLatest true
         }
             .distinctUntilChanged { _, current -> current == saveButton.isEnabled }

@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import androidx.core.widget.addTextChangedListener
 import com.google.android.material.textfield.TextInputLayout
+import com.project.ianime.R
 import io.reactivex.rxjava3.core.Observable
 
 
@@ -33,7 +34,16 @@ class AnimeEditText : TextInputLayout {
         if (optional && text == ""){
             return true
         }
-        //TODO: Handle required cases
-        return true
+        return validateIsRequired(text)
+    }
+
+    private fun validateIsRequired(input: String): Boolean{
+        return if (input.isEmpty()){
+            error = resources.getString(R.string.required_warning_msg)
+            false
+        } else{
+            error = null
+            true
+        }
     }
 }

@@ -47,6 +47,7 @@
         <item>更新</item>
     </string-array>
     <string name="save_button_text">保存</string>
+    <string name="required_warning_msg">细节不可为空</string>
 
     <!-- Exit before Dialog  -->
     <string name="exit_dialog_message">确认直接退出吗？</string>
