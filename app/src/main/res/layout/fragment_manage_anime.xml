@@ -128,7 +128,8 @@
                     app:layout_constraintEnd_toStartOf="@+id/manage_country"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintHorizontal_chainStyle="spread"
-                    app:layout_constraintStart_toStartOf="parent">
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -145,7 +146,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintHorizontal_chainStyle="spread"
-                    app:layout_constraintStart_toEndOf="@+id/manage_description">
+                    app:layout_constraintStart_toEndOf="@+id/manage_description"
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <AutoCompleteTextView
                         android:layout_width="match_parent"

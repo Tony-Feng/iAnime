@@ -12,7 +12,8 @@ class AnimeEditText : TextInputLayout {
     private val text: String
         get() = editText?.text.toString()
 
-    constructor(context: Context, attrs: AttributeSet?): this(context, attrs, -1)
+    constructor(context: Context): super(context)
+    constructor(context: Context, attrs: AttributeSet?): super(context, attrs)
     constructor(context: Context, attributeSet: AttributeSet?, defStyleAttr: Int): super(
         context,
         attributeSet,
