@@ -5,6 +5,8 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import com.project.ianime.HomeActivity.Companion.SETTING_CHINESE
+import com.project.ianime.HomeActivity.Companion.SETTING_ENGLISH
 import com.project.ianime.R
 import com.project.ianime.root.BaseContainerActivity
 import com.project.ianime.root.BaseFragment
@@ -52,11 +54,11 @@ class AnimeFragment : BaseFragment<AnimeUiState>(AnimeUiState::class.java) {
                 true
             }
             R.id.setting_chinese_language -> {
-                updateLanguageSetting(requireContext(), BaseContainerActivity.SETTING_CHINESE)
+                updateLanguageSetting(requireContext(), SETTING_CHINESE)
                 true
             }
             R.id.setting_english_language -> {
-                updateLanguageSetting(requireContext(), BaseContainerActivity.SETTING_ENGLISH)
+                updateLanguageSetting(requireContext(), SETTING_ENGLISH)
                 true
             }
             else -> super.onOptionsItemSelected(item)

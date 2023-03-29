@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import com.project.ianime.R
 import com.project.ianime.root.BaseFragment
+import com.project.ianime.screen.stateholder.HomeFragmentUiState
 
 class HomeFragment : BaseFragment<HomeFragmentUiState>(HomeFragmentUiState::class.java) {
     override fun updateActionBar(): Boolean {
