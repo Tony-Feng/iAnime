@@ -5,13 +5,13 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import com.project.ianime.root.BaseContainerActivity
-import com.project.ianime.screen.HomeFragment
+import com.project.ianime.screens.HomeFragment
 import com.project.ianime.utils.updateLanguageSetting
 
 /**
  * HomeActivity is the start of the App
  */
-class HomeActivity : BaseContainerActivity<HomeContainerViewHolder>(HomeContainerViewHolder::class.java) {
+class HomeActivity : BaseContainerActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,7 +21,7 @@ class HomeActivity : BaseContainerActivity<HomeContainerViewHolder>(HomeContaine
 
     private fun navigateToHome(){
         supportFragmentManager.beginTransaction()
-            .replace(containerViewHolder.getContainerViewId(), HomeFragment.newInstance())
+            .replace(containerViewHolderId, HomeFragment.newInstance())
             .addToBackStack(null)
             .commit()
     }

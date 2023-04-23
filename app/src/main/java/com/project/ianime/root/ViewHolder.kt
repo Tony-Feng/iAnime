@@ -4,6 +4,9 @@ import androidx.annotation.IdRes
 import com.project.ianime.R
 import java.lang.reflect.Constructor
 
+/**
+ * Deprecated class for abandon using ViewHolder pattern
+ */
 abstract class ViewHolder{
     /**
      * return the UI reference id of base container

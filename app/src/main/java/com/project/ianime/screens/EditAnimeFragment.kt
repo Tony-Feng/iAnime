@@ -1,10 +1,10 @@
-package com.project.ianime.screen
+package com.project.ianime.screens
 
 import com.project.ianime.R
 class EditAnimeFragment: ManageAnimeFragment() {
     override fun updateActionBar(): Boolean {
-        actionBarService.setTitle(getString(R.string.edit_anime_title), uiState.toolbar)
-        actionBarService.setNavigateBackAction(uiState.toolbar, this)
+        actionBarService.setTitle(getString(R.string.edit_anime_title), toolbar)
+        actionBarService.setNavigateBackAction(toolbar, this)
         return true
     }
 

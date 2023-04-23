@@ -1,22 +1,37 @@
-package com.project.ianime.screen.stateholder
+package com.project.ianime.screens
 
+import android.app.Activity
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.Toolbar
 import com.google.android.material.button.MaterialButton
 import com.project.ianime.databinding.FragmentManageAnimeBinding
-import com.project.ianime.root.FragmentUiState
+import com.project.ianime.root.BaseFragment
+import com.project.ianime.utils.image.ImageStub
+import com.project.ianime.utils.showExitBeforeDialog
 import com.project.ianime.widget.AnimeEditText
 import com.project.ianime.widget.setShowProgress
 import io.reactivex.rxjava3.core.Observable
+import java.io.IOException
 
-class ManageAnimeUiState : FragmentUiState() {
+abstract class ManageAnimeFragment : BaseFragment() {
+
+    private val imageStub = ImageStub()
+    private lateinit var selectedImageBitmap: Bitmap
+
     private var _binding: FragmentManageAnimeBinding? = null
-    val binding get() = _binding!!
+    private val binding get() = _binding!!
     lateinit var toolbar: Toolbar
     lateinit var addProfileButton: Button
     lateinit var profilePreview: ImageView
@@ -74,6 +89,7 @@ class ManageAnimeUiState : FragmentUiState() {
             .distinctUntilChanged { _, current -> current == saveButton.isEnabled }
             .subscribe { isValid ->
                 formEnteredState = isValid
+//                saveButton.isEnabled = saveButtonEnabledState
                 activateSaveButton()
             }
             .also { compositeDisposable.add(it) }
@@ -81,24 +97,91 @@ class ManageAnimeUiState : FragmentUiState() {
         return binding.root
     }
 
-    fun activateSaveButton(){
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        init()
+        addProfileButton.setOnClickListener {
+            openGallery()
+        }
+
+        saveButton.setOnClickListener {
+            startLoadingState()
+//            saveAnime()
+        }
+    }
+
+    private fun init(){
+        saveButton.isEnabled = false
+    }
+
+    override fun navigateBack(): Boolean {
+        return if (canNavigateBackState()) {
+            appNavigation.closeTopFragment()
+        } else {
+            showExitBeforeDialog(requireContext(), appNavigation)
+            true
+        }
+    }
+
+    abstract fun saveAnime()
+
+    private fun activateSaveButton(){
         saveButton.isEnabled = formEnteredState && pictureSelectedState
     }
 
-    fun navigateBackState(): Boolean {
+    private fun canNavigateBackState(): Boolean {
         return !saveButton.isEnabled
     }
 
-    fun startLoadingState() {
+    private fun startLoadingState() {
         saveButton.setShowProgress(true)
     }
 
-    fun stopLoadingState() {
+    private fun stopLoadingState() {
         saveButton.setShowProgress(false)
     }
 
+    private fun openGallery() {
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        try {
+            uploadProfileActivity.launch(intent)
+        } catch (e: ActivityNotFoundException) {
+            e.printStackTrace()
+        }
+    }
+
+    private val uploadProfileActivity =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data = result.data
+                if (data != null && data.data != null) {
+                    val selectedImageUri: Uri? = data.data
+                    selectedImageBitmap = MediaStore.Images.Media.getBitmap(
+                        requireActivity().contentResolver,
+                        selectedImageUri
+                    )
+                    try {
+                        profilePreview.setImageURI(selectedImageUri)
+                        pictureSelectedState = true
+//                        saveButton.isEnabled = saveButtonEnabledState
+                        activateSaveButton()
+                        // Used for debug purpose
+                        Log.i(IMAGE_BMP, "Bitmap is: " + selectedImageBitmap)
+                    } catch (e: IOException) {
+                        e.printStackTrace()
+                    }
+                }
+            }
+        }
+
     override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
         compositeDisposable.clear()
+    }
+
+    companion object{
+        const val IMAGE_BMP = "image_bmp"
     }
 }

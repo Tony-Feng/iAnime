@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.project.ianime.R
-import com.project.ianime.model.AnimeItemUiState
+import com.project.ianime.viewmodels.AnimeItemUiState
 
 class AnimeItemAdapter(
     private val clickHandler: (AnimeItemUiState) -> Unit

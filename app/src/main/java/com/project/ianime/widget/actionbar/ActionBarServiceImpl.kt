@@ -13,7 +13,7 @@ class ActionBarServiceImpl(private val activity: AppCompatActivity): ActionBarSe
         actionBar.title = title
     }
 
-    override fun setNavigateBackAction(toolbar: Toolbar, activeFragment: BaseFragment<*>) {
+    override fun setNavigateBackAction(toolbar: Toolbar, activeFragment: BaseFragment) {
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
         toolbar.setNavigationOnClickListener {
             activeFragment.appNavigation.navigateBack()

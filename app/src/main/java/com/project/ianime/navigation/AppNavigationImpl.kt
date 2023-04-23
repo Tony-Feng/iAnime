@@ -9,35 +9,35 @@ class AppNavigationImpl(
     private val fragmentManager: FragmentManager
 ) : AppNavigation, AppNavigationLifecycle {
 
-    private val fragmentStack = ArrayList<BaseFragment<*>>()
-    private val activeFragmentStack = ArrayList<BaseFragment<*>>()
+    private val fragmentStack = ArrayList<BaseFragment>()
+    private val activeFragmentStack = ArrayList<BaseFragment>()
     private val fragmentLifeCycleListener = object : FragmentManager.FragmentLifecycleCallbacks() {
         override fun onFragmentAttached(fm: FragmentManager, f: Fragment, context: Context) {
-            if (f is BaseFragment<*>) {
+            if (f is BaseFragment) {
                 fragmentStack.add(f)
             }
         }
 
         override fun onFragmentDetached(fm: FragmentManager, f: Fragment) {
-            if (f is BaseFragment<*>) {
+            if (f is BaseFragment) {
                 fragmentStack.remove(f)
             }
         }
 
         override fun onFragmentStarted(fm: FragmentManager, f: Fragment) {
-            if (f is BaseFragment<*>) {
+            if (f is BaseFragment) {
                 activeFragmentStack.add(f)
             }
         }
 
         override fun onFragmentStopped(fm: FragmentManager, f: Fragment) {
-            if (f is BaseFragment<*>) {
+            if (f is BaseFragment) {
                 activeFragmentStack.remove(f)
             }
         }
     }
 
-    private fun getTopActiveFragment(): BaseFragment<*>? {
+    private fun getTopActiveFragment(): BaseFragment? {
         val activeCount = activeFragmentStack.size
         if (activeCount == 0) {
             return null

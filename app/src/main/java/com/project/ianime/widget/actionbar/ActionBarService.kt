@@ -19,5 +19,5 @@ interface ActionBarService {
      * @param [toolbar] - Appbar reference
      * @param [activeFragment] - Current Fragment to show
      */
-    fun setNavigateBackAction(toolbar: Toolbar, activeFragment: BaseFragment<*>)
+    fun setNavigateBackAction(toolbar: Toolbar, activeFragment: BaseFragment)
 }

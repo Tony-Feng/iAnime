@@ -1,17 +1,17 @@
-package com.project.ianime.screen
+package com.project.ianime.screens
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import com.project.ianime.R
-import com.project.ianime.screen.viewmodel.AddAnimeViewModel
+import com.project.ianime.viewmodels.AddAnimeViewModel
 
 class AddAnimeFragment : ManageAnimeFragment() {
 
     private lateinit var viewModel: AddAnimeViewModel
 
     override fun updateActionBar(): Boolean {
-        actionBarService.setTitle(getString(R.string.add_anime_title), uiState.toolbar)
-        actionBarService.setNavigateBackAction(uiState.toolbar, this)
+        actionBarService.setTitle(getString(R.string.add_anime_title), toolbar)
+        actionBarService.setNavigateBackAction(toolbar, this)
         return true
     }
 
