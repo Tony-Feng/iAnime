@@ -1,4 +1,4 @@
-package com.project.ianime.viewmodels
+package com.project.ianime.screens.gallery
 
 /**
  * Model class used to hold each anime item information

@@ -3,7 +3,7 @@ package com.project.ianime.service
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.project.ianime.R
-import com.project.ianime.viewmodels.AnimeItemUiState
+import com.project.ianime.screens.gallery.AnimeItemUiState
 
 class TestDataRepository {
 

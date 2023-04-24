@@ -1,4 +1,4 @@
-package com.project.ianime.screens
+package com.project.ianime.screens.user
 
 import android.os.Bundle
 import android.view.LayoutInflater

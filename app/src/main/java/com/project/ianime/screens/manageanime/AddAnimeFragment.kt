@@ -1,9 +1,8 @@
-package com.project.ianime.screens
+package com.project.ianime.screens.manageanime
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import com.project.ianime.R
-import com.project.ianime.viewmodels.AddAnimeViewModel
 
 class AddAnimeFragment : ManageAnimeFragment() {
 

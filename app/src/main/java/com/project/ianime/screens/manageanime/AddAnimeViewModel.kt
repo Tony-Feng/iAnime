@@ -1,4 +1,4 @@
-package com.project.ianime.viewmodels
+package com.project.ianime.screens.manageanime
 
 import androidx.lifecycle.ViewModel
 

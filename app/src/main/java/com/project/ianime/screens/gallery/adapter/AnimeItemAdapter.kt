@@ -1,11 +1,11 @@
-package com.project.ianime.adapter
+package com.project.ianime.screens.gallery.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.project.ianime.R
-import com.project.ianime.viewmodels.AnimeItemUiState
+import com.project.ianime.screens.gallery.AnimeItemUiState
 
 class AnimeItemAdapter(
     private val clickHandler: (AnimeItemUiState) -> Unit

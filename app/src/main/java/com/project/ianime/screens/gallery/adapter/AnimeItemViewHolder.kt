@@ -1,11 +1,11 @@
-package com.project.ianime.adapter
+package com.project.ianime.screens.gallery.adapter
 
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.project.ianime.R
-import com.project.ianime.viewmodels.AnimeItemUiState
+import com.project.ianime.screens.gallery.AnimeItemUiState
 
 class AnimeItemViewHolder(view: View): RecyclerView.ViewHolder(view) {
     private val animeImage: ImageView = view.findViewById(R.id.item_image)

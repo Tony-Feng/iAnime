@@ -5,7 +5,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import com.project.ianime.root.BaseContainerActivity
-import com.project.ianime.screens.HomeFragment
+import com.project.ianime.screens.home.HomeFragment
 import com.project.ianime.utils.updateLanguageSetting
 
 /**

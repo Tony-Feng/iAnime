@@ -1,4 +1,4 @@
-package com.project.ianime.screens
+package com.project.ianime.screens.manageanime
 
 import android.app.Activity
 import android.content.ActivityNotFoundException

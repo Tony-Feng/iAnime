@@ -1,4 +1,4 @@
-package com.project.ianime.screens
+package com.project.ianime.screens.viewanime
 
 import android.os.Bundle
 import android.view.*
@@ -10,6 +10,7 @@ import com.project.ianime.HomeActivity.Companion.SETTING_ENGLISH
 import com.project.ianime.R
 import com.project.ianime.databinding.FragmentAnimeBinding
 import com.project.ianime.root.BaseFragment
+import com.project.ianime.screens.manageanime.EditAnimeFragment
 import com.project.ianime.utils.updateLanguageSetting
 
 class AnimeFragment : BaseFragment() {

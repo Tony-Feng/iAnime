@@ -1,4 +1,4 @@
-package com.project.ianime.screens
+package com.project.ianime.screens.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +10,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.project.ianime.R
 import com.project.ianime.databinding.FragmentHomeBinding
 import com.project.ianime.root.BaseFragment
+import com.project.ianime.screens.gallery.GalleryFragment
+import com.project.ianime.screens.manageanime.AddAnimeFragment
+import com.project.ianime.screens.user.UserFragment
 
 class HomeFragment : BaseFragment() {
     lateinit var toolbar: Toolbar
