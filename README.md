@@ -1,6 +1,6 @@
 # iAnime
 
-iAnime is a simple Android application for anime fans to collect and create their own favoured anime gallery.
+iAnime is a simple Android application for anime fans to collect and create their own favoured anime gallery. This application supports multi-language including English and Chinese.
 
 ## Tech Stack
 
