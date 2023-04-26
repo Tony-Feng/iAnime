@@ -18,7 +18,7 @@ You require Android Studio 4.2 or higher with the Android 11 SDK to be able to b
 
 ## 📃 License
 ```
-Copyright 2023 Tongxu Ge
+Copyright 2023 Kelly Ge
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
