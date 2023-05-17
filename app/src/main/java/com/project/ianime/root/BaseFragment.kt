@@ -61,6 +61,12 @@ abstract class BaseFragment : Fragment() {
         updateActionBar()
     }
 
+    override fun onDestroyView() {
+        // clear listen to Observable when view is destroyed
+        compositeDisposable.clear()
+        super.onDestroyView()
+    }
+
     override fun onDestroy() {
         navigationLifeCycle.onDestroy()
         super.onDestroy()

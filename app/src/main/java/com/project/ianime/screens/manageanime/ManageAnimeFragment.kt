@@ -69,14 +69,14 @@ abstract class ManageAnimeFragment : BaseFragment() {
 
         Observable.combineLatest(
             listOf(
-                animeChineseName.setTextChangeListener(),
-                animeEnglishName.setTextChangeListener(),
-                animeRate.setTextChangeListener(),
-                animeYear.setTextChangeListener(),
-                animeDescription.setTextChangeListener(),
-                animeCountry.setTextChangeListener(),
-                animeType.setTextChangeListener(),
-                animeStatus.setTextChangeListener()
+                animeChineseName.setTextChangeListener().startWithItem(animeChineseName.isValid()),
+                animeEnglishName.setTextChangeListener().startWithItem(animeEnglishName.isValid()),
+                animeRate.setTextChangeListener().startWithItem(animeRate.isValid()),
+                animeYear.setTextChangeListener().startWithItem(animeYear.isValid()),
+                animeDescription.setTextChangeListener().startWithItem(animeDescription.isValid()),
+                animeCountry.setTextChangeListener().startWithItem(animeCountry.isValid()),
+                animeType.setTextChangeListener().startWithItem(animeType.isValid()),
+                animeStatus.setTextChangeListener().startWithItem(animeStatus.isValid())
             )
         ) { values ->
             values.forEach {
@@ -89,7 +89,6 @@ abstract class ManageAnimeFragment : BaseFragment() {
             .distinctUntilChanged { _, current -> current == saveButton.isEnabled }
             .subscribe { isValid ->
                 formEnteredState = isValid
-//                saveButton.isEnabled = saveButtonEnabledState
                 activateSaveButton()
             }
             .also { compositeDisposable.add(it) }
@@ -112,6 +111,15 @@ abstract class ManageAnimeFragment : BaseFragment() {
     }
 
     private fun init(){
+        animeChineseName.setInitialText("完美世界" ?: "")
+        animeEnglishName.setInitialText("Perfect World" ?: "")
+        animeRate.setInitialText("10.0" ?: "")
+        animeYear.setInitialText("2021" ?: "")
+        animeDescription.setInitialText("My favourite Anime" ?: "")
+        //TODO 2023-05-16: has to select one dropdown default value
+        animeCountry.setInitialText("China" ?: "")
+        animeType.setInitialText("God" ?: "")
+        animeStatus.setInitialText("In Progress" ?: "")
         saveButton.isEnabled = false
     }
 
@@ -164,7 +172,6 @@ abstract class ManageAnimeFragment : BaseFragment() {
                     try {
                         profilePreview.setImageURI(selectedImageUri)
                         pictureSelectedState = true
-//                        saveButton.isEnabled = saveButtonEnabledState
                         activateSaveButton()
                         // Used for debug purpose
                         Log.i(IMAGE_BMP, "Bitmap is: " + selectedImageBitmap)
@@ -178,7 +185,6 @@ abstract class ManageAnimeFragment : BaseFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        compositeDisposable.clear()
     }
 
     companion object{

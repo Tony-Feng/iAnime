@@ -21,6 +21,13 @@ class AnimeEditText : TextInputLayout {
         defStyleAttr
     )
 
+    fun setInitialText(value: String){
+        if (value.isEmpty()){
+            return
+        }
+        editText?.setText(value)
+    }
+
     fun setTextChangeListener(): Observable<Boolean>{
         return Observable.create { emitter ->
             editText?.addTextChangedListener {
@@ -29,7 +36,7 @@ class AnimeEditText : TextInputLayout {
         }
     }
 
-    private fun isValid(optional: Boolean = false): Boolean{
+    fun isValid(optional: Boolean = false): Boolean{
         // Add optional choice for edit text
         if (optional && text == ""){
             return true
