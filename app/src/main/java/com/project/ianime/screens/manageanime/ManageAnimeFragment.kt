@@ -16,6 +16,7 @@ import android.widget.ImageView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.Toolbar
 import com.google.android.material.button.MaterialButton
+import com.project.ianime.R
 import com.project.ianime.databinding.FragmentManageAnimeBinding
 import com.project.ianime.root.BaseFragment
 import com.project.ianime.utils.image.ImageStub
@@ -98,8 +99,7 @@ abstract class ManageAnimeFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        init()
+        loadInitData()
         addProfileButton.setOnClickListener {
             openGallery()
         }
@@ -110,16 +110,15 @@ abstract class ManageAnimeFragment : BaseFragment() {
         }
     }
 
-    private fun init(){
+    private fun loadInitData(){
         animeChineseName.setInitialText("完美世界" ?: "")
         animeEnglishName.setInitialText("Perfect World" ?: "")
         animeRate.setInitialText("10.0" ?: "")
         animeYear.setInitialText("2021" ?: "")
         animeDescription.setInitialText("My favourite Anime" ?: "")
-        //TODO 2023-05-16: has to select one dropdown default value
-        animeCountry.setInitialText("China" ?: "")
-        animeType.setInitialText("God" ?: "")
-        animeStatus.setInitialText("In Progress" ?: "")
+        animeCountry.dropdownOption = getString(R.string.test_anime_country)
+        animeType.dropdownOption = "God"
+        animeStatus.dropdownOption = "In Progress"
         saveButton.isEnabled = false
     }
 
