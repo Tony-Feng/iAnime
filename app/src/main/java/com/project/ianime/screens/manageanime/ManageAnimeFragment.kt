@@ -16,6 +16,7 @@ import android.widget.ImageView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.Toolbar
 import com.google.android.material.button.MaterialButton
+import com.project.ianime.R
 import com.project.ianime.databinding.FragmentManageAnimeBinding
 import com.project.ianime.root.BaseFragment
 import com.project.ianime.utils.image.ImageStub
@@ -69,14 +70,14 @@ abstract class ManageAnimeFragment : BaseFragment() {
 
         Observable.combineLatest(
             listOf(
-                animeChineseName.setTextChangeListener(),
-                animeEnglishName.setTextChangeListener(),
-                animeRate.setTextChangeListener(),
-                animeYear.setTextChangeListener(),
-                animeDescription.setTextChangeListener(),
-                animeCountry.setTextChangeListener(),
-                animeType.setTextChangeListener(),
-                animeStatus.setTextChangeListener()
+                animeChineseName.setTextChangeListener().startWithItem(animeChineseName.isValid()),
+                animeEnglishName.setTextChangeListener().startWithItem(animeEnglishName.isValid()),
+                animeRate.setTextChangeListener().startWithItem(animeRate.isValid()),
+                animeYear.setTextChangeListener().startWithItem(animeYear.isValid()),
+                animeDescription.setTextChangeListener().startWithItem(animeDescription.isValid()),
+                animeCountry.setTextChangeListener().startWithItem(animeCountry.isValid()),
+                animeType.setTextChangeListener().startWithItem(animeType.isValid()),
+                animeStatus.setTextChangeListener().startWithItem(animeStatus.isValid())
             )
         ) { values ->
             values.forEach {
@@ -89,7 +90,6 @@ abstract class ManageAnimeFragment : BaseFragment() {
             .distinctUntilChanged { _, current -> current == saveButton.isEnabled }
             .subscribe { isValid ->
                 formEnteredState = isValid
-//                saveButton.isEnabled = saveButtonEnabledState
                 activateSaveButton()
             }
             .also { compositeDisposable.add(it) }
@@ -99,8 +99,7 @@ abstract class ManageAnimeFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        init()
+        loadInitData()
         addProfileButton.setOnClickListener {
             openGallery()
         }
@@ -111,7 +110,15 @@ abstract class ManageAnimeFragment : BaseFragment() {
         }
     }
 
-    private fun init(){
+    private fun loadInitData(){
+        animeChineseName.setInitialText("完美世界" ?: "")
+        animeEnglishName.setInitialText("Perfect World" ?: "")
+        animeRate.setInitialText("10.0" ?: "")
+        animeYear.setInitialText("2021" ?: "")
+        animeDescription.setInitialText("My favourite Anime" ?: "")
+        animeCountry.dropdownOption = getString(R.string.test_anime_country)
+        animeType.dropdownOption = "God"
+        animeStatus.dropdownOption = "In Progress"
         saveButton.isEnabled = false
     }
 
@@ -164,7 +171,6 @@ abstract class ManageAnimeFragment : BaseFragment() {
                     try {
                         profilePreview.setImageURI(selectedImageUri)
                         pictureSelectedState = true
-//                        saveButton.isEnabled = saveButtonEnabledState
                         activateSaveButton()
                         // Used for debug purpose
                         Log.i(IMAGE_BMP, "Bitmap is: " + selectedImageBitmap)
@@ -178,7 +184,6 @@ abstract class ManageAnimeFragment : BaseFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        compositeDisposable.clear()
     }
 
     companion object{

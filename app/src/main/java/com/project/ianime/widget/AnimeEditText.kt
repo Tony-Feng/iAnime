@@ -2,6 +2,7 @@ package com.project.ianime.widget
 
 import android.content.Context
 import android.util.AttributeSet
+import android.widget.AutoCompleteTextView
 import androidx.core.widget.addTextChangedListener
 import com.google.android.material.textfield.TextInputLayout
 import com.project.ianime.R
@@ -13,6 +14,17 @@ class AnimeEditText : TextInputLayout {
     private val text: String
         get() = editText?.text.toString()
 
+    var dropdownOption: Any? = null
+        get() {
+            return if (field == null){
+                error = resources.getString(R.string.required_warning_msg)
+            } else field
+        }
+        set(value){
+            field = value
+            (editText as AutoCompleteTextView).setText(field.toString().trim(), false)
+        }
+
     constructor(context: Context): super(context)
     constructor(context: Context, attrs: AttributeSet?): super(context, attrs)
     constructor(context: Context, attributeSet: AttributeSet?, defStyleAttr: Int): super(
@@ -20,6 +32,13 @@ class AnimeEditText : TextInputLayout {
         attributeSet,
         defStyleAttr
     )
+
+    fun setInitialText(value: String){
+        if (value.isEmpty()){
+            return
+        }
+        editText?.setText(value)
+    }
 
     fun setTextChangeListener(): Observable<Boolean>{
         return Observable.create { emitter ->
@@ -29,7 +48,7 @@ class AnimeEditText : TextInputLayout {
         }
     }
 
-    private fun isValid(optional: Boolean = false): Boolean{
+    fun isValid(optional: Boolean = false): Boolean{
         // Add optional choice for edit text
         if (optional && text == ""){
             return true
