@@ -1,10 +1,8 @@
 # iAnime
 
-iAnime is a simple Android application for anime fans to collect and create their own favoured anime gallery. This application supports multi-language including English and Chinese.
+iAnime is an Android application for anime fans to create and customize their own anime gallery which collects a list of their favourite animes. This application supports multi-language which includes both English and Chinese versions.
 
-## Tech Stack
-
-This project uses MVVM as software architecture design pattern and designs aligned with a reactive and layered architecture. 
+The whole project uses MVVM + Repository as software architecture design pattern and designs aligned with a reactive and layered architecture. 
 
 ## Development setup
 
