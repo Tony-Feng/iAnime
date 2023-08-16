@@ -5,7 +5,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.project.ianime.R
-import com.project.ianime.screens.gallery.AnimeItemUiState
+import com.project.ianime.api.data.AnimeGalleryItem
 
 class AnimeItemViewHolder(view: View): RecyclerView.ViewHolder(view) {
     private val animeImage: ImageView = view.findViewById(R.id.item_image)
@@ -13,11 +13,11 @@ class AnimeItemViewHolder(view: View): RecyclerView.ViewHolder(view) {
     private val animeTitle: TextView = view.findViewById(R.id.item_title)
     private val animeDescription: TextView = view.findViewById(R.id.item_description)
 
-    fun bind(model: AnimeItemUiState){
+    fun bind(model: AnimeGalleryItem){
         //TODO 2022-02-11: Load image icon to item
         animeImage.setImageResource(R.drawable.ic_gallery)
         animeRate.text = model.animeRate.toString()
         animeTitle.text = model.animeName
-        animeDescription.text = model.animeDescription
+        animeDescription.text = model.animeSynopsis
     }
 }

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.project.ianime.api.data.AnimeGalleryItem
 import com.project.ianime.screens.gallery.adapter.AnimeItemAdapter
 import com.project.ianime.databinding.FragmentGalleryBinding
 import com.project.ianime.root.BaseFragment
@@ -41,7 +42,7 @@ class GalleryFragment : BaseFragment(){
             appNavigation.showFragmentReplaceTop(AnimeFragment.newInstance(), baseContainerId)
         }
         animeCardList.adapter = animeCardAdapter
-        val animeCardListObserver = Observer<List<AnimeItemUiState>>{ animeItems ->
+        val animeCardListObserver = Observer<List<AnimeGalleryItem>>{ animeItems ->
             animeCardAdapter.submitList(animeItems)
         }
 
