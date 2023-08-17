@@ -2,13 +2,13 @@ package com.project.ianime.di
 
 import com.project.ianime.api.AcceptLanguageInterceptor
 import com.project.ianime.api.AnimeService
+import com.project.ianime.repository.AnimeDataRepository
+import com.project.ianime.repository.AnimeDataRepositoryImpl
 import dagger.Module
 import dagger.Provides
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.io.IOException
 import javax.inject.Singleton
 
 @Module
@@ -45,5 +45,14 @@ class AnimeModule {
     @Provides
     fun providesAnimeService(retrofit: Retrofit): AnimeService {
         return retrofit.create(AnimeService::class.java)
+    }
+
+    /**
+     * Provides the anime repository
+     */
+    @Singleton
+    @Provides
+    fun providesAnimeRepository(impl: AnimeDataRepositoryImpl): AnimeDataRepository{
+        return impl
     }
 }
