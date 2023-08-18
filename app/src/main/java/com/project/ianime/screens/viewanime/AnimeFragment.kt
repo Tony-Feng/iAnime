@@ -15,7 +15,7 @@ import com.project.ianime.utils.updateLanguageSetting
 
 class AnimeFragment : BaseFragment() {
     private var _binding: FragmentAnimeBinding? = null
-    val binding get()= _binding!!
+    val binding get() = _binding!!
     lateinit var toolbar: Toolbar
     lateinit var animeProfile: ImageView
     lateinit var animeName: TextView
@@ -56,7 +56,7 @@ class AnimeFragment : BaseFragment() {
     }
 
     //TODO: Update using Get API
-    private fun getAnimeDetails(){
+    private fun getAnimeDetails() {
         animeProfile.setImageResource(R.drawable.ic_gallery)
         animeName.text = "Throne of Seal"
         animeCountry.text = getString(R.string.anime_country_title, "China")

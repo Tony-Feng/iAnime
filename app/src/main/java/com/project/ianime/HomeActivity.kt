@@ -19,7 +19,7 @@ class HomeActivity : BaseContainerActivity() {
         navigateToHome()
     }
 
-    private fun navigateToHome(){
+    private fun navigateToHome() {
         supportFragmentManager.beginTransaction()
             .replace(containerViewHolderId, HomeFragment.newInstance())
             .addToBackStack(null)
@@ -46,6 +46,7 @@ class HomeActivity : BaseContainerActivity() {
         }
 
     }
+
     companion object {
         const val SETTING_CHINESE = "zh"
         const val SETTING_ENGLISH = "en"

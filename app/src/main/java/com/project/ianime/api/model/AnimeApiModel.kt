@@ -16,7 +16,7 @@ data class AnimeApiModel(
     @SerializedName("release_year") val releaseYear: String?,
     @SerializedName("synopsis") val synopsis: String?,
     @SerializedName("cover_url") val animeImageUrl: String?
-){
+) {
     fun mapToGalleryItem(): AnimeGalleryItem {
         return AnimeGalleryItem(
             imageUrl = animeImageUrl,

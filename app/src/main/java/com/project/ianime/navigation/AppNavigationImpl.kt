@@ -66,7 +66,7 @@ class AppNavigationImpl(
     override fun navigateBack(): Boolean {
         // Implemented for exit before dialog
         val topFragment = getTopActiveFragment() ?: return false
-        if (topFragment.navigateBack()){
+        if (topFragment.navigateBack()) {
             return true
         }
 

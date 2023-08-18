@@ -9,7 +9,7 @@ import com.project.ianime.root.BaseFragment
 
 class UserFragment : BaseFragment() {
     private var _binding: FragmentUserBinding? = null
-    private val binding get()= _binding!!
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,

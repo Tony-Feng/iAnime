@@ -19,7 +19,7 @@ class HomeFragment : BaseFragment() {
     lateinit var bottomNavigationView: BottomNavigationView
     lateinit var addAnimeButton: FloatingActionButton
     private var _binding: FragmentHomeBinding? = null
-    private val binding get()= _binding!!
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,6 +37,7 @@ class HomeFragment : BaseFragment() {
         actionBarService.setTitle(getString(R.string.app_name), toolbar)
         return true
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // Launch Main Screen
@@ -65,7 +66,8 @@ class HomeFragment : BaseFragment() {
             navigateToAddScreen()
         }
     }
-    private fun navigateToMainScreen(){
+
+    private fun navigateToMainScreen() {
         appNavigation.showFragmentReplaceTop(GalleryFragment.newInstance(), fragmentContainerId)
     }
 

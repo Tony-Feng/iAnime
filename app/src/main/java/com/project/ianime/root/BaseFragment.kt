@@ -41,12 +41,12 @@ abstract class BaseFragment : Fragment() {
     }
 
     // Set Fragment Action Bar
-    open fun updateActionBar(): Boolean{
+    open fun updateActionBar(): Boolean {
         return false
     }
 
     // Set fragment navigate back behavior
-    open fun navigateBack(): Boolean{
+    open fun navigateBack(): Boolean {
         return false
     }
 

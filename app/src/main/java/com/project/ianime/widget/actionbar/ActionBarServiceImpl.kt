@@ -5,7 +5,7 @@ import androidx.appcompat.widget.Toolbar
 import com.project.ianime.R
 import com.project.ianime.root.BaseFragment
 
-class ActionBarServiceImpl(private val activity: AppCompatActivity): ActionBarService {
+class ActionBarServiceImpl(private val activity: AppCompatActivity) : ActionBarService {
     override fun setTitle(title: String, toolbar: Toolbar) {
         activity.setSupportActionBar(toolbar)
         val actionBar = activity.supportActionBar ?: return

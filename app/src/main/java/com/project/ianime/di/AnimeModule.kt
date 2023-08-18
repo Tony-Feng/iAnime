@@ -18,7 +18,7 @@ class AnimeModule {
      * Provides an okhttp client builder
      */
     @Provides
-    fun providesOkhttpBuilder(acceptLanguageInterceptor: AcceptLanguageInterceptor): OkHttpClient{
+    fun providesOkhttpBuilder(acceptLanguageInterceptor: AcceptLanguageInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(acceptLanguageInterceptor)
             .build()
@@ -29,7 +29,7 @@ class AnimeModule {
      */
     @Singleton
     @Provides
-    fun providesRetrofit(okHttpClient: OkHttpClient): Retrofit{
+    fun providesRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             // TODO 08-16: Add in properties build file
             .baseUrl("https://ai8454431.pythonanywhere.com/")
@@ -52,7 +52,7 @@ class AnimeModule {
      */
     @Singleton
     @Provides
-    fun providesAnimeRepository(impl: AnimeDataRepositoryImpl): AnimeDataRepository{
+    fun providesAnimeRepository(impl: AnimeDataRepositoryImpl): AnimeDataRepository {
         return impl
     }
 }

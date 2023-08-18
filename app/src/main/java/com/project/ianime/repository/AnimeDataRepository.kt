@@ -12,10 +12,10 @@ interface AnimeDataRepository {
     /**
      * return entire list of all anime details
      */
-    fun getAnimeListFromNetwork() : Single<List<AnimeApiModel>>
+    fun getAnimeListFromNetwork(): Single<List<AnimeApiModel>>
 
     /**
      * return list of anime items on gallery screen
      */
-    fun getGalleryList() : Single<List<AnimeGalleryItem>>
+    fun getGalleryList(): Single<List<AnimeGalleryItem>>
 }

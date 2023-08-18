@@ -11,14 +11,15 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import retrofit2.HttpException
 import javax.inject.Inject
 
-class AnimeDataRepositoryImpl @Inject constructor(private val animeService: AnimeService): AnimeDataRepository {
+class AnimeDataRepositoryImpl @Inject constructor(private val animeService: AnimeService) :
+    AnimeDataRepository {
 
     override fun getAnimeListFromNetwork(): Single<List<AnimeApiModel>> {
         return animeService.getAnimeList()
             .subscribeOn(Schedulers.io())
             .onErrorResumeNext {
-                if (it is HttpException){
-                    when (it.code()){
+                if (it is HttpException) {
+                    when (it.code()) {
                         HttpStatus.FORBIDDEN -> {
                             return@onErrorResumeNext Single.error(
                                 EntitlementException(it.message())
@@ -35,7 +36,7 @@ class AnimeDataRepositoryImpl @Inject constructor(private val animeService: Anim
             }
     }
 
-    override fun getGalleryList(): Single<List<AnimeGalleryItem>>{
+    override fun getGalleryList(): Single<List<AnimeGalleryItem>> {
         return getAnimeListFromNetwork()
             .map { animeList ->
                 animeList.map {

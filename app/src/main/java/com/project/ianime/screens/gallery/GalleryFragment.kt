@@ -8,18 +8,18 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.project.ianime.api.data.AnimeGalleryItem
-import com.project.ianime.screens.gallery.adapter.AnimeItemAdapter
 import com.project.ianime.databinding.FragmentGalleryBinding
 import com.project.ianime.root.BaseFragment
+import com.project.ianime.screens.gallery.adapter.AnimeItemAdapter
 import com.project.ianime.screens.viewanime.AnimeFragment
 import com.project.ianime.service.TestDataRepository
 
 // TODO: Consider separate filter and recyclerview layouts
-class GalleryFragment : BaseFragment(){
+class GalleryFragment : BaseFragment() {
 
-    private val testDataRepository =  TestDataRepository()
+    private val testDataRepository = TestDataRepository()
     private var _binding: FragmentGalleryBinding? = null
-    private val binding get()= _binding!!
+    private val binding get() = _binding!!
     lateinit var animeCardList: RecyclerView
 
     override fun onCreateView(
@@ -36,13 +36,13 @@ class GalleryFragment : BaseFragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         testDataRepository.loadAnimeList()
-        val animeCardList = animeCardList
-        animeCardList.layoutManager = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
+        animeCardList.layoutManager =
+            GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
         val animeCardAdapter = AnimeItemAdapter {
             appNavigation.showFragmentReplaceTop(AnimeFragment.newInstance(), baseContainerId)
         }
         animeCardList.adapter = animeCardAdapter
-        val animeCardListObserver = Observer<List<AnimeGalleryItem>>{ animeItems ->
+        val animeCardListObserver = Observer<List<AnimeGalleryItem>> { animeItems ->
             animeCardAdapter.submitList(animeItems)
         }
 
