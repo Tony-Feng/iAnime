@@ -19,7 +19,7 @@ class GalleryViewModel @Inject constructor(private val repository: AnimeDataRepo
     private val _animeGalleryList = MutableLiveData<List<AnimeGalleryItem>>()
     val animeGalleryList: LiveData<List<AnimeGalleryItem>> = _animeGalleryList
 
-    lateinit var animeUiState: MutableLiveData<AnimeUiState>
+    var animeUiState = MutableLiveData<AnimeUiState>()
 
     val viewScopeSubscriptionTracker = CompositeDisposable()
 

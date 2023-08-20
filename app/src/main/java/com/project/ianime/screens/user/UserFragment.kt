@@ -24,8 +24,4 @@ class UserFragment : BaseFragment() {
         super.onDestroyView()
         _binding = null
     }
-
-    companion object {
-        fun newInstance() = UserFragment()
-    }
 }

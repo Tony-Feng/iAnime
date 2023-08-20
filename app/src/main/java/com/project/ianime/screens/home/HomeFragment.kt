@@ -43,21 +43,21 @@ class HomeFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // launch Main Screen
-        navigateToMainScreen()
+        navigateToAnimeGallery()
 
         // set bottom navigation
         bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.home_screen -> {
                     appNavigation.showFragmentOverTop(
-                        GalleryFragment.newInstance(),
+                        GalleryFragment(),
                         fragmentContainerId
                     )
                     return@setOnItemSelectedListener true
                 }
                 R.id.user_screen -> {
                     appNavigation.showFragmentOverTop(
-                        UserFragment.newInstance(),
+                        UserFragment(),
                         fragmentContainerId
                     )
                     return@setOnItemSelectedListener true
@@ -65,17 +65,18 @@ class HomeFragment : BaseFragment() {
             }
             false
         }
+        // navigate to add anime screen
         addAnimeButton.setOnClickListener {
-            navigateToAddScreen()
+            navigateToAddAnime()
         }
     }
 
-    private fun navigateToMainScreen() {
-        appNavigation.showFragmentReplaceTop(GalleryFragment.newInstance(), fragmentContainerId)
+    private fun navigateToAnimeGallery() {
+        appNavigation.showFragmentReplaceTop(GalleryFragment(), fragmentContainerId)
     }
 
-    private fun navigateToAddScreen() {
-        appNavigation.showFragmentReplaceTop(AddAnimeFragment.newInstance(), baseContainerId)
+    private fun navigateToAddAnime() {
+        appNavigation.showFragmentReplaceTop(AddAnimeFragment(), baseContainerId)
     }
 
     override fun onDestroyView() {

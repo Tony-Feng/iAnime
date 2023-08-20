@@ -24,8 +24,4 @@ class AddAnimeFragment : ManageAnimeFragment() {
         TODO("Not yet implemented")
     }
 
-    companion object {
-        fun newInstance() = AddAnimeFragment()
-    }
-
 }
