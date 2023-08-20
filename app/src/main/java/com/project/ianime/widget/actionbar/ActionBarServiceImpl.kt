@@ -15,6 +15,7 @@ class ActionBarServiceImpl(private val activity: AppCompatActivity) : ActionBarS
 
     override fun setNavigateBackAction(toolbar: Toolbar, activeFragment: BaseFragment) {
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
+        // call navigate back method which includes check for navigate back conditions
         toolbar.setNavigationOnClickListener {
             activeFragment.appNavigation.navigateBack()
         }

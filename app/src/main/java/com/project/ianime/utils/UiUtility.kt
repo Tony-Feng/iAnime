@@ -5,6 +5,9 @@ import androidx.appcompat.app.AlertDialog
 import com.project.ianime.R
 import com.project.ianime.navigation.AppNavigation
 
+/**
+ * implements exit before dialog
+ */
 fun showExitBeforeDialog(context: Context, appNavigation: AppNavigation) {
     AlertDialog.Builder(context)
         .setMessage(R.string.exit_dialog_message)

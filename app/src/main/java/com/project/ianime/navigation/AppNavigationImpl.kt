@@ -5,9 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.project.ianime.root.BaseFragment
 
-class AppNavigationImpl(
-    private val fragmentManager: FragmentManager
-) : AppNavigation, AppNavigationLifecycle {
+class AppNavigationImpl(private val fragmentManager: FragmentManager) : AppNavigation, AppNavigationLifecycle {
 
     private val fragmentStack = ArrayList<BaseFragment>()
     private val activeFragmentStack = ArrayList<BaseFragment>()
@@ -37,6 +35,9 @@ class AppNavigationImpl(
         }
     }
 
+    /**
+     * return the top active fragment from activeFragmentStack
+     */
     private fun getTopActiveFragment(): BaseFragment? {
         val activeCount = activeFragmentStack.size
         if (activeCount == 0) {

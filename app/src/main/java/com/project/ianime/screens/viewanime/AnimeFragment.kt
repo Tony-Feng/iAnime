@@ -5,12 +5,11 @@ import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
-import com.project.ianime.HomeActivity.Companion.SETTING_CHINESE
-import com.project.ianime.HomeActivity.Companion.SETTING_ENGLISH
 import com.project.ianime.R
 import com.project.ianime.databinding.FragmentAnimeBinding
 import com.project.ianime.root.BaseFragment
 import com.project.ianime.screens.manageanime.EditAnimeFragment
+import com.project.ianime.utils.Constants
 import com.project.ianime.utils.updateLanguageSetting
 
 class AnimeFragment : BaseFragment() {
@@ -82,12 +81,12 @@ class AnimeFragment : BaseFragment() {
                 )
                 true
             }
-            R.id.setting_chinese_language -> {
-                updateLanguageSetting(requireContext(), SETTING_CHINESE)
+            R.id.setting_chinese -> {
+                updateLanguageSetting(requireContext(), Constants.LANG_ZH)
                 true
             }
-            R.id.setting_english_language -> {
-                updateLanguageSetting(requireContext(), SETTING_ENGLISH)
+            R.id.setting_english -> {
+                updateLanguageSetting(requireContext(), Constants.LANG_EN)
                 true
             }
             else -> super.onOptionsItemSelected(item)

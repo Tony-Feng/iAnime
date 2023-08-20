@@ -6,10 +6,11 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import com.project.ianime.root.BaseContainerActivity
 import com.project.ianime.screens.home.HomeFragment
+import com.project.ianime.utils.Constants
 import com.project.ianime.utils.updateLanguageSetting
 
 /**
- * HomeActivity is the start of the App
+ * HomeActivity is the entry of the app
  */
 class HomeActivity : BaseContainerActivity() {
 
@@ -21,7 +22,7 @@ class HomeActivity : BaseContainerActivity() {
 
     private fun navigateToHome() {
         supportFragmentManager.beginTransaction()
-            .replace(containerViewHolderId, HomeFragment.newInstance())
+            .replace(containerViewHolderId, HomeFragment())
             .addToBackStack(null)
             .commit()
     }
@@ -34,22 +35,16 @@ class HomeActivity : BaseContainerActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.setting_chinese_language -> {
-                updateLanguageSetting(this, SETTING_CHINESE)
+            R.id.setting_chinese -> {
+                updateLanguageSetting(this, Constants.LANG_ZH)
                 true
             }
-            R.id.setting_english_language -> {
-                updateLanguageSetting(this, SETTING_ENGLISH)
+            R.id.setting_english -> {
+                updateLanguageSetting(this, Constants.LANG_EN)
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
 
     }
-
-    companion object {
-        const val SETTING_CHINESE = "zh"
-        const val SETTING_ENGLISH = "en"
-    }
-
 }

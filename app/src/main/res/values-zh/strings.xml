@@ -6,6 +6,8 @@
     <string name="nav_user_title">我的</string>
     <string name="setting_chinese">中文</string>
     <string name="setting_english">英文</string>
+    <string name="change_zh_message">切换中文成功</string>
+    <string name="change_en_message">切换英文成功</string>
 
     <!-- Anime Detail Screen -->
     <string name="intro_header_title">剧情简介</string>

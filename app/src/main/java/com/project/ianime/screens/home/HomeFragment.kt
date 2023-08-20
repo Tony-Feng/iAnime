@@ -15,11 +15,13 @@ import com.project.ianime.screens.manageanime.AddAnimeFragment
 import com.project.ianime.screens.user.UserFragment
 
 class HomeFragment : BaseFragment() {
+
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
+
     lateinit var toolbar: Toolbar
     lateinit var bottomNavigationView: BottomNavigationView
     lateinit var addAnimeButton: FloatingActionButton
-    private var _binding: FragmentHomeBinding? = null
-    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,9 +42,10 @@ class HomeFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // Launch Main Screen
+        // launch Main Screen
         navigateToMainScreen()
 
+        // set bottom navigation
         bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.home_screen -> {
@@ -78,9 +81,5 @@ class HomeFragment : BaseFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    companion object {
-        fun newInstance() = HomeFragment()
     }
 }
