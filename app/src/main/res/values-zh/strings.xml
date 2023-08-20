@@ -54,4 +54,12 @@
     <string name="positive_button_label">取消</string>
     <string name="negative_button_label">确认</string>
     <string name="test_anime_country">国漫</string>
+
+    <!-- Error Messages  -->
+    <string name="generic_error_label">出错了</string>
+    <string name="generic_error_message">请稍后再试。</string>
+    <string name="connection_error_label">网络开小差了</string>
+    <string name="connection_error_message">您的网络信号不稳定。请稍后再试。</string>
+    <string name="unauthorized_error_message">您的权限不足以获取信息。请稍后再试。</string>
+    <string name="not_found_error_message">抱歉，没有找到任何动漫信息。请稍后再试。</string>
 </resources>

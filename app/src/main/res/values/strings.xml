@@ -54,4 +54,12 @@
     <string name="positive_button_label">No</string>
     <string name="negative_button_label">Yes</string>
     <string name="test_anime_country">China</string>
+    
+    <!-- Error Messages  -->
+    <string name="generic_error_label">Something Went Wrong</string>
+    <string name="generic_error_message">Please try again later.</string>
+    <string name="connection_error_label">Connection Interrupted</string>
+    <string name="connection_error_message">Your were disconnected from the app. Please try again later.</string>
+    <string name="unauthorized_error_message">Something went wrong with your access. Please try again later.</string>
+    <string name="not_found_error_message">Unfortunately, the app could\'t find any anime information. Please try again later.</string>
 </resources>
