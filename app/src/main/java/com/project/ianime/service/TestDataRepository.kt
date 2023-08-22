@@ -13,7 +13,7 @@ class TestDataRepository {
     fun loadAnimeList() {
         val animeNameList = listOf("A", "B", "C", "D", "E", "F", "G")
         val dataList = animeNameList.map {
-            AnimeGalleryItem("R.drawable.ic_gallery", 10.0F, it, "Some description ...")
+            AnimeGalleryItem("01", "R.drawable.ic_gallery", 10.0F, it, "Some description ...")
         }
         _testAnimeList.value = dataList
     }

@@ -19,6 +19,7 @@ data class AnimeApiModel(
 ) {
     fun mapToGalleryItem(): AnimeGalleryItem {
         return AnimeGalleryItem(
+            animeId = animeId,
             imageUrl = animeImageUrl,
             animeRate = rate,
             animeName = animeName,

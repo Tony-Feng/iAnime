@@ -1,6 +1,5 @@
 package com.project.ianime.screens.gallery
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,13 +14,16 @@ import com.project.ianime.di.AnimeApplication
 import com.project.ianime.root.BaseFragment
 import com.project.ianime.screens.gallery.adapter.AnimeItemAdapter
 import com.project.ianime.screens.stateholder.AnimeUiState
-import com.project.ianime.screens.viewanime.AnimeFragment
+import com.project.ianime.screens.viewanime.AnimeDetailFragment
 import com.project.ianime.service.TestDataRepository
 import com.project.ianime.viewmodels.GalleryViewModel
 import com.project.ianime.viewmodels.GalleryViewModelFactory
 import javax.inject.Inject
 
 // TODO: Consider separate filter and recyclerview layouts
+/**
+ * Gallery screen which shows all the anime in preview mode
+ */
 class GalleryFragment : BaseFragment() {
 
     private var _binding: FragmentGalleryBinding? = null
@@ -41,8 +43,8 @@ class GalleryFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val app = requireActivity().application as AnimeApplication
-        app.applicationComponent.inject(this)
+        val animeApplication = requireActivity().application as AnimeApplication
+        animeApplication.applicationComponent.inject(this)
 
         _binding = FragmentGalleryBinding.inflate(inflater, container, false)
 
@@ -56,24 +58,25 @@ class GalleryFragment : BaseFragment() {
             when (uiState){
                 AnimeUiState.Empty -> TODO()
                 is AnimeUiState.Error -> TODO()
-                AnimeUiState.Success -> {
-                    loadAnimeGallery()
-                }
+                AnimeUiState.Success -> loadAnimeGallery()
             }
         }
 
         // load anime gallery list
-        galleryViewModel.getAnimeGalleryList()
+//        galleryViewModel.getAnimeGalleryList()
 
         return binding.root
     }
 
+    /**
+     * set recycler view and load gallery items
+     */
     private fun loadAnimeGallery(){
         testDataRepository.loadAnimeList()
-        animeCardList.layoutManager =
-            GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
+        // set recycler view
+        animeCardList.layoutManager = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
         val animeCardAdapter = AnimeItemAdapter {
-            appNavigation.showFragmentReplaceTop(AnimeFragment.newInstance(), baseContainerId)
+            appNavigation.showFragmentReplaceTop(AnimeDetailFragment.newInstance(it.animeId), baseContainerId)
         }
         animeCardList.adapter = animeCardAdapter
         val animeCardListObserver = Observer<List<AnimeGalleryItem>> { animeItems ->
@@ -81,6 +84,11 @@ class GalleryFragment : BaseFragment() {
         }
 
         testDataRepository.testAnimeList.observe(viewLifecycleOwner, animeCardListObserver)
+
+        // observe any changes of data to update recycler view
+        galleryViewModel.animeGalleryList.observe(viewLifecycleOwner){ galleryList ->
+            animeCardAdapter.submitList(galleryList)
+        }
     }
 
     override fun onDestroyView() {
