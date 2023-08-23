@@ -3,11 +3,8 @@ package com.project.ianime.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.project.ianime.api.ConnectionException
-import com.project.ianime.api.error.ErrorType
-import com.project.ianime.api.NotFoundException
-import com.project.ianime.api.UnauthorizedException
 import com.project.ianime.api.data.AnimeGalleryItem
+import com.project.ianime.api.error.*
 import com.project.ianime.repository.AnimeDataRepository
 import com.project.ianime.screens.stateholder.AnimeUiState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -43,6 +40,9 @@ class GalleryViewModel @Inject constructor(private val repository: AnimeDataRepo
                     }
                     is ConnectionException -> {
                         animeUiState.postValue(AnimeUiState.Error(ErrorType.CONNECTION))
+                    }
+                    is BadRequestException -> {
+                        animeUiState.postValue(AnimeUiState.Error(ErrorType.BAD_REQUEST))
                     }
                     else -> animeUiState.postValue(AnimeUiState.Error(ErrorType.GENERIC))
                 }
