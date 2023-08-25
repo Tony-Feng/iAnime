@@ -62,6 +62,6 @@
     <string name="connection_error_message">您的网络信号不稳定，请稍后再试。</string>
     <string name="unauthorized_error_message">您的权限不足以获取信息, 请联系管理员获取权限并稍后再试。</string>
     <string name="not_found_error_message">抱歉，没有找到任何动漫信息，请稍后再试。</string>
-    <string name="content_oversize_error_message">上传数据失败，文件超载，请确认文件大小并重试。</string>
+    <string name="content_oversize_error_message">上传数据失败，文件超过大小限制 (2MB)，请确认文件大小并重试。</string>
     <string name="bad_request_error_message">您的请求失败，请稍后再试。</string>
 </resources>
