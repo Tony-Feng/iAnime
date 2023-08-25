@@ -2,11 +2,8 @@ package com.project.ianime.utils
 
 import android.content.Context
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
-import com.project.ianime.R
-import com.project.ianime.navigation.AppNavigation
 
 fun updateLanguageSetting(context: Context, language: String) {
     AppCompatDelegate.setApplicationLocales(

@@ -110,7 +110,7 @@ abstract class ManageAnimeFragment : BaseFragment() {
         }
     }
 
-    private fun loadInitData(){
+    private fun loadInitData() {
         animeChineseName.setInitialText("完美世界" ?: "")
         animeEnglishName.setInitialText("Perfect World" ?: "")
         animeRate.setInitialText("10.0" ?: "")
@@ -133,7 +133,7 @@ abstract class ManageAnimeFragment : BaseFragment() {
 
     abstract fun saveAnime()
 
-    private fun activateSaveButton(){
+    private fun activateSaveButton() {
         saveButton.isEnabled = formEnteredState && pictureSelectedState
     }
 
@@ -186,7 +186,7 @@ abstract class ManageAnimeFragment : BaseFragment() {
         _binding = null
     }
 
-    companion object{
+    companion object {
         const val IMAGE_BMP = "image_bmp"
     }
 }

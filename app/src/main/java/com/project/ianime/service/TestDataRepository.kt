@@ -2,19 +2,18 @@ package com.project.ianime.service
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.project.ianime.R
-import com.project.ianime.screens.gallery.AnimeItemUiState
+import com.project.ianime.api.data.AnimeGalleryItem
 
 class TestDataRepository {
 
-    private val _testAnimeList = MutableLiveData<List<AnimeItemUiState>>()
+    private val _testAnimeList = MutableLiveData<List<AnimeGalleryItem>>()
 
-    val testAnimeList: LiveData<List<AnimeItemUiState>> = _testAnimeList
+    val testAnimeList: LiveData<List<AnimeGalleryItem>> = _testAnimeList
 
-    fun loadAnimeList(){
+    fun loadAnimeList() {
         val animeNameList = listOf("A", "B", "C", "D", "E", "F", "G")
         val dataList = animeNameList.map {
-            AnimeItemUiState(R.drawable.ic_gallery, 10.0, it, "Some description ...")
+            AnimeGalleryItem("R.drawable.ic_gallery", 10.0F, it, "Some description ...")
         }
         _testAnimeList.value = dataList
     }

@@ -16,31 +16,31 @@ class AnimeEditText : TextInputLayout {
 
     var dropdownOption: Any? = null
         get() {
-            return if (field == null){
+            return if (field == null) {
                 error = resources.getString(R.string.required_warning_msg)
             } else field
         }
-        set(value){
+        set(value) {
             field = value
             (editText as AutoCompleteTextView).setText(field.toString().trim(), false)
         }
 
-    constructor(context: Context): super(context)
-    constructor(context: Context, attrs: AttributeSet?): super(context, attrs)
-    constructor(context: Context, attributeSet: AttributeSet?, defStyleAttr: Int): super(
+    constructor(context: Context) : super(context)
+    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
+    constructor(context: Context, attributeSet: AttributeSet?, defStyleAttr: Int) : super(
         context,
         attributeSet,
         defStyleAttr
     )
 
-    fun setInitialText(value: String){
-        if (value.isEmpty()){
+    fun setInitialText(value: String) {
+        if (value.isEmpty()) {
             return
         }
         editText?.setText(value)
     }
 
-    fun setTextChangeListener(): Observable<Boolean>{
+    fun setTextChangeListener(): Observable<Boolean> {
         return Observable.create { emitter ->
             editText?.addTextChangedListener {
                 emitter.onNext(isValid())
@@ -48,19 +48,19 @@ class AnimeEditText : TextInputLayout {
         }
     }
 
-    fun isValid(optional: Boolean = false): Boolean{
+    fun isValid(optional: Boolean = false): Boolean {
         // Add optional choice for edit text
-        if (optional && text == ""){
+        if (optional && text == "") {
             return true
         }
         return validateIsRequired(text)
     }
 
-    private fun validateIsRequired(input: String): Boolean{
-        return if (input.isEmpty()){
+    private fun validateIsRequired(input: String): Boolean {
+        return if (input.isEmpty()) {
             error = resources.getString(R.string.required_warning_msg)
             false
-        } else{
+        } else {
             error = null
             true
         }

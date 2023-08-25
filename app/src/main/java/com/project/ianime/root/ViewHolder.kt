@@ -7,7 +7,7 @@ import java.lang.reflect.Constructor
 /**
  * Deprecated class for abandon using ViewHolder pattern
  */
-abstract class ViewHolder{
+abstract class ViewHolder {
     /**
      * return the UI reference id of base container
      */
@@ -16,8 +16,8 @@ abstract class ViewHolder{
         return R.id.fragment_container
     }
 
-    companion object{
-        fun <VH: ViewHolder> createViewHolder(vhClass: Class<VH>): VH{
+    companion object {
+        fun <VH : ViewHolder> createViewHolder(vhClass: Class<VH>): VH {
             val viConstructor: Constructor<VH> = vhClass.getConstructor()
             return viConstructor.newInstance()
         }

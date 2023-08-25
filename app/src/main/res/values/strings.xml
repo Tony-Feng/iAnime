@@ -54,4 +54,14 @@
     <string name="positive_button_label">No</string>
     <string name="negative_button_label">Yes</string>
     <string name="test_anime_country">China</string>
+    
+    <!-- Error Messages  -->
+    <string name="generic_error_label">Something Went Wrong</string>
+    <string name="generic_error_message">Please try again later.</string>
+    <string name="connection_error_label">Connection Interrupted</string>
+    <string name="connection_error_message">Your were disconnected from the app, please try again later.</string>
+    <string name="unauthorized_error_message">Something went wrong with your access, please connect the administrator and try again later.</string>
+    <string name="not_found_error_message">Unfortunately, the app could\'t find any anime information, please try again later.</string>
+    <string name="content_oversize_error_message">Your may send a really large image, please make sure your file size is less than 2MB and try again.</string>
+    <string name="bad_request_error_message">Something went wrong to process your request, please try again later.</string>
 </resources>
