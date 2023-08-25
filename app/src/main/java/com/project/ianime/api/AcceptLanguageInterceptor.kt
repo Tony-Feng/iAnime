@@ -16,7 +16,7 @@ class AcceptLanguageInterceptor : Interceptor {
     }
 
     companion object {
-        const val HEADER_ACCEPT_LANGUAGE = "Accept-language"
+        const val HEADER_ACCEPT_LANGUAGE = "Accept-Language"
     }
 
 }

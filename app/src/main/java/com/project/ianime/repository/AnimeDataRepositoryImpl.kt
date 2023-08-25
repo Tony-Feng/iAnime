@@ -1,8 +1,8 @@
 package com.project.ianime.repository
 
-import com.project.ianime.api.*
+import com.project.ianime.api.AnimeService
 import com.project.ianime.api.data.AnimeGalleryItem
-import com.project.ianime.api.error.HttpStatus
+import com.project.ianime.api.error.*
 import com.project.ianime.api.model.AnimeApiModel
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -16,27 +16,37 @@ class AnimeDataRepositoryImpl @Inject constructor(private val animeService: Anim
         return animeService.getAnimeList()
             .subscribeOn(Schedulers.io())
             .map { it.animeList }
-            .onErrorResumeNext {
-                if (it is HttpException) {
-                    when (it.code()) {
-                        HttpStatus.UNAUTHORIZED -> {
-                            return@onErrorResumeNext Single.error(
-                                UnauthorizedException(it.message())
-                            )
-                        }
-                        HttpStatus.NOT_FOUND -> {
-                            return@onErrorResumeNext Single.error(
-                                NotFoundException(it.message())
-                            )
-                        }
-                        in 400..599 -> {
-                            return@onErrorResumeNext Single.error(
-                                ConnectionException(it.message())
-                            )
+            .onErrorResumeNext { exception ->
+                if (exception is HttpException) {
+                    exception.code().let {
+                        when {
+                            it == HttpStatus.BAD_REQUEST -> {
+                                return@onErrorResumeNext Single.error(
+                                    BadRequestException(exception.message())
+                                )
+                            }
+                            it == HttpStatus.UNAUTHORIZED -> {
+                                return@onErrorResumeNext Single.error(
+                                    UnauthorizedException(exception.message())
+                                )
+                            }
+                            it == HttpStatus.NOT_FOUND -> {
+                                return@onErrorResumeNext Single.error(
+                                    NotFoundException(exception.message())
+                                )
+                            }
+                            it >= 500 -> {
+                                return@onErrorResumeNext Single.error(
+                                    ConnectionException(exception.message())
+                                )
+                            }
+                            else -> {
+                                return@onErrorResumeNext Single.error(exception)
+                            }
                         }
                     }
                 }
-                Single.error(it)
+                Single.error(exception)
             }
     }
 
