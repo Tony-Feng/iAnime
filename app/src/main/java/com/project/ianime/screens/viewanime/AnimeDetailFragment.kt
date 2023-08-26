@@ -12,6 +12,7 @@ import com.project.ianime.di.AnimeApplication
 import com.project.ianime.root.BaseFragment
 import com.project.ianime.screens.manageanime.EditAnimeFragment
 import com.project.ianime.utils.Constants
+import com.project.ianime.utils.image.ImageUtils
 import com.project.ianime.viewmodels.AnimeViewModel
 import com.project.ianime.viewmodels.AnimeViewModelFactory
 import javax.inject.Inject
@@ -22,6 +23,10 @@ import javax.inject.Inject
 class AnimeDetailFragment : BaseFragment() {
     private var _binding: FragmentAnimeBinding? = null
     val binding get() = _binding!!
+
+    private val imageUtils: ImageUtils by lazy {
+        ImageUtils()
+    }
 
     lateinit var animeViewModel: AnimeViewModel
 
@@ -35,7 +40,7 @@ class AnimeDetailFragment : BaseFragment() {
     lateinit var animeName: TextView
     lateinit var animeType: TextView
     lateinit var animeCountry: TextView
-    lateinit var animePublishedYear: TextView
+    lateinit var animeReleasedYear: TextView
     lateinit var animeStatus: TextView
     lateinit var animeIntro: TextView
 
@@ -69,7 +74,7 @@ class AnimeDetailFragment : BaseFragment() {
         animeName = binding.animeName
         animeType = binding.animeType
         animeCountry = binding.animeCountry
-        animePublishedYear = binding.animeYear
+        animeReleasedYear = binding.animeYear
         animeStatus = binding.animeStatus
         animeIntro = binding.animeIntro
 
@@ -93,28 +98,33 @@ class AnimeDetailFragment : BaseFragment() {
             actionBarService.setTitle(animeNameDetails, toolbar)
 
             // set up data elements
+            targetAnime.animeImageUrl?.let {
+                imageUtils.loadImageFromDisk(it, animeProfile)
+            }
             animeName.text = animeNameDetails
             animeCountry.text =
                 getString(R.string.anime_country_title, getString(targetAnime.country.label))
             animeType.text = getString(R.string.anime_type_title, getString(targetAnime.type.label))
             val releaseYear: String =
                 targetAnime.releaseYear ?: Constants.NOT_AVAILABLE_PUBLISH_YEAR
-            animePublishedYear.text = getString(R.string.anime_year_title, releaseYear)
+            animeReleasedYear.text = getString(R.string.anime_release_year_title, releaseYear)
             animeStatus.text =
                 getString(R.string.anime_status_title, getString(targetAnime.status.label))
             val animeDescription: String =
                 targetAnime.synopsis ?: getString(R.string.empty_description_message)
-            animeIntro.text = getString(R.string.anime_year_title, animeDescription)
+            animeIntro.text = getString(R.string.anime_release_year_title, animeDescription)
         }
     }
 
+    /**
+     * TODO: removed when api is ready
+     */
     private fun getAnimeDetails() {
         actionBarService.setTitle("Throne of Seal", toolbar)
-        animeProfile.setImageResource(R.drawable.ic_gallery)
         animeName.text = "Throne of Seal"
         animeCountry.text = getString(R.string.anime_country_title, "China")
         animeType.text = getString(R.string.anime_type_title, "God")
-        animePublishedYear.text = getString(R.string.anime_year_title, "2021")
+        animeReleasedYear.text = getString(R.string.anime_release_year_title, "2021")
         animeStatus.text = getString(R.string.anime_status_title, "In Progress")
         animeIntro.text = "A boy on his own way to fight"
 
@@ -137,7 +147,6 @@ class AnimeDetailFragment : BaseFragment() {
             }
             else -> super.onOptionsItemSelected(item)
         }
-
     }
 
     override fun onDestroyView() {

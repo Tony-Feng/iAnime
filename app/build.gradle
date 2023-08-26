@@ -41,6 +41,7 @@ android {
 
 def retrofitVersion = "2.9.0"
 def dagger_version= "2.41"
+def picasso_version = "2.71828"
 
 dependencies {
 
@@ -67,4 +68,7 @@ dependencies {
     implementation "com.google.dagger:dagger:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     kapt "org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.4.2"
+
+    // Picasso
+    implementation "com.squareup.picasso:picasso:$picasso_version"
 }

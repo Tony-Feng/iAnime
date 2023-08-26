@@ -15,7 +15,7 @@ class AnimeItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     fun bind(model: AnimeGalleryItem) {
         //TODO 2022-02-11: Load image icon to item
-        animeImage.setImageResource(R.drawable.ic_gallery)
+        animeImage.setImageResource(R.drawable.ic_anime_placeholder)
         animeRate.text = model.animeRate.toString()
         animeTitle.text = model.animeName
         animeDescription.text = model.animeSynopsis
