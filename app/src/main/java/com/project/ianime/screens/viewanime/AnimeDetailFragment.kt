@@ -5,16 +5,31 @@ import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.ViewModelProvider
 import com.project.ianime.R
 import com.project.ianime.databinding.FragmentAnimeBinding
+import com.project.ianime.di.AnimeApplication
 import com.project.ianime.root.BaseFragment
 import com.project.ianime.screens.manageanime.EditAnimeFragment
 import com.project.ianime.utils.Constants
-import com.project.ianime.utils.updateLanguageSetting
+import com.project.ianime.viewmodels.AnimeViewModel
+import com.project.ianime.viewmodels.AnimeViewModelFactory
+import javax.inject.Inject
 
-class AnimeFragment : BaseFragment() {
+/**
+ * Anime detail screen which shows a specific anime with all the details
+ */
+class AnimeDetailFragment : BaseFragment() {
     private var _binding: FragmentAnimeBinding? = null
     val binding get() = _binding!!
+
+    lateinit var animeViewModel: AnimeViewModel
+
+    @Inject
+    lateinit var animeViewModelFactory: AnimeViewModelFactory
+
+    private lateinit var animeTargetId: String
+
     lateinit var toolbar: Toolbar
     lateinit var animeProfile: ImageView
     lateinit var animeName: TextView
@@ -25,10 +40,19 @@ class AnimeFragment : BaseFragment() {
     lateinit var animeIntro: TextView
 
     override fun updateActionBar(): Boolean {
-        //TODO: Update to each anime name
-        actionBarService.setTitle(getString(R.string.app_name), toolbar)
         actionBarService.setNavigateBackAction(toolbar, this)
         return true
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val animeApplication = requireActivity().application as AnimeApplication
+        animeApplication.applicationComponent.inject(this)
+
+        arguments?.let {
+            animeTargetId = it.getString(ANIME_TARGET_ID) as String
+        }
     }
 
     override fun onCreateView(
@@ -37,6 +61,9 @@ class AnimeFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAnimeBinding.inflate(inflater, container, false)
+        animeViewModel = ViewModelProvider(this, animeViewModelFactory)[AnimeViewModel::class.java]
+
+        // set up UI elements
         toolbar = binding.topAppBar.toolBar
         animeProfile = binding.animeProfile
         animeName = binding.animeName
@@ -45,6 +72,9 @@ class AnimeFragment : BaseFragment() {
         animePublishedYear = binding.animeYear
         animeStatus = binding.animeStatus
         animeIntro = binding.animeIntro
+
+        // load anime details by target id
+//        animeViewModel.getAnimeById(animeTargetId)
         return binding.root
     }
 
@@ -52,10 +82,34 @@ class AnimeFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         // Test using mocked data
         getAnimeDetails()
+//        loadAnimeDetails()
     }
 
-    //TODO: Update using Get API
+    private fun loadAnimeDetails() {
+        animeViewModel.animeTargetDetails.observe(viewLifecycleOwner) { targetAnime ->
+            // TODO 08-26: test if this could set in updateActionBar
+            // set title to each anime name
+            val animeNameDetails = targetAnime.animeName
+            actionBarService.setTitle(animeNameDetails, toolbar)
+
+            // set up data elements
+            animeName.text = animeNameDetails
+            animeCountry.text =
+                getString(R.string.anime_country_title, getString(targetAnime.country.label))
+            animeType.text = getString(R.string.anime_type_title, getString(targetAnime.type.label))
+            val releaseYear: String =
+                targetAnime.releaseYear ?: Constants.NOT_AVAILABLE_PUBLISH_YEAR
+            animePublishedYear.text = getString(R.string.anime_year_title, releaseYear)
+            animeStatus.text =
+                getString(R.string.anime_status_title, getString(targetAnime.status.label))
+            val animeDescription: String =
+                targetAnime.synopsis ?: getString(R.string.empty_description_message)
+            animeIntro.text = getString(R.string.anime_year_title, animeDescription)
+        }
+    }
+
     private fun getAnimeDetails() {
+        actionBarService.setTitle("Throne of Seal", toolbar)
         animeProfile.setImageResource(R.drawable.ic_gallery)
         animeName.text = "Throne of Seal"
         animeCountry.text = getString(R.string.anime_country_title, "China")
@@ -81,14 +135,6 @@ class AnimeFragment : BaseFragment() {
                 )
                 true
             }
-            R.id.setting_chinese -> {
-                updateLanguageSetting(requireContext(), Constants.LANG_ZH)
-                true
-            }
-            R.id.setting_english -> {
-                updateLanguageSetting(requireContext(), Constants.LANG_EN)
-                true
-            }
             else -> super.onOptionsItemSelected(item)
         }
 
@@ -100,6 +146,18 @@ class AnimeFragment : BaseFragment() {
     }
 
     companion object {
-        fun newInstance() = AnimeFragment()
+        /**
+         * pass in the target anime id to retrieve each individual anime details
+         * @return A new instance of fragment AnimeDetailFragment.
+         */
+        const val ANIME_TARGET_ID = "anime_id"
+
+        @JvmStatic
+        fun newInstance(animeItemId: String) =
+            AnimeDetailFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ANIME_TARGET_ID, animeItemId)
+                }
+            }
     }
 }

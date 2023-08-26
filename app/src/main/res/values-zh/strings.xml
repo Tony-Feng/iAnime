@@ -17,6 +17,21 @@
     <string name="anime_status_title">状态: %1$s</string>
     <string name="maxim_header_title">打动的话</string>
     <string name="episode_header_title">高光集数</string>
+    <string name="empty_description_message">我们需要迷迷提供更多关于这个动漫的信息。。。</string>
+
+    <!-- Anime Data -->
+    <string name="country_china">国漫</string>
+    <string name="country_japan">日漫</string>
+    <string name="genre_legend">神作</string>
+    <string name="genre_adventure">奇幻</string>
+    <string name="genre_love">恋爱</string>
+    <string name="genre_school">校园</string>
+    <string name="genre_energy">励志</string>
+    <string name="genre_sci">科幻</string>
+    <string name="genre_mystery">悬疑</string>
+    <string name="genre_life">日常</string>
+    <string name="status_finish">完结</string>
+    <string name="status_in_progress">更新</string>
 
     <!-- Manage Anime Screen -->
     <string name="add_anime_title">添加动漫</string>

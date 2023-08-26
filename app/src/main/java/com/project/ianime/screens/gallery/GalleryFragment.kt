@@ -16,11 +16,10 @@ import com.project.ianime.screens.gallery.adapter.AnimeItemAdapter
 import com.project.ianime.screens.stateholder.AnimeUiState
 import com.project.ianime.screens.viewanime.AnimeDetailFragment
 import com.project.ianime.service.TestDataRepository
-import com.project.ianime.viewmodels.GalleryViewModel
-import com.project.ianime.viewmodels.GalleryViewModelFactory
+import com.project.ianime.viewmodels.AnimeViewModel
+import com.project.ianime.viewmodels.AnimeViewModelFactory
 import javax.inject.Inject
 
-// TODO: Consider separate filter and recyclerview layouts
 /**
  * Gallery screen which shows all the anime in preview mode
  */
@@ -29,10 +28,10 @@ class GalleryFragment : BaseFragment() {
     private var _binding: FragmentGalleryBinding? = null
     private val binding get() = _binding!!
 
-    lateinit var galleryViewModel: GalleryViewModel
+    lateinit var animeViewModel: AnimeViewModel
 
     @Inject
-    lateinit var galleryViewModelFactory: GalleryViewModelFactory
+    lateinit var animeViewModelFactory: AnimeViewModelFactory
 
     private val testDataRepository = TestDataRepository()
 
@@ -48,13 +47,13 @@ class GalleryFragment : BaseFragment() {
 
         _binding = FragmentGalleryBinding.inflate(inflater, container, false)
 
-        galleryViewModel = ViewModelProvider(this, galleryViewModelFactory)[GalleryViewModel::class.java]
+        animeViewModel = ViewModelProvider(this, animeViewModelFactory)[AnimeViewModel::class.java]
 
         // set up UI elements
         animeCardList = binding.animeList
 
         // observe the change of the state of the screen to show empty, success and error screen
-        galleryViewModel.animeUiState.observe(viewLifecycleOwner){ uiState ->
+        animeViewModel.animeUiState.observe(viewLifecycleOwner){ uiState ->
             when (uiState){
                 AnimeUiState.Empty -> TODO()
                 is AnimeUiState.Error -> TODO()
@@ -86,7 +85,7 @@ class GalleryFragment : BaseFragment() {
         testDataRepository.testAnimeList.observe(viewLifecycleOwner, animeCardListObserver)
 
         // observe any changes of data to update recycler view
-        galleryViewModel.animeGalleryList.observe(viewLifecycleOwner){ galleryList ->
+        animeViewModel.animeGalleryList.observe(viewLifecycleOwner){ galleryList ->
             animeCardAdapter.submitList(galleryList)
         }
     }
