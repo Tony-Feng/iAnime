@@ -63,7 +63,7 @@ class ImageUtils {
                             }
 
                             override fun onError(e: java.lang.Exception?) {
-                                Log.i("Picasso", "Could not fetch image")
+                                Log.i("Picasso", "Could not fetch image from $imageUrl")
                             }
                         })
                 }
