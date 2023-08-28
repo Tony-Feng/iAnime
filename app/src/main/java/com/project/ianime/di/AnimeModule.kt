@@ -6,6 +6,7 @@ import com.project.ianime.repository.AnimeDataRepository
 import com.project.ianime.repository.AnimeDataRepositoryImpl
 import dagger.Module
 import dagger.Provides
+import dagger.Reusable
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -15,8 +16,19 @@ import javax.inject.Singleton
 class AnimeModule {
 
     /**
+     * Provides accept language interceptor
+     */
+    @Provides
+    @Reusable
+    fun providesBasicInterceptor(): AcceptLanguageInterceptor {
+        return AcceptLanguageInterceptor()
+    }
+
+
+    /**
      * Provides an okhttp client builder
      */
+    @Singleton
     @Provides
     fun providesOkhttpBuilder(acceptLanguageInterceptor: AcceptLanguageInterceptor): OkHttpClient {
         return OkHttpClient.Builder()

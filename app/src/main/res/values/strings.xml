@@ -1,20 +1,37 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- App Default -->
     <string name="app_name">iAnime</string>
     <string name="nav_home_title">Gallery</string>
     <string name="nav_user_title">Mine</string>
     <string name="setting_chinese">CN</string>
     <string name="setting_english">EN</string>
+    <string name="change_zh_message">App language changed to Chinese</string>
+    <string name="change_en_message">App language changed to English</string>
     <string name="user_screen_title" translatable="false">COMING SOON...</string>
 
     <!-- Anime Detail Screen -->
     <string name="intro_header_title">About</string>
     <string name="anime_type_title">Type: %1$s</string>
     <string name="anime_country_title">Country: %1$s</string>
-    <string name="anime_year_title">Published Year: %1$s</string>
+    <string name="anime_release_year_title">Published Year: %1$s</string>
     <string name="anime_status_title">Status: %1$s</string>
     <string name="maxim_header_title">Maxim</string>
     <string name="episode_header_title">Favourite Episodes</string>
+    <string name="empty_description_message" tools:ignore="TypographyEllipsis">We need you to provide more information about this anime...</string>
+
+    <!-- Anime Data -->
+    <string name="country_china">China</string>
+    <string name="country_japan">Japan</string>
+    <string name="genre_legend">Legend</string>
+    <string name="genre_adventure">Adventure</string>
+    <string name="genre_love">Love</string>
+    <string name="genre_school">School</string>
+    <string name="genre_energy">Energy</string>
+    <string name="genre_sci">Sci-fi</string>
+    <string name="genre_mystery">Mystery</string>
+    <string name="genre_life">Life</string>
+    <string name="status_finish">Finished</string>
+    <string name="status_in_progress">In Progress</string>
 
     <!-- Manage Anime Screen -->
     <string name="add_anime_title">Add Anime</string>
@@ -30,12 +47,12 @@
         <item>China</item>
         <item>Japan</item>
     </string-array>
-    <string name="anime_type_hint">Type</string>
+    <string name="anime_type_hint">Genre</string>
     <string-array name="type_selector">
-        <item>God</item>
+        <item>Legend</item>
         <item>Adventure</item>
         <item>Love</item>
-        <item>Campus</item>
+        <item>School</item>
         <item>Energy</item>
         <item>Sci-fi</item>
         <item>Mystery</item>

@@ -19,7 +19,7 @@ import com.google.android.material.button.MaterialButton
 import com.project.ianime.R
 import com.project.ianime.databinding.FragmentManageAnimeBinding
 import com.project.ianime.root.BaseFragment
-import com.project.ianime.utils.image.ImageStub
+import com.project.ianime.utils.image.ImageUtils
 import com.project.ianime.utils.showExitBeforeDialog
 import com.project.ianime.widget.AnimeEditText
 import com.project.ianime.widget.setShowProgress
@@ -28,7 +28,7 @@ import java.io.IOException
 
 abstract class ManageAnimeFragment : BaseFragment() {
 
-    private val imageStub = ImageStub()
+    private val imageUtils = ImageUtils()
     private lateinit var selectedImageBitmap: Bitmap
 
     private var _binding: FragmentManageAnimeBinding? = null

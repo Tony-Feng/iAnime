@@ -15,11 +15,13 @@ import com.project.ianime.screens.manageanime.AddAnimeFragment
 import com.project.ianime.screens.user.UserFragment
 
 class HomeFragment : BaseFragment() {
+
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
+
     lateinit var toolbar: Toolbar
     lateinit var bottomNavigationView: BottomNavigationView
     lateinit var addAnimeButton: FloatingActionButton
-    private var _binding: FragmentHomeBinding? = null
-    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,21 +42,22 @@ class HomeFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // Launch Main Screen
-        navigateToMainScreen()
+        // launch Main Screen
+        navigateToAnimeGallery()
 
+        // set bottom navigation
         bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.home_screen -> {
                     appNavigation.showFragmentOverTop(
-                        GalleryFragment.newInstance(),
+                        GalleryFragment(),
                         fragmentContainerId
                     )
                     return@setOnItemSelectedListener true
                 }
                 R.id.user_screen -> {
                     appNavigation.showFragmentOverTop(
-                        UserFragment.newInstance(),
+                        UserFragment(),
                         fragmentContainerId
                     )
                     return@setOnItemSelectedListener true
@@ -62,25 +65,22 @@ class HomeFragment : BaseFragment() {
             }
             false
         }
+        // navigate to add anime screen
         addAnimeButton.setOnClickListener {
-            navigateToAddScreen()
+            navigateToAddAnime()
         }
     }
 
-    private fun navigateToMainScreen() {
-        appNavigation.showFragmentReplaceTop(GalleryFragment.newInstance(), fragmentContainerId)
+    private fun navigateToAnimeGallery() {
+        appNavigation.showFragmentReplaceTop(GalleryFragment(), fragmentContainerId)
     }
 
-    private fun navigateToAddScreen() {
-        appNavigation.showFragmentReplaceTop(AddAnimeFragment.newInstance(), baseContainerId)
+    private fun navigateToAddAnime() {
+        appNavigation.showFragmentReplaceTop(AddAnimeFragment(), baseContainerId)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    companion object {
-        fun newInstance() = HomeFragment()
     }
 }

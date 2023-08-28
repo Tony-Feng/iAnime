@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/setting_chinese_language"
+        android:id="@+id/setting_chinese"
         android:title="@string/setting_chinese"/>
 
     <item
-        android:id="@+id/setting_english_language"
+        android:id="@+id/setting_english"
         android:title="@string/setting_english"/>
 
 </menu>

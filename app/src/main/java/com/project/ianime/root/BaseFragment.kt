@@ -18,17 +18,12 @@ abstract class BaseFragment : Fragment() {
 
     lateinit var appNavigation: AppNavigation
     private lateinit var navigationLifeCycle: AppNavigationLifecycle
-    val actionBarService: ActionBarService
-        get() {
-            return ActionBarServiceImpl(
-                activity as AppCompatActivity
-            )
-        }
-    val baseContainerId: Int
-        get() {
-            val baseContainerActivity = activity as BaseContainerActivity
-            return baseContainerActivity.containerViewHolderId
-        }
+    val actionBarService: ActionBarService by lazy {
+        ActionBarServiceImpl(
+            activity as AppCompatActivity
+        )
+    }
+    val baseContainerId = R.id.container
     val fragmentContainerId = R.id.fragment_container
 
     override fun onAttach(context: Context) {
@@ -40,7 +35,7 @@ abstract class BaseFragment : Fragment() {
         super.onAttach(context)
     }
 
-    // Set Fragment Action Bar
+    // Set fragment action bar
     open fun updateActionBar(): Boolean {
         return false
     }

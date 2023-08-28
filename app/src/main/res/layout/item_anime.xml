@@ -21,7 +21,8 @@
                 android:id="@+id/item_image"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/anime_card_height"
-                android:scaleType="fitCenter" />
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_anime_placeholder" />
 
             <TextView
                 android:id="@+id/rate"

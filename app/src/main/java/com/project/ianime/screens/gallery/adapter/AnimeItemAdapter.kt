@@ -12,8 +12,7 @@ class AnimeItemAdapter(
 ) : ListAdapter<AnimeGalleryItem, AnimeItemViewHolder>(DIFF_CONFIG) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimeItemViewHolder {
-        val itemView =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_anime, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_anime, parent, false)
         return AnimeItemViewHolder(itemView)
     }
 
