@@ -17,7 +17,7 @@
     <string name="anime_status_title">Status: %1$s</string>
     <string name="maxim_header_title">Maxim</string>
     <string name="episode_header_title">Favourite Episodes</string>
-    <string name="empty_description_message" tools:ignore="TypographyEllipsis">We need you input some more information for this anime...</string>
+    <string name="empty_description_message" tools:ignore="TypographyEllipsis">We need you to provide more information about this anime...</string>
 
     <!-- Anime Data -->
     <string name="country_china">China</string>
