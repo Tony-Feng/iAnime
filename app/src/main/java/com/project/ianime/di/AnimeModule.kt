@@ -9,6 +9,7 @@ import dagger.Provides
 import dagger.Reusable
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
@@ -47,6 +48,7 @@ class AnimeModule {
             .baseUrl("https://ai8454431.pythonanywhere.com/")
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .build()
     }
 
