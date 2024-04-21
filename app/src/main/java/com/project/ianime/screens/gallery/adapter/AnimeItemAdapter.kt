@@ -5,11 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.project.ianime.R
-import com.project.ianime.api.data.AnimeGalleryItem
+import com.project.ianime.api.model.AnimeApiModel
 
 class AnimeItemAdapter(
-    private val clickHandler: (AnimeGalleryItem) -> Unit
-) : ListAdapter<AnimeGalleryItem, AnimeItemViewHolder>(DIFF_CONFIG) {
+    private val clickHandler: (AnimeApiModel) -> Unit
+) : ListAdapter<AnimeApiModel, AnimeItemViewHolder>(DIFF_CONFIG) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimeItemViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_anime, parent, false)
@@ -25,17 +25,17 @@ class AnimeItemAdapter(
     }
 
     companion object {
-        val DIFF_CONFIG = object : DiffUtil.ItemCallback<AnimeGalleryItem>() {
+        val DIFF_CONFIG = object : DiffUtil.ItemCallback<AnimeApiModel>() {
             override fun areItemsTheSame(
-                oldItem: AnimeGalleryItem,
-                newItem: AnimeGalleryItem
+                oldItem: AnimeApiModel,
+                newItem: AnimeApiModel
             ): Boolean {
                 return oldItem === newItem
             }
 
             override fun areContentsTheSame(
-                oldItem: AnimeGalleryItem,
-                newItem: AnimeGalleryItem
+                oldItem: AnimeApiModel,
+                newItem: AnimeApiModel
             ): Boolean {
                 return oldItem == newItem
             }

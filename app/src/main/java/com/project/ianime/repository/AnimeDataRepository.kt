@@ -5,17 +5,19 @@ import com.project.ianime.api.model.AnimeApiModel
 import io.reactivex.rxjava3.core.Single
 
 /**
- * Repository for storing data from network and internal storage
+ * Repository for managing data from network and database
  */
 interface AnimeDataRepository {
 
     /**
-     * return entire list of all anime details
+     * return entire list of all anime details from Rest API call
      */
     fun getAnimeListFromNetwork(): Single<List<AnimeApiModel>>
 
+
     /**
-     * return list of anime items on gallery screen
+     * return specific anime details by anime ID
+     * @param animeId - id of the target anime
      */
-    fun getGalleryList(): Single<List<AnimeGalleryItem>>
+    fun getAnimeDetailsById(animeId: String): AnimeGalleryItem?
 }

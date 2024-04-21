@@ -6,6 +6,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.project.ianime.R
 import com.project.ianime.api.data.AnimeGalleryItem
+import com.project.ianime.api.model.AnimeApiModel
 import com.project.ianime.utils.image.ImageUtils
 
 class AnimeItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -17,13 +18,13 @@ class AnimeItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         ImageUtils()
     }
 
-    fun bind(model: AnimeGalleryItem) {
-        model.imageUrl?.let {
+    fun bind(model: AnimeApiModel) {
+        model.animeImageUrl?.let {
             imageUtils.loadImageFromDisk(it, animeImage)
         }
         animeImage.setImageResource(R.drawable.ic_anime_placeholder)
-        animeRate.text = model.animeRate.toString()
+        animeRate.text = model.rate.toString()
         animeTitle.text = model.animeName
-        animeDescription.text = model.animeSynopsis
+        animeDescription.text = model.synopsis
     }
 }

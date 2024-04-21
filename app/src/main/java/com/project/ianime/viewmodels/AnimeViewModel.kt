@@ -14,8 +14,8 @@ import javax.inject.Inject
 
 class AnimeViewModel @Inject constructor(private val repository: AnimeDataRepository) : ViewModel() {
 
-    private val _animeGalleryList = MutableLiveData<List<AnimeGalleryItem>>()
-    val animeGalleryList: LiveData<List<AnimeGalleryItem>> = _animeGalleryList
+    private val _animeList = MutableLiveData<List<AnimeApiModel>>()
+    val animeList: LiveData<List<AnimeApiModel>> = _animeList
 
     var animeUiState = MutableLiveData<AnimeUiState>()
 
@@ -28,17 +28,17 @@ class AnimeViewModel @Inject constructor(private val repository: AnimeDataReposi
     }
 
     /**
-     * get list of anime gallery items
+     * get entire list of animes with all information
      */
-    fun getAnimeGalleryList() {
-        repository.getGalleryList()
+    fun getAnimeList() {
+        repository.getAnimeListFromNetwork()
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ galleryItems ->
-                if (galleryItems.isEmpty()) {
+            .subscribe({ animeItems ->
+                if (animeItems.isEmpty()) {
                     animeUiState.postValue(AnimeUiState.Empty)
                 } else {
                     animeUiState.postValue(AnimeUiState.Success)
-                    _animeGalleryList.postValue(galleryItems)
+                    _animeList.postValue(animeItems)
                 }
             }, {
                 handleError(it)
@@ -50,19 +50,8 @@ class AnimeViewModel @Inject constructor(private val repository: AnimeDataReposi
      * get an anime with specific id
      * @param animeId - anime target id
      */
-    fun getAnimeById(animeTargetId: String) {
-        repository.getAnimeListFromNetwork()
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ animeList ->
-                val targetDetails = animeList.find {
-                    it.animeId == animeTargetId
-                }
-                animeTargetDetails.postValue(targetDetails!!)
-            }, {
-                handleError(it)
-            }
-            )
-            .also { viewScopeSubscriptionTracker.add(it) }
+    fun getAnimeById(animeTargetId: String): AnimeGalleryItem? {
+        return repository.getAnimeDetailsById(animeTargetId)
     }
 
     private fun handleError(exception: Throwable) {

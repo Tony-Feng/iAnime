@@ -9,13 +9,22 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import retrofit2.HttpException
 import javax.inject.Inject
 
-class AnimeDataRepositoryImpl @Inject constructor(private val animeService: AnimeService) :
-    AnimeDataRepository {
+class AnimeDataRepositoryImpl @Inject constructor(private val animeService: AnimeService) : AnimeDataRepository {
+
+    // cached the data from the Network resource
+    private var cachedAnimeDetailsList : List<AnimeGalleryItem> ?= null
 
     override fun getAnimeListFromNetwork(): Single<List<AnimeApiModel>> {
         return animeService.getAnimeList()
             .subscribeOn(Schedulers.io())
-            .map { it.animeList }
+            .flatMap { response ->
+                val animeList = response.animeList ?: emptyList()
+                val animeDetails = animeList.map {
+                    it.mapToGalleryItem()
+                }
+                cachedAnimeDetailsList = animeDetails
+                Single.just(animeList)
+            }
             .onErrorResumeNext { exception ->
                 if (exception is HttpException) {
                     exception.code().let {
@@ -25,21 +34,25 @@ class AnimeDataRepositoryImpl @Inject constructor(private val animeService: Anim
                                     BadRequestException(exception.message())
                                 )
                             }
+
                             it == HttpStatus.UNAUTHORIZED -> {
                                 return@onErrorResumeNext Single.error(
                                     UnauthorizedException(exception.message())
                                 )
                             }
+
                             it == HttpStatus.NOT_FOUND -> {
                                 return@onErrorResumeNext Single.error(
                                     NotFoundException(exception.message())
                                 )
                             }
+
                             it >= 500 -> {
                                 return@onErrorResumeNext Single.error(
                                     ConnectionException(exception.message())
                                 )
                             }
+
                             else -> {
                                 return@onErrorResumeNext Single.error(exception)
                             }
@@ -50,15 +63,9 @@ class AnimeDataRepositoryImpl @Inject constructor(private val animeService: Anim
             }
     }
 
-    override fun getGalleryList(): Single<List<AnimeGalleryItem>> {
-        return getAnimeListFromNetwork()
-            .map { animeList ->
-                animeList.map {
-                    it.mapToGalleryItem()
-                }
-            }
-            .flatMap { galleryList ->
-                Single.just(galleryList)
-            }
+    override fun getAnimeDetailsById(animeId: String): AnimeGalleryItem? {
+        return cachedAnimeDetailsList?.find {
+            it.animeId == animeId
+        }
     }
 }

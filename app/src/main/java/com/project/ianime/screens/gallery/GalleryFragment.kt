@@ -8,7 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.project.ianime.api.data.AnimeGalleryItem
+import com.project.ianime.api.model.AnimeApiModel
 import com.project.ianime.databinding.FragmentGalleryBinding
 import com.project.ianime.di.AnimeApplication
 import com.project.ianime.root.BaseFragment
@@ -61,9 +61,6 @@ class GalleryFragment : BaseFragment() {
             }
         }
 
-        // load anime gallery list
-//        galleryViewModel.getAnimeGalleryList()
-
         return binding.root
     }
 
@@ -78,15 +75,15 @@ class GalleryFragment : BaseFragment() {
             appNavigation.showFragmentReplaceTop(AnimeDetailFragment.newInstance(it.animeId), baseContainerId)
         }
         animeCardList.adapter = animeCardAdapter
-        val animeCardListObserver = Observer<List<AnimeGalleryItem>> { animeItems ->
+        val animeCardListObserver = Observer<List<AnimeApiModel>> { animeItems ->
             animeCardAdapter.submitList(animeItems)
         }
 
         testDataRepository.testAnimeList.observe(viewLifecycleOwner, animeCardListObserver)
 
         // observe any changes of data to update recycler view
-        animeViewModel.animeGalleryList.observe(viewLifecycleOwner){ galleryList ->
-            animeCardAdapter.submitList(galleryList)
+        animeViewModel.animeList.observe(viewLifecycleOwner){ animeList ->
+            animeCardAdapter.submitList(animeList)
         }
     }
 
