@@ -14,12 +14,8 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    env:
     strategy:
       fail-fast: false
     steps:
       - name: Check out
         uses: actions/checkout@v4
-        with:
-          submodules: "recursive"
-          fetch-depth: 0
