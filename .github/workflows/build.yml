@@ -64,6 +64,11 @@ jobs:
         run: ./gradlew assembleRelease --stacktrace
 
       - name: Build bundle
+        env:
+          SIGNING_KEY_STORE_PATH: ~/keystore.jks
+          SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
+          SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
+          SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
         run: ./gradlew bundleRelease --stacktrace
 
       - name: Upload artifacts
