@@ -50,7 +50,7 @@ jobs:
           ENCODED_KEY_STORE: ${{ secrets.SIGNING_KEY_STORE_BASE64 }}
         run: |
           echo $ENCODED_KEY_STORE > keystore_b64.txt
-          base64 -d keystore_b64.txt > ~/keystore.jks
+          base64 -di keystore_b64.txt > ~/keystore.jks
 
       - name: Update the permission
         run: chmod +x ./gradlew
