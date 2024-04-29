@@ -30,6 +30,9 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
+      - name: Update the permission
+        run: chmod +x ./gradlew
+
       - name: Build APK
         run: ./gradlew assembleRelease --stacktrace
 
