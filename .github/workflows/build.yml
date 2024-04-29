@@ -2,13 +2,13 @@ name: Build
 
 on:
   push:
-    branches: [master]
+    branches: [ master ]
     paths:
       - "app/**"
       - "gradle.properties"
       - ".github/workflows/build.yml"
   pull_request:
-    branches: [master]
+    branches: [ master ]
   workflow_dispatch:
 
 jobs:
@@ -26,6 +26,14 @@ jobs:
         with:
           distribution: "temurin"
           java-version: 17
+
+      - name: Cache Gradle and wrapper
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
 
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
