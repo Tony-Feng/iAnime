@@ -55,21 +55,12 @@ jobs:
       - name: Update the permission
         run: chmod +x ./gradlew
 
-#       - name: Build APK
-#         env:
-#           SIGNING_KEY_STORE_PATH: ~/keystore.jks
-#           SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
-#           SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
-#           SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
-#         run: ./gradlew assembleRelease --stacktrace
-#
-#       - name: Build bundle
-#         env:
-#           SIGNING_KEY_STORE_PATH: ~/keystore.jks
-#           SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
-#           SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
-#           SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
-#         run: ./gradlew bundleRelease --stacktrace
+      - name: Build APK
+        env:
+          SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
+          SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
+          SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
+        run: ./gradlew app:assemble
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
