@@ -40,7 +40,7 @@ jobs:
           SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
           SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
         run: |
-          echo ${{ secrets.SIGNING_KEY_STORE_BASE64 }} | base64 -di > ./keystore_b64.txt
+          echo '${{ secrets.SIGNING_KEY_STORE_BASE64 }}' | base64 -di > ./keystore_b64.txt
           chmod u+x ./gradlew
           ./gradlew app:assemble
 
