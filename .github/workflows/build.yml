@@ -68,5 +68,4 @@ jobs:
           name: artifact-${{ github.sha }}
           path: |
             app/build/outputs/apk/release/
-            app/build/outputs/bundle/release/
           retention-days: 3
