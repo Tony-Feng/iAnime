@@ -33,3 +33,4 @@ obj/
 caches/
 captures/
 .cxx/
+.local/
