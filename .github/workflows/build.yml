@@ -42,7 +42,7 @@ jobs:
           base64 -di ./keystore_b64.txt > ./app/keystore.jks
 
       - name: Update the permission
-        run: chmod +x ./gradlew
+        run: chmod u+x ./gradlew
 
       - name: Build APK
         env:
