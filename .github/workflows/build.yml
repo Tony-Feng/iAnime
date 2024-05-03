@@ -39,8 +39,9 @@ jobs:
           SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
           SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
           SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
+          SIGNING_STORE_LOCATION: ${{ secrets.SIGNING_STORE_LOCATION }}
         run: |
-          echo '${{ secrets.SIGNING_KEY_STORE_BASE64 }}' | base64 -di > ./app/keystore.jks
+          echo '${{ secrets.SIGNING_KEY_STORE_BASE64 }}' | base64 -di > ${{ secrets.SIGNING_STORE_LOCATION }}/keystore.jks
           chmod u+x ./gradlew
           ./gradlew app:assemble
 
