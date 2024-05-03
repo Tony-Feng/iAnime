@@ -47,6 +47,7 @@ jobs:
   upload:
     name: Upload
     runs-on: ubuntu-latest
+    steps:
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
