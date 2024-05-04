@@ -20,10 +20,10 @@ jobs:
       - name: Build
         uses: ./.github/actions/build
         with:
-          signing-key-alias: ${{ secrets.SIGNING_KEY_ALIAS }}
-          signing-key-password: ${{ secrets.SIGNING_KEY_PASSWORD }}
-          signing-keystore-base64: ${{ secrets.SIGNING_KEY_STORE_BASE64 }}
-          signing-store-password: ${{ secrets.SIGNING_STORE_PASSWORD }}
-          signing-store-location: ${{ secrets.SIGNING_STORE_LOCATION }}
-          keystore-name: 'keystore.jks'
+          key-alias: ${{ secrets.KEY_ALIAS }}
+          key-password: ${{ secrets.KEY_PASSWORD }}
+          store-base64: ${{ secrets.STORE_BASE64 }}
+          store-password: ${{ secrets.STORE_PASSWORD }}
+          store-location: ${{ secrets.STORE_LOCATION }}
+          store-name: 'keystore.jks'
           retention-days: 3
