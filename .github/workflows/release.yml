@@ -1,14 +1,6 @@
 name: Release
 
 on:
-  push:
-    branches: [ master ]
-    paths:
-      - 'app/**'
-      - 'gradle.properties'
-      - '.github/workflows/build.yml'
-  pull_request:
-    branches: [ master ]
   workflow_dispatch:
 
 jobs:
@@ -16,17 +8,25 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
       - name: Build
-        uses: ./.github/workflows/build
+        uses: ./.github/actions/build
+        with:
+          key-alias: ${{ secrets.KEY_ALIAS }}
+          key-password: ${{ secrets.KEY_PASSWORD }}
+          store-base64: ${{ secrets.STORE_BASE64 }}
+          store-password: ${{ secrets.STORE_PASSWORD }}
+          store-location: ${{ secrets.STORE_LOCATION }}
+          store-name: 'keystore.jks'
+          retention-days: 3
 
   release:
     name: Release
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: Build
-        uses: ./.github/workflows/build
-
       - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
