@@ -18,7 +18,8 @@ local.properties
 
 # Gradle files
 .gradle
-build/
+build/*
+!actions/build/
 
 # Android Studio
 .idea/
