@@ -23,7 +23,6 @@ inputs:
   retention-days:
     description: 'Duration after which artifact will expire in days.'
     required: false
-    default: 3
 
 runs:
   using: 'composite'
