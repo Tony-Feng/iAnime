@@ -1,5 +1,10 @@
 name: Build
 
+inputs:
+  retention_days:
+    description: 'Duration after which artifact will expire in days.'
+    default: 3
+
 runs:
   using: 'composite'
   steps:
@@ -35,4 +40,4 @@ runs:
       with:
         name: artifact-${{ github.sha }}
         path: ./app/build/outputs/apk/release/
-        retention-days: 3
+        retention-days: ${{ inputs.retention_days }}
