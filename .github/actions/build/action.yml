@@ -1,6 +1,10 @@
 name: Build
 
 inputs:
+  keystore_name:
+    description: 'Keystore name for signing.'
+    required: true
+    default: 'keystore.jks'
   retention_days:
     description: 'Duration after which artifact will expire in days.'
     default: 3
@@ -30,7 +34,7 @@ runs:
         SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
         SIGNING_STORE_LOCATION: ${{ secrets.SIGNING_STORE_LOCATION }}
       run: |
-        echo '${{ secrets.SIGNING_KEY_STORE_BASE64 }}' | base64 -di > ${{ secrets.SIGNING_STORE_LOCATION }}/keystore.jks
+        echo '${{ secrets.SIGNING_KEY_STORE_BASE64 }}' | base64 -di > ${{ secrets.SIGNING_STORE_LOCATION }}/${{ inputs.keystore_name }}
         chmod u+x ./gradlew
         ./gradlew app:assemble
       shell: bash
