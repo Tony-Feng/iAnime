@@ -7,7 +7,7 @@ runs:
       uses: actions/setup-java@v4
       with:
         distribution: 'temurin'
-        java-version: 17
+        java-version: '17'
 
     - name: Cache Gradle and dependencies
       uses: actions/cache@v4
@@ -28,6 +28,7 @@ runs:
         echo '${{ secrets.SIGNING_KEY_STORE_BASE64 }}' | base64 -di > ${{ secrets.SIGNING_STORE_LOCATION }}/keystore.jks
         chmod u+x ./gradlew
         ./gradlew app:assemble
+      shell: bash
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
