@@ -7,8 +7,6 @@ on:
       - 'app/**'
       - 'gradle.properties'
       - '.github/workflows/build.yml'
-  pull_request:
-    branches: [ master ]
   workflow_dispatch:
 
 jobs:
@@ -19,35 +17,8 @@ jobs:
       - name: Check out
         uses: actions/checkout@v4
 
-      - name: Set up Java
-        uses: actions/setup-java@v4
+      - name: Build
+        uses: ./.github/actions/build
         with:
-          distribution: 'temurin'
-          java-version: 17
-
-      - name: Cache Gradle and dependencies
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
-          restore-keys: ${{ runner.os }}-gradle-
-
-      - name: Build APK
-        env:
-          SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
-          SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
-          SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
-          SIGNING_STORE_LOCATION: ${{ secrets.SIGNING_STORE_LOCATION }}
-        run: |
-          echo '${{ secrets.SIGNING_KEY_STORE_BASE64 }}' | base64 -di > ${{ secrets.SIGNING_STORE_LOCATION }}/keystore.jks
-          chmod u+x ./gradlew
-          ./gradlew app:assemble
-
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: artifact-${{ github.sha }}
-          path: ./app/build/outputs/apk/release/
+          keystore-name: 'keystore.jks'
           retention-days: 3
