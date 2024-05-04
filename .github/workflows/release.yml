@@ -32,7 +32,7 @@ jobs:
         with:
           name: artifact-${{ github.sha }}
 
-      - name: Show
-        run: |
-          pwd
-          ls -alh
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ./app-release.apk
