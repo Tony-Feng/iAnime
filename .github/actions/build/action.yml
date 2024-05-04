@@ -1,12 +1,28 @@
 name: Build
 
 inputs:
+  signing-key-alias:
+    description: 'Key alias for signing.'
+    required: true
+  signing-key-password:
+    description: 'Key password for signing.'
+    required: true
+  signing-keystore-base64:
+    description: 'Encoded keystore for signing.'
+    required: true
+  signing-store-password:
+    description: 'Keystore password for signing.'
+    required: true
+  signing-store-location:
+    description: 'Keystore location for signing.'
+    required: true
   keystore-name:
     description: 'Keystore name for signing.'
     required: true
     default: 'keystore.jks'
   retention-days:
     description: 'Duration after which artifact will expire in days.'
+    required: false
     default: 3
 
 runs:
@@ -29,12 +45,12 @@ runs:
 
     - name: Build APK
       env:
-        SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
-        SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
-        SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
-        SIGNING_STORE_LOCATION: ${{ secrets.SIGNING_STORE_LOCATION }}
+        SIGNING_KEY_ALIAS: ${{ inputs.signing-key-alias }}
+        SIGNING_KEY_PASSWORD: ${{ inputs.signing-key-password }}
+        SIGNING_STORE_PASSWORD: ${{ inputs.signing-store-password }}
+        SIGNING_STORE_LOCATION: ${{ inputs.signing-store-location }}
       run: |
-        echo '${{ secrets.SIGNING_KEY_STORE_BASE64 }}' | base64 -di > ${{ secrets.SIGNING_STORE_LOCATION }}/${{ inputs.keystore-name }}
+        echo '${{ inputs.signing-keystore-base64 }}' | base64 -di > ${{ inputs.signing-store-location }}/${{ inputs.keystore-name }}
         chmod u+x ./gradlew
         ./gradlew app:assemble
       shell: bash
