@@ -45,8 +45,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: ./*.apk
-          body: 'Release `${{ github.ref_name }}` on commit `${{ github.sha }}`'
-          append_body: true
+          body: 'Release `${{ github.ref_name }}` on commit `${{ github.sha }}`' # can use `body_path` param to generate release note from a CHANGELOG file instead
 
       - name: Attest artifact
         uses: github-early-access/generate-build-provenance@main
