@@ -45,6 +45,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: ./*.apk
+          generate_release_notes: true
 
       - name: Attest artifact
         uses: github-early-access/generate-build-provenance@main
