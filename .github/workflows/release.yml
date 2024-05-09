@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     tags:
-      - v*.*.*
+      - 'v*.*.*'
   workflow_dispatch:
 
 jobs:
@@ -45,6 +45,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: ./*.apk
+          body: 'Release for ${{ github.ref_name }}'
           generate_release_notes: true
 
       - name: Attest artifact
