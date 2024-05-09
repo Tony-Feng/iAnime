@@ -26,4 +26,4 @@ jobs:
           store-password: ${{ secrets.STORE_PASSWORD }}
           store-location: ${{ secrets.STORE_LOCATION }}
           store-name: 'keystore.jks'
-          retention-days: 3
+          retention-days: 3 # can remove this to use default number of days from repo settings

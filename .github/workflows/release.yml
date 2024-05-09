@@ -20,14 +20,18 @@ jobs:
           store-password: ${{ secrets.STORE_PASSWORD }}
           store-location: ${{ secrets.STORE_LOCATION }}
           store-name: 'keystore.jks'
-          retention-days: 3
+          retention-days: 3 # can remove this to use default number of days from repo settings
 
   release:
     name: Release
     runs-on: ubuntu-latest
     needs: build
     permissions:
+      # for release action
       contents: write
+      # for attestation creation action
+      id-token: write
+      attestations: write
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v4
@@ -38,3 +42,8 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: ./*.apk
+
+      - name: Attest artifact
+        uses: github-early-access/generate-build-provenance@main
+        with:
+          subject-path: ./*.apk
