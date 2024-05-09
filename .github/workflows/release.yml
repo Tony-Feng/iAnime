@@ -45,8 +45,8 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: ./*.apk
-          body: 'Release for ${{ github.ref_name }}'
-          generate_release_notes: true
+          body: 'Release `${{ github.ref_name }}` on commit `${{ github.sha }}`'
+          append_body: true
 
       - name: Attest artifact
         uses: github-early-access/generate-build-provenance@main
