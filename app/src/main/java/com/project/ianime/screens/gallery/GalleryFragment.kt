@@ -57,7 +57,7 @@ class GalleryFragment : BaseFragment() {
             when (uiState){
                 AnimeUiState.Empty -> TODO()
                 is AnimeUiState.Error -> TODO()
-                AnimeUiState.Success -> loadAnimeGallery()
+                AnimeUiState.Success -> showAnimeGallery()
             }
         }
 
@@ -67,12 +67,18 @@ class GalleryFragment : BaseFragment() {
     /**
      * set recycler view and load gallery items
      */
-    private fun loadAnimeGallery(){
+    private fun showAnimeGallery(){
         testDataRepository.loadAnimeList()
         // set recycler view
         animeCardList.layoutManager = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
         val animeCardAdapter = AnimeItemAdapter {
-            appNavigation.showFragmentReplaceTop(AnimeDetailFragment.newInstance(it.animeId), baseContainerId)
+            val bundle = Bundle().apply {
+                putString(ANIME_DETAIL_PARAM, it.animeId)
+            }
+            val animeDetailFragment = AnimeDetailFragment()
+            animeDetailFragment.arguments = bundle
+
+            appNavigation.showFragmentReplaceTop(animeDetailFragment, baseContainerId)
         }
         animeCardList.adapter = animeCardAdapter
         val animeCardListObserver = Observer<List<AnimeApiModel>> { animeItems ->
@@ -90,5 +96,9 @@ class GalleryFragment : BaseFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object{
+        const val ANIME_DETAIL_PARAM = "anime_id"
     }
 }

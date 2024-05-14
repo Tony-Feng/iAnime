@@ -56,7 +56,7 @@ class AnimeDetailFragment : BaseFragment() {
         animeApplication.applicationComponent.inject(this)
 
         arguments?.let {
-            animeTargetId = it.getString(ANIME_TARGET_ID) as String
+            animeTargetId = it.getString(ANIME_TARGET_ID).toString()
         }
     }
 
@@ -155,18 +155,6 @@ class AnimeDetailFragment : BaseFragment() {
     }
 
     companion object {
-        /**
-         * pass in the target anime id to retrieve each individual anime details
-         * @return A new instance of fragment AnimeDetailFragment.
-         */
         const val ANIME_TARGET_ID = "anime_id"
-
-        @JvmStatic
-        fun newInstance(animeItemId: String) =
-            AnimeDetailFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ANIME_TARGET_ID, animeItemId)
-                }
-            }
     }
 }
