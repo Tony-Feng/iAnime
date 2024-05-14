@@ -12,7 +12,10 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import retrofit2.HttpException
 import javax.inject.Inject
 
-class AnimeDataRepositoryImpl @Inject constructor(private val animeService: AnimeService, private val animeDao: AnimeDao) : AnimeDataRepository {
+class AnimeDataRepositoryImpl @Inject constructor(
+    private val animeService: AnimeService,
+    private val animeDao: AnimeDao
+) : AnimeDataRepository {
 
     // cached the data from the Network resource
     private var cachedAnimeDetailsList : List<AnimeGalleryItem> ?= null
