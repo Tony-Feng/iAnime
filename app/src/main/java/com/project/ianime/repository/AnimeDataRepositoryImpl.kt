@@ -1,15 +1,18 @@
 package com.project.ianime.repository
 
+import androidx.annotation.WorkerThread
 import com.project.ianime.api.AnimeService
 import com.project.ianime.api.data.AnimeGalleryItem
 import com.project.ianime.api.error.*
 import com.project.ianime.api.model.AnimeApiModel
+import com.project.ianime.data.AnimeDao
+import com.project.ianime.data.AnimeEntity
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import retrofit2.HttpException
 import javax.inject.Inject
 
-class AnimeDataRepositoryImpl @Inject constructor(private val animeService: AnimeService) : AnimeDataRepository {
+class AnimeDataRepositoryImpl @Inject constructor(private val animeService: AnimeService, private val animeDao: AnimeDao) : AnimeDataRepository {
 
     // cached the data from the Network resource
     private var cachedAnimeDetailsList : List<AnimeGalleryItem> ?= null
@@ -68,4 +71,12 @@ class AnimeDataRepositoryImpl @Inject constructor(private val animeService: Anim
             it.animeId == animeId
         }
     }
+
+    override fun getOfflineAnimeList() = animeDao.getAllAnimes()
+
+    @WorkerThread
+    override suspend fun insertAnimeIntoDatabase(animeEntity: AnimeEntity) = animeDao.insertAnime(animeEntity)
+
+    @WorkerThread
+    override suspend fun clearOfflineAnimeList() = animeDao.deleteAll()
 }

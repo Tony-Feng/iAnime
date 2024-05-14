@@ -2,11 +2,12 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id("kotlin-android")
 }
 
 android {
     namespace 'com.project.ianime'
-    compileSdk 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId "com.project.ianime"
@@ -39,9 +40,10 @@ android {
     }
 }
 
-def retrofitVersion = "2.9.0"
+def retrofit_version = "2.9.0"
 def dagger_version= "2.41"
 def picasso_version = "2.71828"
+def room_version = "2.6.1"
 
 dependencies {
 
@@ -57,9 +59,9 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
     // Retrofit
-    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
-    implementation("com.squareup.retrofit2:adapter-rxjava3:$retrofitVersion")
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation("com.squareup.retrofit2:adapter-rxjava3:$retrofit_version")
 
     // RxJava
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.2'
@@ -72,4 +74,10 @@ dependencies {
 
     // Picasso
     implementation "com.squareup.picasso:picasso:$picasso_version"
+
+    // RoomDB
+    implementation("androidx.room:room-runtime:$room_version")
+    implementation("androidx.room:room-ktx:$room_version")
+    annotationProcessor("androidx.room:room-compiler:$room_version")
+    kapt("androidx.room:room-compiler:$room_version")
 }

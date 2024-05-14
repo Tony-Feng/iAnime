@@ -2,6 +2,7 @@ package com.project.ianime.di
 
 import com.project.ianime.api.AcceptLanguageInterceptor
 import com.project.ianime.api.AnimeService
+import com.project.ianime.data.AnimeDao
 import com.project.ianime.repository.AnimeDataRepository
 import com.project.ianime.repository.AnimeDataRepositoryImpl
 import dagger.Module
@@ -14,7 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
-class AnimeModule {
+class AnimeModule(private val application: AnimeApplication) {
 
     /**
      * Provides accept language interceptor
@@ -68,5 +69,11 @@ class AnimeModule {
     @Provides
     fun providesAnimeRepository(impl: AnimeDataRepositoryImpl): AnimeDataRepository {
         return impl
+    }
+
+    @Singleton
+    @Provides
+    fun providesAnimeDao(): AnimeDao{
+        return application.animeDao
     }
 }
