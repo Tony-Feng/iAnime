@@ -1,5 +1,7 @@
 package com.project.ianime.di
 
+import com.project.ianime.BuildConfig
+import com.project.ianime.R
 import com.project.ianime.api.AcceptLanguageInterceptor
 import com.project.ianime.api.AnimeService
 import com.project.ianime.repository.AnimeDataRepository
@@ -44,8 +46,7 @@ class AnimeModule {
     @Provides
     fun providesRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            // TODO 08-16: Add in properties build file
-            .baseUrl("https://ai8454431.pythonanywhere.com/")
+            .baseUrl(BuildConfig.API_KEY)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
