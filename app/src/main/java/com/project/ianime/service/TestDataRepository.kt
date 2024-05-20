@@ -16,7 +16,7 @@ class TestDataRepository {
     fun loadAnimeList() {
         val animeNameList = listOf("A", "B", "C", "D", "E", "F", "G")
         val dataList = animeNameList.map {
-            AnimeApiModel("01", "R.drawable.ic_gallery", 10.0F, AnimeStatusApiModel.FINISHED, AnimeCountryApiModel.CHN_ANIME, AnimeGenreApiModel.ENERGY, "2021", "", "")
+            AnimeApiModel("01", "完美世界", 10.0F, AnimeStatusApiModel.IN_PROGRESS, AnimeCountryApiModel.CHN_ANIME, AnimeGenreApiModel.LEGEND, "2021", "", null)
         }
         _testAnimeList.value = dataList
     }
