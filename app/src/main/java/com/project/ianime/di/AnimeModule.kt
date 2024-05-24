@@ -1,7 +1,6 @@
 package com.project.ianime.di
 
 import com.project.ianime.BuildConfig
-import com.project.ianime.R
 import com.project.ianime.api.AcceptLanguageInterceptor
 import com.project.ianime.api.AnimeService
 import com.project.ianime.repository.AnimeDataRepository
@@ -46,7 +45,7 @@ class AnimeModule {
     @Provides
     fun providesRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(BuildConfig.API_KEY)
+            .baseUrl(BuildConfig.API_BASE_PATH)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())

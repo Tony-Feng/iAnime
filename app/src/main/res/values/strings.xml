@@ -18,6 +18,7 @@
     <string name="maxim_header_title">Maxim</string>
     <string name="episode_header_title">Favourite Episodes</string>
     <string name="empty_description_message" tools:ignore="TypographyEllipsis">We need you to provide more information about this anime...</string>
+    <string name="not_applicable_data" translatable="false">N/A</string>
 
     <!-- Anime Data -->
     <string name="country_china">China</string>

@@ -11,7 +11,6 @@ import com.project.ianime.databinding.FragmentAnimeBinding
 import com.project.ianime.di.AnimeApplication
 import com.project.ianime.root.BaseFragment
 import com.project.ianime.screens.manageanime.EditAnimeFragment
-import com.project.ianime.utils.Constants
 import com.project.ianime.utils.image.ImageUtils
 import com.project.ianime.viewmodels.AnimeViewModel
 import com.project.ianime.viewmodels.AnimeViewModelFactory
@@ -77,9 +76,6 @@ class AnimeDetailFragment : BaseFragment() {
         animeReleasedYear = binding.animeYear
         animeStatus = binding.animeStatus
         animeIntro = binding.animeIntro
-
-        // load anime details by target id
-//        animeViewModel.getAnimeById(animeTargetId)
         return binding.root
     }
 
@@ -91,28 +87,22 @@ class AnimeDetailFragment : BaseFragment() {
     }
 
     private fun loadAnimeDetails() {
-        animeViewModel.animeTargetDetails.observe(viewLifecycleOwner) { targetAnime ->
-            // TODO 08-26: test if this could set in updateActionBar
+        animeViewModel.getAnimeById(animeTargetId)?.let { targetAnime ->
             // set title to each anime name
-            val animeNameDetails = targetAnime.animeName
-            actionBarService.setTitle(animeNameDetails, toolbar)
+            actionBarService.setTitle(targetAnime.animeName, toolbar)
 
-            // set up data elements
+            // load data details
+            animeName.text = targetAnime.animeName
             targetAnime.animeImageUrl?.let {
                 imageUtils.loadImageFromDisk(it, animeProfile)
             }
-            animeName.text = animeNameDetails
-            animeCountry.text =
-                getString(R.string.anime_country_title, getString(targetAnime.country.label))
             animeType.text = getString(R.string.anime_type_title, getString(targetAnime.type.label))
-            val releaseYear: String =
-                targetAnime.releaseYear ?: Constants.NOT_AVAILABLE_PUBLISH_YEAR
+            animeCountry.text = getString(R.string.anime_country_title, getString(targetAnime.country.label))
+            val releaseYear = targetAnime.releaseYear ?: getString(R.string.not_applicable_data)
             animeReleasedYear.text = getString(R.string.anime_release_year_title, releaseYear)
-            animeStatus.text =
-                getString(R.string.anime_status_title, getString(targetAnime.status.label))
-            val animeDescription: String =
-                targetAnime.synopsis ?: getString(R.string.empty_description_message)
-            animeIntro.text = getString(R.string.anime_release_year_title, animeDescription)
+            animeStatus.text = getString(R.string.anime_status_title, getString(targetAnime.status.label))
+            val animeDescription: String = targetAnime.synopsis ?: getString(R.string.empty_description_message)
+            animeIntro.text = animeDescription
         }
     }
 

@@ -3,7 +3,6 @@ package com.project.ianime.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.project.ianime.api.data.AnimeGalleryItem
 import com.project.ianime.api.error.*
 import com.project.ianime.api.model.AnimeApiModel
 import com.project.ianime.repository.AnimeDataRepository
@@ -50,7 +49,7 @@ class AnimeViewModel @Inject constructor(private val repository: AnimeDataReposi
      * get an anime with specific id
      * @param animeId - anime target id
      */
-    fun getAnimeById(animeTargetId: String): AnimeGalleryItem? {
+    fun getAnimeById(animeTargetId: String): AnimeApiModel? {
         return repository.getAnimeDetailsById(animeTargetId)
     }
 

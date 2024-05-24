@@ -1,6 +1,5 @@
 package com.project.ianime.repository
 
-import com.project.ianime.api.data.AnimeGalleryItem
 import com.project.ianime.api.model.AnimeApiModel
 import io.reactivex.rxjava3.core.Single
 
@@ -19,5 +18,5 @@ interface AnimeDataRepository {
      * return specific anime details by anime ID
      * @param animeId - id of the target anime
      */
-    fun getAnimeDetailsById(animeId: String): AnimeGalleryItem?
+    fun getAnimeDetailsById(animeId: String): AnimeApiModel?
 }
