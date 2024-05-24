@@ -4,11 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.project.ianime.api.model.AnimeApiModel
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.project.ianime.databinding.FragmentGalleryBinding
 import com.project.ianime.di.AnimeApplication
 import com.project.ianime.root.BaseFragment
@@ -36,6 +35,7 @@ class GalleryFragment : BaseFragment() {
     private val testDataRepository = TestDataRepository()
 
     lateinit var animeCardList: RecyclerView
+    lateinit var refreshAction: SwipeRefreshLayout
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,6 +51,7 @@ class GalleryFragment : BaseFragment() {
 
         // set up UI elements
         animeCardList = binding.animeList
+        refreshAction = binding.swipeContainer
 
         // observe the change of the state of the screen to show empty, success and error screen
         animeViewModel.animeUiState.observe(viewLifecycleOwner){ uiState ->
@@ -64,28 +65,37 @@ class GalleryFragment : BaseFragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // set up refresh listener
+        refreshAction.setOnRefreshListener {
+            animeViewModel.getAnimeList(true)
+        }
+    }
+
     /**
      * set recycler view and load gallery items
      */
     private fun showAnimeGallery(){
+        refreshAction.isRefreshing = false
         testDataRepository.loadAnimeList()
         // set recycler view
-        animeCardList.layoutManager = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
+        animeCardList.layoutManager = GridLayoutManager(requireContext(), 2)
         val animeCardAdapter = AnimeItemAdapter {
+            // navigate to anime detail screen
             val bundle = Bundle().apply {
-                putString(ANIME_DETAIL_PARAM, it.animeId)
+                putString(ANIME_ID_PARAM, it.animeId)
             }
             val animeDetailFragment = AnimeDetailFragment()
             animeDetailFragment.arguments = bundle
-
             appNavigation.showFragmentReplaceTop(animeDetailFragment, baseContainerId)
         }
         animeCardList.adapter = animeCardAdapter
-        val animeCardListObserver = Observer<List<AnimeApiModel>> { animeItems ->
-            animeCardAdapter.submitList(animeItems)
-        }
 
-        testDataRepository.testAnimeList.observe(viewLifecycleOwner, animeCardListObserver)
+        testDataRepository.testAnimeList.observe(viewLifecycleOwner){
+            animeCardAdapter.submitList(it)
+        }
 
         // observe any changes of data to update recycler view
         animeViewModel.animeList.observe(viewLifecycleOwner){ animeList ->
@@ -99,6 +109,6 @@ class GalleryFragment : BaseFragment() {
     }
 
     companion object{
-        const val ANIME_DETAIL_PARAM = "anime_id"
+        const val ANIME_ID_PARAM = "anime_id"
     }
 }

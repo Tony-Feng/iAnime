@@ -21,7 +21,7 @@ import javax.inject.Inject
  */
 class AnimeDetailFragment : BaseFragment() {
     private var _binding: FragmentAnimeBinding? = null
-    val binding get() = _binding!!
+    private val binding get() = _binding!!
 
     private val imageUtils: ImageUtils by lazy {
         ImageUtils()

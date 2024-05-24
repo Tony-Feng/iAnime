@@ -18,8 +18,6 @@ class AnimeViewModel @Inject constructor(private val repository: AnimeDataReposi
 
     var animeUiState = MutableLiveData<AnimeUiState>()
 
-    var animeTargetDetails = MutableLiveData<AnimeApiModel>()
-
     private val viewScopeSubscriptionTracker = CompositeDisposable()
 
     init {
@@ -29,7 +27,16 @@ class AnimeViewModel @Inject constructor(private val repository: AnimeDataReposi
     /**
      * get entire list of animes with all information
      */
-    fun getAnimeList() {
+    fun getAnimeList(refresh: Boolean) {
+        if (refresh){
+            getAnimeListFromNetwork()
+        }
+    }
+
+    /**
+     * get entire list of animes from the network
+     */
+    private fun getAnimeListFromNetwork(){
         repository.getAnimeListFromNetwork()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ animeItems ->
