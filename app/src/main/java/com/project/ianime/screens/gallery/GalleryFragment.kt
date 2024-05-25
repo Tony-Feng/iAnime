@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.project.ianime.api.error.ErrorType
 import com.project.ianime.databinding.FragmentGalleryBinding
 import com.project.ianime.di.AnimeApplication
 import com.project.ianime.root.BaseFragment
@@ -50,14 +51,14 @@ class GalleryFragment : BaseFragment() {
         animeViewModel = ViewModelProvider(this, animeViewModelFactory)[AnimeViewModel::class.java]
 
         // set up UI elements
-        animeCardList = binding.animeList
+        animeCardList = binding.animeListContainer
         refreshAction = binding.swipeContainer
 
         // observe the change of the state of the screen to show empty, success and error screen
         animeViewModel.animeUiState.observe(viewLifecycleOwner){ uiState ->
             when (uiState){
                 AnimeUiState.Empty -> TODO()
-                is AnimeUiState.Error -> TODO()
+                is AnimeUiState.Error -> showErrorScreen(uiState.errorType)
                 AnimeUiState.Success -> showAnimeGallery()
             }
         }
@@ -78,8 +79,13 @@ class GalleryFragment : BaseFragment() {
      * set recycler view and load gallery items
      */
     private fun showAnimeGallery(){
+        // update UI state
         refreshAction.isRefreshing = false
+        binding.errorContainer.root.visibility = View.GONE
+        animeCardList.visibility = View.VISIBLE
+
         testDataRepository.loadAnimeList()
+
         // set recycler view
         animeCardList.layoutManager = GridLayoutManager(requireContext(), 2)
         val animeCardAdapter = AnimeItemAdapter {
@@ -101,6 +107,16 @@ class GalleryFragment : BaseFragment() {
         animeViewModel.animeList.observe(viewLifecycleOwner){ animeList ->
             animeCardAdapter.submitList(animeList)
         }
+    }
+
+    private fun showErrorScreen(errorType: ErrorType){
+        // update UI state
+        val errorContainer = binding.errorContainer
+        refreshAction.isRefreshing = false
+        animeCardList.visibility = View.GONE
+        errorContainer.root.visibility = View.VISIBLE
+        errorContainer.errorTitle.text = getString(errorType.label)
+        errorContainer.errorMessage.text = getString(errorType.message)
     }
 
     override fun onDestroyView() {
