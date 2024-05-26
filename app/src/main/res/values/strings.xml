@@ -82,4 +82,7 @@
     <string name="not_found_error_message">Unfortunately, the app could\'t find any anime information, please try again later.</string>
     <string name="content_oversize_error_message">Your may send a really large image, please make sure your file size is less than 2MB and try again.</string>
     <string name="bad_request_error_message">Something went wrong to process your request, please try again later.</string>
+
+    <!-- Empty Screen -->
+    <string name="empty_screen_message">Your gallery now is empty. \nTime to add more animes in!</string>
 </resources>

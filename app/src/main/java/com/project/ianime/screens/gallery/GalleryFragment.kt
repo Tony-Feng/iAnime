@@ -36,7 +36,6 @@ class GalleryFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentGalleryBinding.inflate(inflater, container, false)
 
         animeViewModel = ViewModelProvider(requireActivity(), (activity as HomeActivity).animeViewModelFactory)[AnimeViewModel::class.java]
@@ -48,7 +47,7 @@ class GalleryFragment : BaseFragment() {
         // observe the change of the state of the screen to show empty, success and error screen
         animeViewModel.animeUiState.observe(viewLifecycleOwner){ uiState ->
             when (uiState){
-                AnimeUiState.Empty -> TODO()
+                AnimeUiState.Empty -> showEmptyScreen()
                 is AnimeUiState.Error -> showErrorScreen(uiState.errorType)
                 AnimeUiState.Success -> showAnimeGallery()
             }
@@ -73,6 +72,7 @@ class GalleryFragment : BaseFragment() {
         // update UI state
         refreshAction.isRefreshing = false
         binding.errorContainer.root.visibility = View.GONE
+        binding.emptyContainer.root.visibility = View.GONE
         animeCardList.visibility = View.VISIBLE
 
         // set recycler view
@@ -99,9 +99,19 @@ class GalleryFragment : BaseFragment() {
         val errorContainer = binding.errorContainer
         refreshAction.isRefreshing = false
         animeCardList.visibility = View.GONE
+        binding.emptyContainer.root.visibility = View.GONE
         errorContainer.root.visibility = View.VISIBLE
         errorContainer.errorTitle.text = getString(errorType.label)
         errorContainer.errorMessage.text = getString(errorType.message)
+    }
+
+    private fun showEmptyScreen(){
+        // update UI state
+        val emptyContainer = binding.emptyContainer
+        refreshAction.isRefreshing = false
+        animeCardList.visibility = View.GONE
+        binding.errorContainer.root.visibility = View.GONE
+        emptyContainer.root.visibility = View.VISIBLE
     }
 
     override fun onDestroyView() {

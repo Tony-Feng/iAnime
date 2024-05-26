@@ -11,39 +11,24 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="@dimen/spacing_32dp"
-        android:contentDescription="error_screen_label"
-        android:src="@drawable/ic_error"
-        app:layout_constraintBottom_toTopOf="@id/error_title"
+        android:contentDescription="empty_screen_label"
+        android:src="@drawable/ic_empty"
+        app:layout_constraintBottom_toTopOf="@id/empty_message"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="HardcodedText" />
 
     <TextView
-        android:id="@+id/error_title"
+        android:id="@+id/empty_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
-        android:textColor="@color/red"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Something went wrong" />
-
-    <TextView
-        android:id="@+id/error_message"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/spacing_52dp"
-        android:layout_marginVertical="@dimen/spacing_16dp"
-        android:gravity="center"
-        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-        android:textColor="@color/red"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/error_title"
-        tools:text="Detailed error message" />
+        android:text="@string/empty_screen_message" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
