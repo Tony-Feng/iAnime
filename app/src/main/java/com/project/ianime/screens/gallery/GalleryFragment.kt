@@ -15,7 +15,6 @@ import com.project.ianime.root.BaseFragment
 import com.project.ianime.screens.gallery.adapter.AnimeItemAdapter
 import com.project.ianime.screens.stateholder.AnimeUiState
 import com.project.ianime.screens.viewanime.AnimeDetailFragment
-import com.project.ianime.service.TestDataRepository
 import com.project.ianime.viewmodels.AnimeViewModel
 import com.project.ianime.viewmodels.AnimeViewModelFactory
 import javax.inject.Inject
@@ -32,8 +31,6 @@ class GalleryFragment : BaseFragment() {
 
     @Inject
     lateinit var animeViewModelFactory: AnimeViewModelFactory
-
-    private val testDataRepository = TestDataRepository()
 
     lateinit var animeCardList: RecyclerView
     lateinit var refreshAction: SwipeRefreshLayout
@@ -53,6 +50,9 @@ class GalleryFragment : BaseFragment() {
         // set up UI elements
         animeCardList = binding.animeListContainer
         refreshAction = binding.swipeContainer
+
+        // load anime data
+        animeViewModel.getAnimeList(true)
 
         // observe the change of the state of the screen to show empty, success and error screen
         animeViewModel.animeUiState.observe(viewLifecycleOwner){ uiState ->
@@ -84,8 +84,6 @@ class GalleryFragment : BaseFragment() {
         binding.errorContainer.root.visibility = View.GONE
         animeCardList.visibility = View.VISIBLE
 
-        testDataRepository.loadAnimeList()
-
         // set recycler view
         animeCardList.layoutManager = GridLayoutManager(requireContext(), 2)
         val animeCardAdapter = AnimeItemAdapter {
@@ -98,10 +96,6 @@ class GalleryFragment : BaseFragment() {
             appNavigation.showFragmentReplaceTop(animeDetailFragment, baseContainerId)
         }
         animeCardList.adapter = animeCardAdapter
-
-        testDataRepository.testAnimeList.observe(viewLifecycleOwner){
-            animeCardAdapter.submitList(it)
-        }
 
         // observe any changes of data to update recycler view
         animeViewModel.animeList.observe(viewLifecycleOwner){ animeList ->

@@ -1,7 +1,7 @@
 package com.project.ianime.di
 
 import com.project.ianime.BuildConfig
-import com.project.ianime.api.AcceptLanguageInterceptor
+import com.project.ianime.api.ApiInterceptor
 import com.project.ianime.api.AnimeService
 import com.project.ianime.repository.AnimeDataRepository
 import com.project.ianime.repository.AnimeDataRepositoryImpl
@@ -22,8 +22,8 @@ class AnimeModule {
      */
     @Provides
     @Reusable
-    fun providesBasicInterceptor(): AcceptLanguageInterceptor {
-        return AcceptLanguageInterceptor()
+    fun providesBasicInterceptor(): ApiInterceptor {
+        return ApiInterceptor()
     }
 
 
@@ -32,9 +32,9 @@ class AnimeModule {
      */
     @Singleton
     @Provides
-    fun providesOkhttpBuilder(acceptLanguageInterceptor: AcceptLanguageInterceptor): OkHttpClient {
+    fun providesOkhttpBuilder(apiInterceptor: ApiInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
-            .addInterceptor(acceptLanguageInterceptor)
+            .addInterceptor(apiInterceptor)
             .build()
     }
 
