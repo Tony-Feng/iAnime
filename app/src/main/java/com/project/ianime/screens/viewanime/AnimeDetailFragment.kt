@@ -1,20 +1,23 @@
 package com.project.ianime.screens.viewanime
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
+import com.project.ianime.HomeActivity
 import com.project.ianime.R
 import com.project.ianime.databinding.FragmentAnimeBinding
-import com.project.ianime.di.AnimeApplication
 import com.project.ianime.root.BaseFragment
 import com.project.ianime.screens.manageanime.EditAnimeFragment
 import com.project.ianime.utils.image.ImageUtils
 import com.project.ianime.viewmodels.AnimeViewModel
-import com.project.ianime.viewmodels.AnimeViewModelFactory
-import javax.inject.Inject
 
 /**
  * Anime detail screen which shows a specific anime with all the details
@@ -27,10 +30,7 @@ class AnimeDetailFragment : BaseFragment() {
         ImageUtils()
     }
 
-    lateinit var animeViewModel: AnimeViewModel
-
-    @Inject
-    lateinit var animeViewModelFactory: AnimeViewModelFactory
+    private lateinit var animeViewModel: AnimeViewModel
 
     private lateinit var animeTargetId: String
 
@@ -51,9 +51,6 @@ class AnimeDetailFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val animeApplication = requireActivity().application as AnimeApplication
-        animeApplication.applicationComponent.inject(this)
-
         arguments?.let {
             animeTargetId = it.getString(ANIME_TARGET_ID).toString()
         }
@@ -65,7 +62,7 @@ class AnimeDetailFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAnimeBinding.inflate(inflater, container, false)
-        animeViewModel = ViewModelProvider(this, animeViewModelFactory)[AnimeViewModel::class.java]
+        animeViewModel = ViewModelProvider(requireActivity(), (activity as HomeActivity).animeViewModelFactory)[AnimeViewModel::class.java]
 
         // set up UI elements
         toolbar = binding.topAppBar.toolBar
@@ -81,9 +78,7 @@ class AnimeDetailFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // Test using mocked data
-        getAnimeDetails()
-//        loadAnimeDetails()
+        loadAnimeDetails()
     }
 
     private fun loadAnimeDetails() {
@@ -104,20 +99,6 @@ class AnimeDetailFragment : BaseFragment() {
             val animeDescription: String = targetAnime.synopsis ?: getString(R.string.empty_description_message)
             animeIntro.text = animeDescription
         }
-    }
-
-    /**
-     * TODO: removed when api is ready
-     */
-    private fun getAnimeDetails() {
-        actionBarService.setTitle("Throne of Seal", toolbar)
-        animeName.text = "Throne of Seal"
-        animeCountry.text = getString(R.string.anime_country_title, "China")
-        animeType.text = getString(R.string.anime_type_title, "God")
-        animeReleasedYear.text = getString(R.string.anime_release_year_title, "2021")
-        animeStatus.text = getString(R.string.anime_status_title, "In Progress")
-        animeIntro.text = "A boy on his own way to fight"
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

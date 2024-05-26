@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.project.ianime.HomeActivity
 import com.project.ianime.api.error.ErrorType
 import com.project.ianime.databinding.FragmentGalleryBinding
 import com.project.ianime.di.AnimeApplication
@@ -16,8 +17,6 @@ import com.project.ianime.screens.gallery.adapter.AnimeItemAdapter
 import com.project.ianime.screens.stateholder.AnimeUiState
 import com.project.ianime.screens.viewanime.AnimeDetailFragment
 import com.project.ianime.viewmodels.AnimeViewModel
-import com.project.ianime.viewmodels.AnimeViewModelFactory
-import javax.inject.Inject
 
 /**
  * Gallery screen which shows all the anime in preview mode
@@ -27,10 +26,7 @@ class GalleryFragment : BaseFragment() {
     private var _binding: FragmentGalleryBinding? = null
     private val binding get() = _binding!!
 
-    lateinit var animeViewModel: AnimeViewModel
-
-    @Inject
-    lateinit var animeViewModelFactory: AnimeViewModelFactory
+    private lateinit var animeViewModel: AnimeViewModel
 
     lateinit var animeCardList: RecyclerView
     lateinit var refreshAction: SwipeRefreshLayout
@@ -40,19 +36,14 @@ class GalleryFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val animeApplication = requireActivity().application as AnimeApplication
-        animeApplication.applicationComponent.inject(this)
 
         _binding = FragmentGalleryBinding.inflate(inflater, container, false)
 
-        animeViewModel = ViewModelProvider(this, animeViewModelFactory)[AnimeViewModel::class.java]
+        animeViewModel = ViewModelProvider(requireActivity(), (activity as HomeActivity).animeViewModelFactory)[AnimeViewModel::class.java]
 
         // set up UI elements
         animeCardList = binding.animeListContainer
         refreshAction = binding.swipeContainer
-
-        // load anime data
-        animeViewModel.getAnimeList(true)
 
         // observe the change of the state of the screen to show empty, success and error screen
         animeViewModel.animeUiState.observe(viewLifecycleOwner){ uiState ->

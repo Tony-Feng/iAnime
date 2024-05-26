@@ -21,13 +21,14 @@ class AnimeViewModel @Inject constructor(private val repository: AnimeDataReposi
     private val viewScopeSubscriptionTracker = CompositeDisposable()
 
     init {
-        animeUiState.postValue(AnimeUiState.Success)
+        // refresh list of anime data when app restarts
+        getAnimeList(true)
     }
 
     /**
      * get entire list of animes with all information
      */
-    fun getAnimeList(refresh: Boolean) {
+    fun getAnimeList(refresh: Boolean = false) {
         if (refresh){
             getAnimeListFromNetwork()
         }
