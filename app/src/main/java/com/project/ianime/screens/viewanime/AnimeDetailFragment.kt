@@ -116,6 +116,7 @@ class AnimeDetailFragment : BaseFragment() {
                 )
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

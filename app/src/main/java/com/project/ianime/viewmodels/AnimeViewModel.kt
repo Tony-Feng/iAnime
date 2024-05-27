@@ -38,6 +38,7 @@ class AnimeViewModel @Inject constructor(private val repository: AnimeDataReposi
      * get entire list of animes from the network
      */
     private fun getAnimeListFromNetwork(){
+        animeUiState.postValue(AnimeUiState.Loading)
         repository.getAnimeListFromNetwork()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ animeItems ->

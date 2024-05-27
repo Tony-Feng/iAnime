@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -11,7 +12,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.project.ianime.HomeActivity
 import com.project.ianime.api.error.ErrorType
 import com.project.ianime.databinding.FragmentGalleryBinding
-import com.project.ianime.di.AnimeApplication
 import com.project.ianime.root.BaseFragment
 import com.project.ianime.screens.gallery.adapter.AnimeItemAdapter
 import com.project.ianime.screens.stateholder.AnimeUiState
@@ -30,6 +30,7 @@ class GalleryFragment : BaseFragment() {
 
     lateinit var animeCardList: RecyclerView
     lateinit var refreshAction: SwipeRefreshLayout
+    lateinit var loadingBar: ProgressBar
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,10 +44,12 @@ class GalleryFragment : BaseFragment() {
         // set up UI elements
         animeCardList = binding.animeListContainer
         refreshAction = binding.swipeContainer
+        loadingBar = binding.loadingBar
 
         // observe the change of the state of the screen to show empty, success and error screen
-        animeViewModel.animeUiState.observe(viewLifecycleOwner){ uiState ->
-            when (uiState){
+        animeViewModel.animeUiState.observe(viewLifecycleOwner) { uiState ->
+            when (uiState) {
+                AnimeUiState.Loading -> showLoadingScreen()
                 AnimeUiState.Empty -> showEmptyScreen()
                 is AnimeUiState.Error -> showErrorScreen(uiState.errorType)
                 AnimeUiState.Success -> showAnimeGallery()
@@ -68,11 +71,12 @@ class GalleryFragment : BaseFragment() {
     /**
      * set recycler view and load gallery items
      */
-    private fun showAnimeGallery(){
+    private fun showAnimeGallery() {
         // update UI state
         refreshAction.isRefreshing = false
         binding.errorContainer.root.visibility = View.GONE
         binding.emptyContainer.root.visibility = View.GONE
+        loadingBar.visibility = View.GONE
         animeCardList.visibility = View.VISIBLE
 
         // set recycler view
@@ -89,27 +93,37 @@ class GalleryFragment : BaseFragment() {
         animeCardList.adapter = animeCardAdapter
 
         // observe any changes of data to update recycler view
-        animeViewModel.animeList.observe(viewLifecycleOwner){ animeList ->
+        animeViewModel.animeList.observe(viewLifecycleOwner) { animeList ->
             animeCardAdapter.submitList(animeList)
         }
     }
 
-    private fun showErrorScreen(errorType: ErrorType){
+    private fun showLoadingScreen(){
+        refreshAction.isRefreshing = false
+        binding.errorContainer.root.visibility = View.GONE
+        binding.emptyContainer.root.visibility = View.GONE
+        animeCardList.visibility = View.GONE
+        loadingBar.visibility = View.VISIBLE
+    }
+
+    private fun showErrorScreen(errorType: ErrorType) {
         // update UI state
         val errorContainer = binding.errorContainer
         refreshAction.isRefreshing = false
         animeCardList.visibility = View.GONE
+        loadingBar.visibility = View.GONE
         binding.emptyContainer.root.visibility = View.GONE
         errorContainer.root.visibility = View.VISIBLE
         errorContainer.errorTitle.text = getString(errorType.label)
         errorContainer.errorMessage.text = getString(errorType.message)
     }
 
-    private fun showEmptyScreen(){
+    private fun showEmptyScreen() {
         // update UI state
         val emptyContainer = binding.emptyContainer
         refreshAction.isRefreshing = false
         animeCardList.visibility = View.GONE
+        loadingBar.visibility = View.GONE
         binding.errorContainer.root.visibility = View.GONE
         emptyContainer.root.visibility = View.VISIBLE
     }
@@ -119,7 +133,7 @@ class GalleryFragment : BaseFragment() {
         _binding = null
     }
 
-    companion object{
+    companion object {
         const val ANIME_ID_PARAM = "anime_id"
     }
 }

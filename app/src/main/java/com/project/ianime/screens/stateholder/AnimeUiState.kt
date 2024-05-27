@@ -11,5 +11,7 @@ sealed class AnimeUiState {
 
     object Empty : AnimeUiState()
 
+    object Loading : AnimeUiState()
+
     data class Error(val errorType: ErrorType) : AnimeUiState()
 }
