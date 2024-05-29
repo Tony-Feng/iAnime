@@ -9,7 +9,7 @@ import retrofit2.http.GET
  */
 interface AnimeService {
 
-    @GET("docs")
+    @GET("animes")
     fun getAnimeListFromNetwork(): Single<AnimeListApiModel>
 
 }
