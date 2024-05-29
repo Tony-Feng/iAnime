@@ -4,16 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.project.ianime.api.data.AnimeGalleryItem
 import com.project.ianime.api.error.*
 import com.project.ianime.api.model.AnimeApiModel
-import com.project.ianime.data.AnimeEntity
 import com.project.ianime.repository.AnimeDataRepository
 import com.project.ianime.screens.stateholder.AnimeUiState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -25,19 +22,17 @@ class AnimeViewModel @Inject constructor(private val repository: AnimeDataReposi
 
     var animeUiState = MutableLiveData<AnimeUiState>()
 
-    var animeTargetDetails = MutableLiveData<AnimeApiModel>()
-
     private val viewScopeSubscriptionTracker = CompositeDisposable()
 
     init {
-        //TODO: remove based on the actual response [for mock purpose only]
-        animeUiState.postValue(AnimeUiState.Success)
+        // refresh list of anime data when app restarts
+        getAnimeList(true)
     }
 
     /**
      * load entire anime list with refresh control
      */
-    fun loadAnimeList(refresh: Boolean){
+    fun getAnimeList(refresh: Boolean = false) {
         if (refresh){
             // clear all the data from local storage first
             viewModelScope.launch {
@@ -45,16 +40,17 @@ class AnimeViewModel @Inject constructor(private val repository: AnimeDataReposi
                     repository.clearOfflineAnimeList()
                 }
             }
-            loadAnimeListFromNetwork()
+            getAnimeListFromNetwork()
         } else {
             loadAnimeListFromLocalStorage()
         }
     }
 
     /**
-     * get entire list of animes with all information from the network
+     * get entire list of animes from the network
      */
-    private fun loadAnimeListFromNetwork() {
+    private fun getAnimeListFromNetwork(){
+        animeUiState.postValue(AnimeUiState.Loading)
         repository.getAnimeListFromNetwork()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ animeItems ->
@@ -101,7 +97,7 @@ class AnimeViewModel @Inject constructor(private val repository: AnimeDataReposi
      * get an anime with specific id
      * @param animeId - anime target id
      */
-    fun getAnimeById(animeTargetId: String): AnimeGalleryItem? {
+    fun getAnimeById(animeTargetId: String): AnimeApiModel? {
         return repository.getAnimeDetailsById(animeTargetId)
     }
 

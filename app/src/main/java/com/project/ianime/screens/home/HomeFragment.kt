@@ -55,6 +55,7 @@ class HomeFragment : BaseFragment() {
                     )
                     return@setOnItemSelectedListener true
                 }
+
                 R.id.user_screen -> {
                     appNavigation.showFragmentOverTop(
                         UserFragment(),

@@ -2,7 +2,6 @@ package com.project.ianime.repository
 
 import androidx.annotation.WorkerThread
 import com.project.ianime.api.AnimeService
-import com.project.ianime.api.data.AnimeGalleryItem
 import com.project.ianime.api.error.*
 import com.project.ianime.api.model.AnimeApiModel
 import com.project.ianime.data.AnimeDao
@@ -18,17 +17,14 @@ class AnimeDataRepositoryImpl @Inject constructor(
 ) : AnimeDataRepository {
 
     // cached the data from the Network resource
-    private var cachedAnimeDetailsList : List<AnimeGalleryItem> ?= null
+    private var cachedAnimeItemsList : List<AnimeApiModel> ?= null
 
     override fun getAnimeListFromNetwork(): Single<List<AnimeApiModel>> {
-        return animeService.getAnimeList()
+        return animeService.getAnimeListFromNetwork()
             .subscribeOn(Schedulers.io())
             .flatMap { response ->
                 val animeList = response.animeList ?: emptyList()
-                val animeDetails = animeList.map {
-                    it.mapToGalleryItem()
-                }
-                cachedAnimeDetailsList = animeDetails
+                cachedAnimeItemsList = animeList
                 Single.just(animeList)
             }
             .onErrorResumeNext { exception ->
@@ -69,8 +65,8 @@ class AnimeDataRepositoryImpl @Inject constructor(
             }
     }
 
-    override fun getAnimeDetailsById(animeId: String): AnimeGalleryItem? {
-        return cachedAnimeDetailsList?.find {
+    override fun getAnimeDetailsById(animeId: String): AnimeApiModel? {
+        return cachedAnimeItemsList?.find {
             it.animeId == animeId
         }
     }

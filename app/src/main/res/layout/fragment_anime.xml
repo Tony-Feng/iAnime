@@ -27,16 +27,17 @@
 
             <ImageView
                 android:id="@+id/anime_profile"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/spacing_16dp"
                 android:layout_weight="1"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_anime_placeholder" />
+                android:src="@drawable/ic_anime_placeholder"
+                tools:ignore="ContentDescription" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/spacing_8dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
@@ -45,43 +46,42 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_8dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                    tools:text="Throne of Seal" />
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+                    android:textStyle="bold"
+                    tools:text="This is a very long long anime name that needs to be truncated." />
 
                 <TextView
                     android:id="@+id/anime_type"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_8dp"
-                    android:layout_marginBottom="@dimen/spacing_8dp"
-                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                    android:layout_marginVertical="@dimen/spacing_8dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                     tools:text="Type: God" />
 
                 <TextView
                     android:id="@+id/anime_country"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_8dp"
-                    android:layout_marginBottom="@dimen/spacing_8dp"
-                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                    android:layout_marginVertical="@dimen/spacing_8dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                     tools:text="Country: China" />
 
                 <TextView
                     android:id="@+id/anime_year"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_8dp"
-                    android:layout_marginBottom="@dimen/spacing_10dp"
-                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                    android:layout_marginVertical="@dimen/spacing_8dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                     tools:text="Published Year: 2021" />
 
                 <TextView
                     android:id="@+id/anime_status"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_8dp"
-                    android:layout_marginBottom="@dimen/spacing_10dp"
-                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                    android:layout_marginVertical="@dimen/spacing_8dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                     tools:text="Status: In Progress" />
 
             </LinearLayout>
@@ -96,7 +96,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/spacing_24dp"
         android:text="@string/intro_header_title"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/anime_detail_container" />
@@ -119,7 +120,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/spacing_24dp"
         android:text="@string/maxim_header_title"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+        android:textStyle="bold"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -138,7 +140,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/maxim_header"
         tools:text="Placeholder for maxims"
-        tools:visibility="visible"/>
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/episode_header"
@@ -146,7 +148,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/spacing_24dp"
         android:text="@string/episode_header_title"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+        android:textStyle="bold"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -165,6 +168,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/episode_header"
         tools:text="Placeholder for fav episodes"
-        tools:visibility="visible"/>
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

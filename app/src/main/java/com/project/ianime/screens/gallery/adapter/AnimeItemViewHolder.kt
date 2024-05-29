@@ -5,7 +5,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.project.ianime.R
-import com.project.ianime.api.data.AnimeGalleryItem
 import com.project.ianime.api.model.AnimeApiModel
 import com.project.ianime.utils.image.ImageUtils
 

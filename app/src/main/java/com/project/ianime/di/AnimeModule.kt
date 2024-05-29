@@ -1,6 +1,7 @@
 package com.project.ianime.di
 
-import com.project.ianime.api.AcceptLanguageInterceptor
+import com.project.ianime.BuildConfig
+import com.project.ianime.api.ApiInterceptor
 import com.project.ianime.api.AnimeService
 import com.project.ianime.data.AnimeDao
 import com.project.ianime.repository.AnimeDataRepository
@@ -22,8 +23,8 @@ class AnimeModule(private val application: AnimeApplication) {
      */
     @Provides
     @Reusable
-    fun providesBasicInterceptor(): AcceptLanguageInterceptor {
-        return AcceptLanguageInterceptor()
+    fun providesBasicInterceptor(): ApiInterceptor {
+        return ApiInterceptor()
     }
 
 
@@ -32,9 +33,9 @@ class AnimeModule(private val application: AnimeApplication) {
      */
     @Singleton
     @Provides
-    fun providesOkhttpBuilder(acceptLanguageInterceptor: AcceptLanguageInterceptor): OkHttpClient {
+    fun providesOkhttpBuilder(apiInterceptor: ApiInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
-            .addInterceptor(acceptLanguageInterceptor)
+            .addInterceptor(apiInterceptor)
             .build()
     }
 
@@ -45,8 +46,7 @@ class AnimeModule(private val application: AnimeApplication) {
     @Provides
     fun providesRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            // TODO 08-16: Add in properties build file
-            .baseUrl("https://ai8454431.pythonanywhere.com/")
+            .baseUrl(BuildConfig.API_BASE_PATH)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
