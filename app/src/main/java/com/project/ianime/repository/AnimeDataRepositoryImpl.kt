@@ -18,6 +18,12 @@ class AnimeDataRepositoryImpl @Inject constructor(private val animeService: Anim
             .subscribeOn(Schedulers.io())
             .flatMap { response ->
                 val animeList = response.animeList ?: emptyList()
+
+                // sort anime list based on rate
+                animeList.sortedByDescending {
+                    it.rate
+                }
+                
                 cachedAnimeItemsList = animeList
                 Single.just(animeList)
             }
