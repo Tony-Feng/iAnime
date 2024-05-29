@@ -15,6 +15,7 @@ android {
         versionCode 1
         versionName "1.0"
         buildConfigField("String", "API_BASE_PATH", apiBasePath)
+        buildConfigField("String", "API_KEY", apiKey)
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -73,4 +74,7 @@ dependencies {
 
     // Picasso
     implementation "com.squareup.picasso:picasso:$picasso_version"
+
+    // Swipe refresh layout
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 }

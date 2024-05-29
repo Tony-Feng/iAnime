@@ -49,13 +49,15 @@ class ImageUtils {
             .into(imageView, object : Callback {
                 // Load image from disk cache directly
                 override fun onSuccess() {
-                    Picasso.get().load(imageUrl).into(imageView)
+                    Picasso.get().load(imageUrl).resize(200,150).centerInside().into(imageView)
                 }
 
                 override fun onError(e: Exception?) {
                     // Try again to load image online if cache failed
                     Picasso.get()
                         .load(imageUrl)
+                        .resize(200,150)
+                        .centerInside()
                         .placeholder(R.drawable.ic_anime_placeholder)
                         .into(imageView, object : Callback {
                             override fun onSuccess() {
