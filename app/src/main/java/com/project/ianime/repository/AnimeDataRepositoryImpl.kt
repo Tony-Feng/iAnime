@@ -84,4 +84,9 @@ class AnimeDataRepositoryImpl @Inject constructor(
 
     @WorkerThread
     override suspend fun clearOfflineAnimeList() = animeDao.deleteAll()
+
+    override fun isDatabaseEmpty(): Boolean {
+        return animeDao.getAnimeCount() == 0
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.project.ianime.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -25,31 +26,35 @@ class AnimeViewModel @Inject constructor(private val repository: AnimeDataReposi
     private val viewScopeSubscriptionTracker = CompositeDisposable()
 
     init {
-        // refresh list of anime data when app restarts
-        getAnimeList(true)
+        // initially load data from local storage when app restarts
+        getAnimeList()
     }
 
     /**
      * load entire anime list with refresh control
      */
     fun getAnimeList(refresh: Boolean = false) {
-        if (refresh){
-            // clear all the data from local storage first
-            viewModelScope.launch {
-                withContext(Dispatchers.IO){
-                    repository.clearOfflineAnimeList()
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                if (refresh || repository.isDatabaseEmpty()){
+                    // clear all the data from local storage first
+                    viewModelScope.launch {
+                        withContext(Dispatchers.IO){
+                            repository.clearOfflineAnimeList()
+                        }
+                    }
+                    loadAnimeListFromNetwork()
+                } else {
+                    loadAnimeListFromLocalStorage()
                 }
             }
-            getAnimeListFromNetwork()
-        } else {
-            loadAnimeListFromLocalStorage()
         }
     }
 
     /**
      * get entire list of animes from the network
      */
-    private fun getAnimeListFromNetwork(){
+    private fun loadAnimeListFromNetwork() {
         animeUiState.postValue(AnimeUiState.Loading)
         repository.getAnimeListFromNetwork()
             .observeOn(AndroidSchedulers.mainThread())
@@ -60,10 +65,10 @@ class AnimeViewModel @Inject constructor(private val repository: AnimeDataReposi
                     animeUiState.postValue(AnimeUiState.Success)
                     _animeList.postValue(animeItems)
 
-                    // load current data into database
+                    // save current data into database
                     viewModelScope.launch {
-                        withContext(Dispatchers.IO){
-                            animeItems.forEach{ anime ->
+                        withContext(Dispatchers.IO) {
+                            animeItems.forEach { anime ->
                                 val eachAnimeEntity = anime.mapToAnimeEntity()
                                 repository.insertAnimeIntoDatabase(eachAnimeEntity)
                             }
@@ -80,17 +85,22 @@ class AnimeViewModel @Inject constructor(private val repository: AnimeDataReposi
      * get anime details from the local storage
      */
     private fun loadAnimeListFromLocalStorage(){
-        val animeOfflineData = mutableListOf<AnimeApiModel>()
         viewModelScope.launch {
-            withContext(Dispatchers.IO){
+            try {
+                val animeOfflineData = mutableListOf<AnimeApiModel>()
                 repository.getOfflineAnimeList().collect { animeEntityList ->
                     animeEntityList.forEach {
                         animeOfflineData.add(it.mapToAnimeItem())
                     }
+
+                    animeUiState.postValue(AnimeUiState.Success)
+                    _animeList.postValue(animeOfflineData)
                 }
+            } catch (e: Exception) {
+                animeUiState.postValue(AnimeUiState.Error(ErrorType.NOT_FOUND))
+                Log.e("AnimeViewModel", "Error loading data from local storage", e)
             }
         }
-        _animeList.postValue(animeOfflineData)
     }
 
     /**

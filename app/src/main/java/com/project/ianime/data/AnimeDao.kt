@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface AnimeDao {
 
-    @Query("SELECT * FROM ianime_offline_table ORDER BY anime_name ASC")
+    @Query("SELECT * FROM ianime_offline_table")
     fun getAllAnimes(): Flow<List<AnimeEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -20,4 +20,7 @@ interface AnimeDao {
      */
     @Query("DELETE FROM ianime_offline_table")
     suspend fun deleteAll()
+
+    @Query("SELECT COUNT(*) from ianime_offline_table")
+    fun getAnimeCount(): Int
 }

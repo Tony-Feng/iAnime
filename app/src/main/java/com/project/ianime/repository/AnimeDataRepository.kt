@@ -36,4 +36,10 @@ interface AnimeDataRepository {
      * clear all data from the local database
      */
     suspend fun clearOfflineAnimeList()
+
+
+    /**
+     * check if the locale database is empty or not
+     */
+    fun isDatabaseEmpty(): Boolean
 }
