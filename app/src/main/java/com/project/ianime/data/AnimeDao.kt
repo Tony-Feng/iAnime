@@ -23,4 +23,7 @@ interface AnimeDao {
 
     @Query("SELECT COUNT(*) from ianime_offline_table")
     fun getAnimeCount(): Int
+
+    @Query("SELECT * FROM ianime_offline_table WHERE anime_id = :animeId")
+    fun getAnimeById(animeId: String): Flow<AnimeEntity?>
 }

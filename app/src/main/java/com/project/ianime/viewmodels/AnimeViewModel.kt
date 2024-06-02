@@ -23,6 +23,7 @@ class AnimeViewModel @Inject constructor(private val repository: AnimeDataReposi
     val animeList: LiveData<List<AnimeApiModel>> = _animeList
 
     var animeUiState = MutableLiveData<AnimeUiState>()
+    private var animeDetailData: AnimeApiModel? = null
 
     private val viewScopeSubscriptionTracker = CompositeDisposable()
 
@@ -119,12 +120,19 @@ class AnimeViewModel @Inject constructor(private val repository: AnimeDataReposi
 
     /**
      * get an anime with specific id
-     * @param animeId - anime target id
+     * @param animeTargetId - anime target id
      */
-    fun getAnimeById(animeTargetId: String): AnimeApiModel? {
-        return repository.getAnimeDetailsById(animeTargetId)
+    fun getAnimeById(animeTargetId: String, callback: (AnimeApiModel?) -> Unit) {
+        viewModelScope.launch {
+            val animeEntity = repository.getAnimeDetailsById(animeTargetId).firstOrNull()
+            animeDetailData = animeEntity?.mapToAnimeItem()
+            callback(animeDetailData)
+        }
     }
 
+    /**
+     * handler network request error scenarios
+     */
     private fun handleError(exception: Throwable) {
         when (exception) {
             is UnauthorizedException -> {

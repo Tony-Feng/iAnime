@@ -76,11 +76,7 @@ class AnimeDataRepositoryImpl @Inject constructor(
             }
     }
 
-    override fun getAnimeDetailsById(animeId: String): AnimeApiModel? {
-        return cachedAnimeItemsList?.find {
-            it.animeId == animeId
-        }
-    }
+    override fun getAnimeDetailsById(animeId: String) = animeDao.getAnimeById(animeId)
 
     @WorkerThread
     override suspend fun insertAnimeIntoDatabase(animeEntity: AnimeEntity) = animeDao.insertAnime(animeEntity)

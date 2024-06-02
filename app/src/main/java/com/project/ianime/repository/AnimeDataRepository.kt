@@ -3,6 +3,7 @@ package com.project.ianime.repository
 import com.project.ianime.api.model.AnimeApiModel
 import com.project.ianime.data.AnimeEntity
 import io.reactivex.rxjava3.core.Single
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Repository for managing data from network and database
@@ -18,7 +19,7 @@ interface AnimeDataRepository {
      * return specific anime details by anime ID
      * @param animeId - id of the target anime
      */
-    fun getAnimeDetailsById(animeId: String): AnimeApiModel?
+    fun getAnimeDetailsById(animeId: String): Flow<AnimeEntity?>
 
     /**
      * add each anime into locale database

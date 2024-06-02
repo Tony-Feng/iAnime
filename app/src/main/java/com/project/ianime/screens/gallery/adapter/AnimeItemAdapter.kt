@@ -8,7 +8,7 @@ import com.project.ianime.R
 import com.project.ianime.api.model.AnimeApiModel
 
 class AnimeItemAdapter(
-    private val clickHandler: (AnimeApiModel) -> Unit
+    private val clickHandler: (String) -> Unit
 ) : ListAdapter<AnimeApiModel, AnimeItemViewHolder>(DIFF_CONFIG) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimeItemViewHolder {
@@ -17,10 +17,11 @@ class AnimeItemAdapter(
     }
 
     override fun onBindViewHolder(holder: AnimeItemViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        val anime = getItem(position)
+        holder.bind(anime)
         // Set click item event
         holder.itemView.setOnClickListener {
-            clickHandler(getItem(position))
+            clickHandler(anime.animeId)
         }
     }
 

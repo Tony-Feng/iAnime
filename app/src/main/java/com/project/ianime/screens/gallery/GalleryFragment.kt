@@ -62,6 +62,8 @@ class GalleryFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setUpRecyclerView()
+
         // set up refresh listener
         refreshAction.setOnRefreshListener {
             animeViewModel.getAnimeList(true)
@@ -78,13 +80,15 @@ class GalleryFragment : BaseFragment() {
         binding.emptyContainer.root.visibility = View.GONE
         loadingBar.visibility = View.GONE
         animeCardList.visibility = View.VISIBLE
+    }
 
+    private fun setUpRecyclerView(){
         // set recycler view
         animeCardList.layoutManager = GridLayoutManager(requireContext(), 2)
         val animeCardAdapter = AnimeItemAdapter {
             // navigate to anime detail screen
             val bundle = Bundle().apply {
-                putString(ANIME_ID_PARAM, it.animeId)
+                putString(ANIME_ID_PARAM, it)
             }
             val animeDetailFragment = AnimeDetailFragment()
             animeDetailFragment.arguments = bundle
@@ -99,6 +103,7 @@ class GalleryFragment : BaseFragment() {
     }
 
     private fun showLoadingScreen(){
+        // update UI state
         refreshAction.isRefreshing = false
         binding.errorContainer.root.visibility = View.GONE
         binding.emptyContainer.root.visibility = View.GONE
