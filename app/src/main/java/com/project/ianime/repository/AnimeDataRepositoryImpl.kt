@@ -82,12 +82,16 @@ class AnimeDataRepositoryImpl @Inject constructor(
     override suspend fun insertAnimeIntoDatabase(animeEntity: AnimeEntity) = animeDao.insertAnime(animeEntity)
 
     @WorkerThread
-    override suspend fun clearOfflineAnimeList() = animeDao.deleteAll()
+    override suspend fun clearOfflineAnimeList(){
+        animeDao.deleteAll()
+        animeDao.resetPrimaryKey()
+    }
 
     override fun isDatabaseEmpty(): Boolean {
         return animeDao.getAnimeCount() == 0
     }
 
+    @WorkerThread
     override suspend fun getOfflineAnimeListSynchronously(): List<AnimeEntity> {
         return animeDao.getAllAnimes().firstOrNull() ?: emptyList()
     }
