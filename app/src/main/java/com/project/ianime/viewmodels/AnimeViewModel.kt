@@ -12,6 +12,7 @@ import com.project.ianime.screens.stateholder.AnimeUiState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -36,13 +37,8 @@ class AnimeViewModel @Inject constructor(private val repository: AnimeDataReposi
     fun getAnimeList(refresh: Boolean = false) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
+                // if refresh or database is empty
                 if (refresh || repository.isDatabaseEmpty()){
-                    // clear all the data from local storage first
-                    viewModelScope.launch {
-                        withContext(Dispatchers.IO){
-                            repository.clearOfflineAnimeList()
-                        }
-                    }
                     loadAnimeListFromNetwork()
                 } else {
                     loadAnimeListFromLocalStorage()
@@ -55,25 +51,35 @@ class AnimeViewModel @Inject constructor(private val repository: AnimeDataReposi
      * get entire list of animes from the network
      */
     private fun loadAnimeListFromNetwork() {
+        // set loading state
         animeUiState.postValue(AnimeUiState.Loading)
+
         repository.getAnimeListFromNetwork()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ animeItems ->
+                Log.d("AnimeViewModel", "Fetched from network: ${animeItems.size} items")
                 if (animeItems.isEmpty()) {
                     animeUiState.postValue(AnimeUiState.Empty)
                 } else {
-                    animeUiState.postValue(AnimeUiState.Success)
-                    _animeList.postValue(animeItems)
-
-                    // save current data into database
                     viewModelScope.launch {
-                        withContext(Dispatchers.IO) {
+                        // clear existing data from the database
+                        withContext(Dispatchers.IO){
+                            repository.clearOfflineAnimeList()
+                        }
+
+                        // insert new data into the database
+                        withContext(Dispatchers.IO){
                             animeItems.forEach { anime ->
                                 val eachAnimeEntity = anime.mapToAnimeEntity()
                                 repository.insertAnimeIntoDatabase(eachAnimeEntity)
                             }
                         }
                     }
+
+                    animeUiState.postValue(AnimeUiState.Success)
+                    // clear existing data and set new data
+                    _animeList.postValue(emptyList())
+                    _animeList.postValue(animeItems)
                 }
             }, {
                 handleError(it)
@@ -84,15 +90,23 @@ class AnimeViewModel @Inject constructor(private val repository: AnimeDataReposi
     /**
      * get anime details from the local storage
      */
-    private fun loadAnimeListFromLocalStorage(){
+    private fun loadAnimeListFromLocalStorage() {
         viewModelScope.launch {
             try {
-                val animeOfflineData = mutableListOf<AnimeApiModel>()
-                repository.getOfflineAnimeList().collect { animeEntityList ->
+                val animeEntityList = withContext(Dispatchers.IO) {
+                    // This method should fetch the data without observing changes
+                    repository.getOfflineAnimeListSynchronously()
+                }
+
+                if (animeEntityList.isEmpty()) {
+                    animeUiState.postValue(AnimeUiState.Empty)
+                } else {
+                    val animeOfflineData = mutableListOf<AnimeApiModel>()
                     animeEntityList.forEach {
                         animeOfflineData.add(it.mapToAnimeItem())
                     }
 
+                    Log.d("AnimeViewModel", "Loaded from local storage: ${animeOfflineData.size} items")
                     animeUiState.postValue(AnimeUiState.Success)
                     _animeList.postValue(animeOfflineData)
                 }

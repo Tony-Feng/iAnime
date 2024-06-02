@@ -2,12 +2,17 @@ package com.project.ianime.repository
 
 import androidx.annotation.WorkerThread
 import com.project.ianime.api.AnimeService
-import com.project.ianime.api.error.*
+import com.project.ianime.api.error.BadRequestException
+import com.project.ianime.api.error.ConnectionException
+import com.project.ianime.api.error.HttpStatus
+import com.project.ianime.api.error.NotFoundException
+import com.project.ianime.api.error.UnauthorizedException
 import com.project.ianime.api.model.AnimeApiModel
 import com.project.ianime.data.AnimeDao
 import com.project.ianime.data.AnimeEntity
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.flow.firstOrNull
 import retrofit2.HttpException
 import javax.inject.Inject
 
@@ -29,7 +34,7 @@ class AnimeDataRepositoryImpl @Inject constructor(
                 animeList.sortedByDescending {
                     it.rate
                 }
-                
+
                 cachedAnimeItemsList = animeList
                 Single.just(animeList)
             }
@@ -77,8 +82,6 @@ class AnimeDataRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getOfflineAnimeList() = animeDao.getAllAnimes()
-
     @WorkerThread
     override suspend fun insertAnimeIntoDatabase(animeEntity: AnimeEntity) = animeDao.insertAnime(animeEntity)
 
@@ -87,6 +90,10 @@ class AnimeDataRepositoryImpl @Inject constructor(
 
     override fun isDatabaseEmpty(): Boolean {
         return animeDao.getAnimeCount() == 0
+    }
+
+    override suspend fun getOfflineAnimeListSynchronously(): List<AnimeEntity> {
+        return animeDao.getAllAnimes().firstOrNull() ?: emptyList()
     }
 
 }
