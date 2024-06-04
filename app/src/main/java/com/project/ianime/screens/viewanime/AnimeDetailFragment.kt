@@ -13,6 +13,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import com.project.ianime.HomeActivity
 import com.project.ianime.R
+import com.project.ianime.api.model.AnimeApiModel
 import com.project.ianime.databinding.FragmentAnimeBinding
 import com.project.ianime.root.BaseFragment
 import com.project.ianime.screens.manageanime.EditAnimeFragment
@@ -85,21 +86,9 @@ class AnimeDetailFragment : BaseFragment() {
     private fun loadAnimeDetails() {
         animeViewModel.getAnimeById(animeTargetId) { targetAnime ->
             targetAnime?.let {
-                // set title to each anime name
-                actionBarService.setTitle(it.animeName, toolbar)
-
-                // load data details
-                animeName.text = it.animeName
-                targetAnime.animeImageUrl?.let {
-                    imageUtils.loadImageFromDisk(it, animeProfile)
-                }
-                animeType.text = getString(R.string.anime_type_title, getString(it.type.label))
-                animeCountry.text = getString(R.string.anime_country_title, getString(it.country.label))
-                val releaseYear = it.releaseYear ?: getString(R.string.not_applicable_data)
-                animeReleasedYear.text = getString(R.string.anime_release_year_title, releaseYear)
-                animeStatus.text = getString(R.string.anime_status_title, getString(it.status.label))
-                val animeDescription: String = it.synopsis ?: getString(R.string.empty_description_message)
-                animeIntro.text = animeDescription
+                showAnimeDetailScreen(it)
+            } ?: run {
+                showAnimeNotFoundScreen()
             }
         }
     }
@@ -122,6 +111,35 @@ class AnimeDetailFragment : BaseFragment() {
 
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun showAnimeDetailScreen(targetAnime: AnimeApiModel){
+        // update UI state
+        binding.animeScreenContainer.visibility= View.VISIBLE
+        binding.animeNotFoundContainer.root.visibility= View.GONE
+
+        // set title to each anime name
+        actionBarService.setTitle(targetAnime.animeName, toolbar)
+
+        // load data details
+        animeName.text = targetAnime.animeName
+        targetAnime.animeImageUrl?.let {
+            imageUtils.loadImageFromDisk(it, animeProfile)
+        }
+        animeType.text = getString(R.string.anime_type_title, getString(targetAnime.type.label))
+        animeCountry.text = getString(R.string.anime_country_title, getString(targetAnime.country.label))
+        val releaseYear = targetAnime.releaseYear ?: getString(R.string.not_applicable_data)
+        animeReleasedYear.text = getString(R.string.anime_release_year_title, releaseYear)
+        animeStatus.text = getString(R.string.anime_status_title, getString(targetAnime.status.label))
+        val animeDescription: String = targetAnime.synopsis ?: getString(R.string.empty_description_message)
+        animeIntro.text = animeDescription
+    }
+
+    private fun showAnimeNotFoundScreen(){
+        val errorContainer = binding.animeNotFoundContainer
+        binding.animeScreenContainer.visibility= View.GONE
+        errorContainer.root.visibility = View.VISIBLE
+        errorContainer.errorMessage.text = getString(R.string.not_found_error_message)
     }
 
     override fun onDestroyView() {

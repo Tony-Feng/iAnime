@@ -17,7 +17,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class AnimeViewModel @Inject constructor(private val repository: AnimeDataRepository) : ViewModel() {
+class AnimeViewModel @Inject constructor(private val repository: AnimeDataRepository) :
+    ViewModel() {
 
     private val _animeList = MutableLiveData<List<AnimeApiModel>>()
     val animeList: LiveData<List<AnimeApiModel>> = _animeList
@@ -39,7 +40,7 @@ class AnimeViewModel @Inject constructor(private val repository: AnimeDataReposi
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 // if refresh or database is empty
-                if (refresh || repository.isDatabaseEmpty()){
+                if (refresh || repository.isDatabaseEmpty()) {
                     loadAnimeListFromNetwork()
                 } else {
                     loadAnimeListFromLocalStorage()
@@ -64,12 +65,12 @@ class AnimeViewModel @Inject constructor(private val repository: AnimeDataReposi
                 } else {
                     viewModelScope.launch {
                         // clear existing data from the database
-                        withContext(Dispatchers.IO){
+                        withContext(Dispatchers.IO) {
                             repository.clearOfflineAnimeList()
                         }
 
                         // insert new data into the database
-                        withContext(Dispatchers.IO){
+                        withContext(Dispatchers.IO) {
                             animeItems.forEach { anime ->
                                 val eachAnimeEntity = anime.mapToAnimeEntity()
                                 repository.insertAnimeIntoDatabase(eachAnimeEntity)
@@ -138,15 +139,19 @@ class AnimeViewModel @Inject constructor(private val repository: AnimeDataReposi
             is UnauthorizedException -> {
                 animeUiState.postValue(AnimeUiState.Error(ErrorType.UNAUTHORIZED))
             }
+
             is NotFoundException -> {
                 animeUiState.postValue((AnimeUiState.Error(ErrorType.NOT_FOUND)))
             }
+
             is ConnectionException -> {
                 animeUiState.postValue(AnimeUiState.Error(ErrorType.CONNECTION))
             }
+
             is BadRequestException -> {
                 animeUiState.postValue(AnimeUiState.Error(ErrorType.BAD_REQUEST))
             }
+
             else -> animeUiState.postValue(AnimeUiState.Error(ErrorType.GENERIC))
         }
     }

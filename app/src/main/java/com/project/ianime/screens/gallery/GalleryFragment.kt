@@ -82,7 +82,7 @@ class GalleryFragment : BaseFragment() {
         animeCardList.visibility = View.VISIBLE
     }
 
-    private fun setUpRecyclerView(){
+    private fun setUpRecyclerView() {
         // set recycler view
         animeCardList.layoutManager = GridLayoutManager(requireContext(), 2)
         val animeCardAdapter = AnimeItemAdapter {

@@ -27,6 +27,6 @@ interface AnimeDao {
     @Query("SELECT * FROM ianime_offline_table WHERE anime_id = :animeId")
     fun getAnimeById(animeId: String): Flow<AnimeEntity?>
 
-    @Query("DELETE FROM sqlite_sequence WHERE name= 'ianime_offline_table'")
+    @Query("DELETE FROM sqlite_sequence WHERE name = 'ianime_offline_table'")
     suspend fun resetPrimaryKey()
 }
