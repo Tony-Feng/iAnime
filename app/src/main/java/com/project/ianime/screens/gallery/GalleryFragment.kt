@@ -98,7 +98,7 @@ class GalleryFragment : BaseFragment() {
 
         // observe any changes of data to update recycler view
         animeViewModel.animeList.observe(viewLifecycleOwner) { animeList ->
-            animeCardAdapter.submitList(animeList)
+            animeCardAdapter.setAnimeList(animeList)
         }
     }
 
