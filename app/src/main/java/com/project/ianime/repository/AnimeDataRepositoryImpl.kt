@@ -1,28 +1,41 @@
 package com.project.ianime.repository
 
+import androidx.annotation.WorkerThread
 import com.project.ianime.api.AnimeService
-import com.project.ianime.api.data.AnimeGalleryItem
-import com.project.ianime.api.error.*
+import com.project.ianime.api.error.BadRequestException
+import com.project.ianime.api.error.ConnectionException
+import com.project.ianime.api.error.HttpStatus
+import com.project.ianime.api.error.NotFoundException
+import com.project.ianime.api.error.UnauthorizedException
 import com.project.ianime.api.model.AnimeApiModel
+import com.project.ianime.data.AnimeDao
+import com.project.ianime.data.AnimeEntity
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.flow.firstOrNull
 import retrofit2.HttpException
 import javax.inject.Inject
 
-class AnimeDataRepositoryImpl @Inject constructor(private val animeService: AnimeService) : AnimeDataRepository {
+class AnimeDataRepositoryImpl @Inject constructor(
+    private val animeService: AnimeService,
+    private val animeDao: AnimeDao
+) : AnimeDataRepository {
 
     // cached the data from the Network resource
-    private var cachedAnimeDetailsList : List<AnimeGalleryItem> ?= null
+    private var cachedAnimeItemsList : List<AnimeApiModel> ?= null
 
     override fun getAnimeListFromNetwork(): Single<List<AnimeApiModel>> {
-        return animeService.getAnimeList()
+        return animeService.getAnimeListFromNetwork()
             .subscribeOn(Schedulers.io())
             .flatMap { response ->
                 val animeList = response.animeList ?: emptyList()
-                val animeDetails = animeList.map {
-                    it.mapToGalleryItem()
+
+                // sort anime list based on rate
+                animeList.sortedByDescending {
+                    it.rate
                 }
-                cachedAnimeDetailsList = animeDetails
+
+                cachedAnimeItemsList = animeList
                 Single.just(animeList)
             }
             .onErrorResumeNext { exception ->
@@ -63,9 +76,24 @@ class AnimeDataRepositoryImpl @Inject constructor(private val animeService: Anim
             }
     }
 
-    override fun getAnimeDetailsById(animeId: String): AnimeGalleryItem? {
-        return cachedAnimeDetailsList?.find {
-            it.animeId == animeId
-        }
+    override fun getAnimeDetailsById(animeId: String) = animeDao.getAnimeById(animeId)
+
+    @WorkerThread
+    override suspend fun insertAnimeIntoDatabase(animeEntity: AnimeEntity) = animeDao.insertAnime(animeEntity)
+
+    @WorkerThread
+    override suspend fun clearOfflineAnimeList(){
+        animeDao.deleteAll()
+        animeDao.resetPrimaryKey()
     }
+
+    override fun isDatabaseEmpty(): Boolean {
+        return animeDao.getAnimeCount() == 0
+    }
+
+    @WorkerThread
+    override suspend fun getOfflineAnimeListSynchronously(): List<AnimeEntity> {
+        return animeDao.getAllAnimes().firstOrNull() ?: emptyList()
+    }
+
 }

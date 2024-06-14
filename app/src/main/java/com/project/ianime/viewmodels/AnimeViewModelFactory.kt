@@ -11,6 +11,7 @@ import javax.inject.Inject
 class AnimeViewModelFactory @Inject constructor(private val repository: AnimeDataRepository) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        @Suppress("UNCHECKED_CAST")
         return AnimeViewModel(repository) as T
     }
 }

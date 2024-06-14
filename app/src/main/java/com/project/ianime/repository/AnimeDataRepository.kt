@@ -1,8 +1,9 @@
 package com.project.ianime.repository
 
-import com.project.ianime.api.data.AnimeGalleryItem
 import com.project.ianime.api.model.AnimeApiModel
+import com.project.ianime.data.AnimeEntity
 import io.reactivex.rxjava3.core.Single
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Repository for managing data from network and database
@@ -14,10 +15,29 @@ interface AnimeDataRepository {
      */
     fun getAnimeListFromNetwork(): Single<List<AnimeApiModel>>
 
-
     /**
      * return specific anime details by anime ID
      * @param animeId - id of the target anime
      */
-    fun getAnimeDetailsById(animeId: String): AnimeGalleryItem?
+    fun getAnimeDetailsById(animeId: String): Flow<AnimeEntity?>
+
+    /**
+     * add each anime into locale database
+     */
+    suspend fun insertAnimeIntoDatabase(animeEntity: AnimeEntity)
+
+    /**
+     * clear all data from the local database
+     */
+    suspend fun clearOfflineAnimeList()
+
+    /**
+     * check if the locale database is empty or not
+     */
+    fun isDatabaseEmpty(): Boolean
+
+    /**
+     * returns entire list of all anime details from the offline database synchronously only when called
+     */
+    suspend fun getOfflineAnimeListSynchronously(): List<AnimeEntity>
 }

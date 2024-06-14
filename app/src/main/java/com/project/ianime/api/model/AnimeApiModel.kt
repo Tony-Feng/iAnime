@@ -1,7 +1,7 @@
 package com.project.ianime.api.model
 
 import com.google.gson.annotations.SerializedName
-import com.project.ianime.api.data.AnimeGalleryItem
+import com.project.ianime.data.AnimeEntity
 
 /**
  * API response for get single anime details
@@ -17,13 +17,19 @@ data class AnimeApiModel(
     @SerializedName("synopsis") val synopsis: String?,
     @SerializedName("cover_url") val animeImageUrl: String?
 ) {
-    fun mapToGalleryItem(): AnimeGalleryItem {
-        return AnimeGalleryItem(
+
+    // conversion to database entity object
+    fun mapToAnimeEntity(): AnimeEntity {
+        return AnimeEntity(
             animeId = animeId,
-            imageUrl = animeImageUrl,
-            animeRate = rate,
             animeName = animeName,
-            animeSynopsis = synopsis
+            rate = rate,
+            status = status,
+            country = country,
+            type = type,
+            releaseYear = releaseYear,
+            synopsis = synopsis,
+            animeImageUrl = animeImageUrl
         )
     }
 }

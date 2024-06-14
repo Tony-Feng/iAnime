@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/anime_edit_card_height"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_default_image" />
+            android:src="@drawable/ic_image_placeholder" />
 
         <Button
             android:id="@+id/add_cover_button"

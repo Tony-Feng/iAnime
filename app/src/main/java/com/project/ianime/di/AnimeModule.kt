@@ -1,7 +1,9 @@
 package com.project.ianime.di
 
-import com.project.ianime.api.AcceptLanguageInterceptor
+import com.project.ianime.BuildConfig
+import com.project.ianime.api.ApiInterceptor
 import com.project.ianime.api.AnimeService
+import com.project.ianime.data.AnimeDao
 import com.project.ianime.repository.AnimeDataRepository
 import com.project.ianime.repository.AnimeDataRepositoryImpl
 import dagger.Module
@@ -14,15 +16,15 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
-class AnimeModule {
+class AnimeModule(private val application: AnimeApplication) {
 
     /**
      * Provides accept language interceptor
      */
     @Provides
     @Reusable
-    fun providesBasicInterceptor(): AcceptLanguageInterceptor {
-        return AcceptLanguageInterceptor()
+    fun providesBasicInterceptor(): ApiInterceptor {
+        return ApiInterceptor()
     }
 
 
@@ -31,9 +33,9 @@ class AnimeModule {
      */
     @Singleton
     @Provides
-    fun providesOkhttpBuilder(acceptLanguageInterceptor: AcceptLanguageInterceptor): OkHttpClient {
+    fun providesOkhttpBuilder(apiInterceptor: ApiInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
-            .addInterceptor(acceptLanguageInterceptor)
+            .addInterceptor(apiInterceptor)
             .build()
     }
 
@@ -44,8 +46,7 @@ class AnimeModule {
     @Provides
     fun providesRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            // TODO 08-16: Add in properties build file
-            .baseUrl("https://ai8454431.pythonanywhere.com/")
+            .baseUrl(BuildConfig.API_BASE_PATH)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
@@ -68,5 +69,11 @@ class AnimeModule {
     @Provides
     fun providesAnimeRepository(impl: AnimeDataRepositoryImpl): AnimeDataRepository {
         return impl
+    }
+
+    @Singleton
+    @Provides
+    fun providesAnimeDao(): AnimeDao{
+        return application.animeDao
     }
 }

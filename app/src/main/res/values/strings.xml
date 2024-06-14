@@ -18,6 +18,7 @@
     <string name="maxim_header_title">Maxim</string>
     <string name="episode_header_title">Favourite Episodes</string>
     <string name="empty_description_message" tools:ignore="TypographyEllipsis">We need you to provide more information about this anime...</string>
+    <string name="not_applicable_data" translatable="false">N/A</string>
 
     <!-- Anime Data -->
     <string name="country_china">China</string>
@@ -81,4 +82,7 @@
     <string name="not_found_error_message">Unfortunately, the app could\'t find any anime information, please try again later.</string>
     <string name="content_oversize_error_message">Your may send a really large image, please make sure your file size is less than 2MB and try again.</string>
     <string name="bad_request_error_message">Something went wrong to process your request, please try again later.</string>
+
+    <!-- Empty Screen -->
+    <string name="empty_screen_message">Your gallery now is empty. \nTime to add more animes in!</string>
 </resources>

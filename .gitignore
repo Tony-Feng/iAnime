@@ -15,6 +15,7 @@ gen/
 
 # local config file
 local.properties
+gradle.properties
 
 # Gradle files
 .gradle
